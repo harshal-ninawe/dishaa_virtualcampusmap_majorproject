@@ -3,13 +3,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { ArrowRight, MapPin, Compass, ShieldCheck, Layers } from 'lucide-react';
+import { ArrowRight, MapPin, Compass, ShieldCheck, Layers, Sun, Moon } from 'lucide-react';
+import { useTheme } from '@/context/ThemeContext';
 
 interface WelcomeScreenProps {
   onGetStarted: () => void;
 }
 
 export default function WelcomeScreen({ onGetStarted }: WelcomeScreenProps) {
+  const { theme, toggleTheme } = useTheme();
+
   return (
     <motion.div
       className="relative min-h-screen w-full flex flex-col justify-between overflow-hidden bg-slate-950 text-white"
@@ -53,9 +56,20 @@ export default function WelcomeScreen({ onGetStarted }: WelcomeScreenProps) {
           </div>
         </div>
 
-        <div className="hidden sm:flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-slate-200">
-          <MapPin className="w-3.5 h-3.5 text-cyan-400" />
-          <span>G.H. Raisoni College Campus</span>
+        <div className="flex items-center gap-3">
+          <div className="hidden sm:flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-slate-200">
+            <MapPin className="w-3.5 h-3.5 text-cyan-400" />
+            <span>G.H. Raisoni College Campus</span>
+          </div>
+
+          <button
+            onClick={toggleTheme}
+            className="px-3.5 py-1.5 rounded-full bg-white/15 hover:bg-white/25 border border-white/20 text-cyan-300 hover:text-white transition-all text-xs font-mono font-bold flex items-center gap-1.5 shadow-lg cursor-pointer"
+            title="Toggle Light / Dark Theme"
+          >
+            {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-blue-400" />}
+            <span>{theme === 'dark' ? 'Light Mode ☀️' : 'Dark Mode 🌙'}</span>
+          </button>
         </div>
       </header>
 

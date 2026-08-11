@@ -11,7 +11,8 @@ import InsideBlockModal from '@/components/InsideBlockModal';
 import AdminPortalModal from '@/components/AdminPortalModal';
 import EventsModal from '@/components/EventsModal';
 import Image from 'next/image';
-import { Sparkles, MapPin, ChevronRight, ChevronLeft, Bot } from 'lucide-react';
+import { Sparkles, MapPin, ChevronRight, ChevronLeft, Bot, Sun, Moon } from 'lucide-react';
+import { useTheme } from '@/context/ThemeContext';
 import { DirectionsState, CampusLocation } from '@/lib/campusData';
 
 // Dynamic import for Leaflet Campus Map (Client-side rendering only)
@@ -46,6 +47,8 @@ export default function AppHome() {
   const [isInsideBlockOpen, setIsInsideBlockOpen] = useState(false);
   const [isAdminPortalOpen, setIsAdminPortalOpen] = useState(false);
   const [isEventsOpen, setIsEventsOpen] = useState(false);
+
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-cyan-500 selection:text-slate-950 overflow-x-hidden">
@@ -97,9 +100,20 @@ export default function AppHome() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 text-xs text-slate-300 glass-card px-3 py-1 rounded-full border border-white/10">
-                <MapPin className="w-3.5 h-3.5 text-cyan-400" />
-                <span className="font-medium hidden sm:inline">G.H. Raisoni College Campus</span>
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 text-xs text-slate-300 glass-card px-3 py-1 rounded-full border border-white/10">
+                  <MapPin className="w-3.5 h-3.5 text-cyan-400" />
+                  <span className="font-medium hidden sm:inline">G.H. Raisoni College Campus</span>
+                </div>
+
+                <button
+                  onClick={toggleTheme}
+                  className="p-1.5 px-3 rounded-full glass-card border border-white/15 text-cyan-300 hover:text-white transition-colors flex items-center gap-1.5 text-xs font-mono font-bold cursor-pointer"
+                  title="Toggle Light / Dark Theme"
+                >
+                  {theme === 'dark' ? <Sun className="w-3.5 h-3.5 text-amber-400" /> : <Moon className="w-3.5 h-3.5 text-blue-400" />}
+                  <span>{theme === 'dark' ? 'Light' : 'Dark'}</span>
+                </button>
               </div>
             </div>
 

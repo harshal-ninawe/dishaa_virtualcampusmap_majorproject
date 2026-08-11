@@ -8,14 +8,39 @@
   --primary-glow: rgba(59, 130, 246, 0.4);
 }
 
+.light-theme {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+}
+
 body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Custom Glassmorphism */
+/* Fail-proof Mobile vs Desktop Responsive Utilities */
+@media (max-width: 1023px) {
+  .desktop-nav-only {
+    display: none !important;
+  }
+  .mobile-nav-only {
+    display: block !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .desktop-nav-only {
+    display: block !important;
+  }
+  .mobile-nav-only {
+    display: none !important;
+  }
+}
+
+/* Custom Glassmorphism - Dark Mode Default */
 .glass-panel {
   background: rgba(15, 23, 42, 0.75);
   backdrop-filter: blur(16px);
@@ -27,6 +52,73 @@ body {
   background: rgba(30, 41, 59, 0.6);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Custom Glassmorphism - Light Mode Overrides */
+.light-theme .glass-panel {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(15, 23, 42, 0.12) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
+}
+
+.light-theme .glass-card {
+  background: rgba(241, 245, 249, 0.9) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(15, 23, 42, 0.1) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Light Mode Global Container & Text Overrides */
+.light-theme .bg-slate-950,
+.light-theme .bg-slate-900,
+.light-theme .bg-slate-900\/95,
+.light-theme .bg-slate-900\/90,
+.light-theme .bg-slate-950\/85,
+.light-theme .bg-slate-950\/80,
+.light-theme .bg-slate-950\/70,
+.light-theme .bg-slate-950\/60,
+.light-theme .bg-slate-950\/40 {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+.light-theme .bg-slate-900\/50,
+.light-theme .bg-slate-800,
+.light-theme .bg-slate-800\/80 {
+  background-color: #f1f5f9 !important;
+  color: #1e293b !important;
+}
+
+.light-theme .text-white,
+.light-theme .text-slate-100,
+.light-theme .text-slate-200 {
+  color: #0f172a !important;
+}
+
+.light-theme .text-slate-300,
+.light-theme .text-slate-400 {
+  color: #475569 !important;
+}
+
+.light-theme .border-white\/10,
+.light-theme .border-white\/15,
+.light-theme .border-white\/20 {
+  border-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+.light-theme input,
+.light-theme select,
+.light-theme textarea {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+  border-color: rgba(15, 23, 42, 0.2) !important;
+}
+
+.light-theme input::placeholder,
+.light-theme textarea::placeholder {
+  color: #94a3b8 !important;
 }
 
 /* Glowing Animations */
@@ -48,13 +140,15 @@ body {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #090d16;
+  background: var(--background);
 }
 ::-webkit-scrollbar-thumb {
   background: #334155;
   border-radius: 4px;
 }
+.light-theme ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
 ::-webkit-scrollbar-thumb:hover {
   background: #475569;
 }
-

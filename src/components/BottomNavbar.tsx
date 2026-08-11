@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Layers, Bot, Users, Calendar, Shield, Home, Menu, X, Sparkles } from 'lucide-react';
+import { Layers, Bot, Users, Calendar, Shield, Home, Menu, X, Sparkles, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from '@/context/ThemeContext';
 
 interface BottomNavbarProps {
   activeTab: string;
@@ -12,6 +13,7 @@ interface BottomNavbarProps {
 
 export default function BottomNavbar({ activeTab, setActiveTab, onGoWelcome }: BottomNavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   const navItems = [
     { id: 'inside-block', label: 'Inside Block', icon: Layers, color: 'text-cyan-400' },
@@ -23,19 +25,21 @@ export default function BottomNavbar({ activeTab, setActiveTab, onGoWelcome }: B
 
   return (
     <>
-      {/* ── DESKTOP NAVBAR (Visible on >= md screens) ───────────────────────── */}
-      <nav className="hidden md:block relative z-40 w-full shrink-0 glass-panel border border-white/15 bg-slate-900/90 backdrop-blur-2xl px-4 py-2 shadow-xl rounded-2xl mt-2">
+      {/* ── DESKTOP NAVBAR (Visible on >= 1024px screens) ───────────────────────── */}
+      <nav className="desktop-nav-only hidden lg:block relative z-40 w-full shrink-0 glass-panel border border-white/15 bg-slate-900/90 backdrop-blur-2xl px-4 py-2 shadow-xl rounded-2xl mt-2">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-6">
           
           {/* Welcome Home Icon */}
-          <button
-            onClick={onGoWelcome}
-            className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors flex items-center gap-2 cursor-pointer shrink-0"
-            title="View Welcome Screen"
-          >
-            <Home className="w-5 h-5 text-slate-300" />
-            <span className="text-xs font-semibold hidden md:inline">Welcome</span>
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={onGoWelcome}
+              className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors flex items-center gap-2 cursor-pointer shrink-0"
+              title="View Welcome Screen"
+            >
+              <Home className="w-5 h-5 text-slate-300" />
+              <span className="text-xs font-semibold hidden md:inline">Welcome</span>
+            </button>
+          </div>
 
           <div className="h-6 w-px bg-white/15 shrink-0" />
 
@@ -62,11 +66,32 @@ export default function BottomNavbar({ activeTab, setActiveTab, onGoWelcome }: B
             })}
           </div>
 
+          <div className="h-6 w-px bg-white/15 shrink-0" />
+
+          {/* ☀️ / 🌙 Theme Toggle Button (Corner of Navbar) */}
+          <button
+            onClick={toggleTheme}
+            className="p-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-cyan-300 hover:text-white transition-all cursor-pointer flex items-center gap-2 shrink-0 shadow-md"
+            title={theme === 'dark' ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
+          >
+            {theme === 'dark' ? (
+              <>
+                <Sun className="w-4 h-4 text-amber-400 animate-spin" style={{ animationDuration: '15s' }} />
+                <span className="text-xs font-bold font-mono text-amber-300">Light Mode</span>
+              </>
+            ) : (
+              <>
+                <Moon className="w-4 h-4 text-blue-500" />
+                <span className="text-xs font-bold font-mono text-slate-800">Dark Mode</span>
+              </>
+            )}
+          </button>
+
         </div>
       </nav>
 
-      {/* ── MOBILE FLOATING HAMBURGER MENU (Visible on < md screens) ──────────── */}
-      <div className="md:hidden">
+      {/* ── MOBILE FLOATING HAMBURGER & THEME MENU (Visible on < 1024px screens) ── */}
+      <div className="mobile-nav-only lg:hidden">
         
         {/* Floating Bottom-Right Hamburger Trigger Button */}
         <button
@@ -95,14 +120,28 @@ export default function BottomNavbar({ activeTab, setActiveTab, onGoWelcome }: B
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 30, scale: 0.95 }}
                 transition={{ duration: 0.25 }}
-                className="relative z-10 w-full max-w-sm mx-auto glass-panel rounded-3xl border border-white/20 bg-slate-900/95 p-4 space-y-2 shadow-[0_0_50px_rgba(56,189,248,0.4)] overflow-hidden"
+                className="relative z-10 w-full max-w-sm mx-auto glass-panel rounded-3xl border border-white/20 bg-slate-900/95 p-4 space-y-2.5 shadow-[0_0_50px_rgba(56,189,248,0.4)] overflow-hidden"
               >
-                <div className="px-2 py-1 border-b border-white/10 flex items-center justify-between mb-2">
+                <div className="px-2 py-1 border-b border-white/10 flex items-center justify-between mb-1">
                   <span className="text-xs font-mono font-bold text-cyan-400 tracking-wider uppercase flex items-center gap-1.5">
                     <Sparkles className="w-4 h-4 text-cyan-400" />
                     <span>Navigation Menu</span>
                   </span>
                   <span className="text-[10px] font-mono text-slate-400">DISHAA Portal</span>
+                </div>
+
+                {/* ☀️ / 🌙 Theme Toggle Row in Mobile Drawer */}
+                <div className="p-2.5 rounded-2xl glass-card border border-white/15 flex items-center justify-between">
+                  <span className="text-xs font-bold text-slate-200 font-mono flex items-center gap-2">
+                    {theme === 'dark' ? <Moon className="w-4 h-4 text-cyan-400" /> : <Sun className="w-4 h-4 text-amber-500" />}
+                    <span>Theme ({theme === 'dark' ? 'Dark' : 'Light'})</span>
+                  </span>
+                  <button
+                    onClick={toggleTheme}
+                    className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-mono text-xs font-bold shadow-md cursor-pointer hover:scale-105 transition-all"
+                  >
+                    Switch to {theme === 'dark' ? 'Light ☀️' : 'Dark 🌙'}
+                  </button>
                 </div>
 
                 {/* Welcome Screen Option */}
