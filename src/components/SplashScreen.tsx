@@ -67,75 +67,66 @@ export default function SplashScreen({ onComplete, durationMs = 2500 }: SplashSc
 
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-950 text-white overflow-hidden select-none"
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-50 dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 overflow-hidden select-none"
       onClick={handleManualSkip}
       onTouchStart={handleManualSkip}
       initial={{ opacity: 1 }}
       exit={{ 
         opacity: 0, 
-        scale: 1.05,
-        filter: 'blur(10px)',
-        transition: { duration: 0.6, ease: 'easeInOut' }
+        scale: 1.02,
+        transition: { duration: 0.4, ease: 'easeInOut' }
       }}
     >
-      {/* Background ambient lighting */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-cyan-500/20 rounded-full blur-[90px] pointer-events-none animate-pulse" />
-
       {/* Main Content Box */}
       <div className="relative z-10 flex flex-col items-center text-center px-4 max-w-lg">
         
-        {/* Pure PNG Logo without box bounds */}
+        {/* Pure PNG Logo */}
         <motion.div
-          initial={{ scale: 0.7, opacity: 0, y: 20 }}
+          initial={{ scale: 0.9, opacity: 0, y: 10 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
           className="mb-6 cursor-pointer flex justify-center"
         >
           <Image
             src="/disha-logo.png"
             alt="DISHAA Logo"
-            width={220}
-            height={250}
-            className="h-48 sm:h-56 w-auto object-contain drop-shadow-[0_0_25px_rgba(56,189,248,0.6)]"
+            width={180}
+            height={200}
+            className="h-36 sm:h-44 w-auto object-contain"
             priority
           />
         </motion.div>
 
         {/* Brand Title & Tagline */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.6 }}
-          className="space-y-2"
+          transition={{ delay: 0.1, duration: 0.5 }}
+          className="space-y-1.5"
         >
-          <div className="flex items-center justify-center gap-2">
-            <Sparkles className="w-5 h-5 text-cyan-400 animate-spin" style={{ animationDuration: '6s' }} />
-            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-cyan-300 to-white">
-              DISHAA
-            </h1>
-            <Sparkles className="w-5 h-5 text-blue-400 animate-spin" style={{ animationDuration: '6s' }} />
-          </div>
-          <p className="text-slate-400 font-medium text-base sm:text-lg tracking-wide">
-            A Virtual Campus Map & Spatial Guide
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+            DISHAA
+          </h1>
+          <p className="text-slate-500 dark:text-zinc-400 font-medium text-sm tracking-wide">
+            Virtual Campus Guide & Spatial Assistant
           </p>
         </motion.div>
 
-        {/* Progress Bar */}
-        <div className="w-64 h-2.5 bg-slate-800 rounded-full mt-8 overflow-hidden relative border border-slate-700">
+        {/* Quiet Progress Bar */}
+        <div className="w-56 h-2 bg-slate-200 dark:bg-zinc-800 rounded-full mt-8 overflow-hidden relative">
           <div
-            className="h-full bg-gradient-to-r from-blue-500 via-cyan-400 to-emerald-400 transition-all duration-75 ease-out rounded-full shadow-[0_0_12px_#38bdf8]"
+            className="h-full bg-blue-600 transition-all duration-75 ease-out rounded-full"
             style={{ width: `${progress}%` }}
           />
         </div>
 
-        <p className="text-xs text-slate-300 mt-3 font-mono">
-          Loading spatial engines... {progress}%
+        <p className="text-xs text-slate-400 dark:text-zinc-500 mt-3 font-mono">
+          Loading campus map... {progress}%
         </p>
 
         {/* Skip Notice */}
-        <div className="mt-6 text-xs text-cyan-400/80 flex items-center gap-1">
-          <span>Tap screen to continue</span>
+        <div className="mt-6 text-xs text-slate-400 dark:text-zinc-500 flex items-center gap-1">
+          <span>Tap anywhere to skip</span>
           <ArrowRight className="w-3 h-3" />
         </div>
 

@@ -13,17 +13,13 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>('dark');
+  const [theme, setThemeState] = useState<Theme>('light');
 
   useEffect(() => {
-    // Check saved theme preference from localStorage
-    const savedTheme = localStorage.getItem('dishaa-theme') as Theme | null;
-    if (savedTheme === 'light' || savedTheme === 'dark') {
-      setThemeState(savedTheme);
-      applyTheme(savedTheme);
-    } else {
-      applyTheme('dark');
-    }
+    // Enforce light theme as default on app start
+    setThemeState('light');
+    localStorage.setItem('dishaa-theme', 'light');
+    applyTheme('light');
   }, []);
 
   const applyTheme = (t: Theme) => {
@@ -31,11 +27,15 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const body = document.body;
 
     if (t === 'light') {
-      root.classList.add('light-theme');
-      body.classList.add('light-theme');
+      root.classList.remove('dark');
+      body.classList.remove('dark');
+      root.classList.add('light');
+      body.classList.add('light');
     } else {
-      root.classList.remove('light-theme');
-      body.classList.remove('light-theme');
+      root.classList.add('dark');
+      body.classList.add('dark');
+      root.classList.remove('light');
+      body.classList.remove('light');
     }
   };
 

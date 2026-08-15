@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import {
   Bot, Send, Mic, Sparkles, User, PanelRightClose,
   Navigation2, MapPin, X, CheckCircle2, ArrowRight,
-  Building, Coffee, Trophy, Clock, Crosshair,
+  Building, Coffee, Trophy, Crosshair,
 } from 'lucide-react';
 import { campusLocations, DirectionsState, CampusLocation, StepMilestone } from '@/lib/campusData';
 import { findRoute, generateStepsFromRoute, generateMilestonesFromRoute } from '@/lib/pathfinding';
@@ -68,7 +68,7 @@ function LocationInput({
 
   return (
     <div ref={wrapRef} className="relative w-full">
-      <span className={`absolute left-3 top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full ${dotColor} shadow-lg z-10`} />
+      <span className={`absolute left-3 top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full ${dotColor} z-10`} />
       <input
         id={id}
         type="text"
@@ -77,12 +77,12 @@ function LocationInput({
         onFocus={() => { if (value.trim()) setOpen(true); }}
         placeholder={placeholder}
         autoComplete="off"
-        className="w-full pl-8 pr-8 py-2.5 rounded-xl bg-slate-800/80 border border-white/15 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-cyan-400 transition-colors"
+        className="w-full pl-8 pr-8 py-2.5 rounded-xl bg-slate-50 dark:bg-zinc-800/80 border border-slate-200 dark:border-zinc-700 text-xs text-slate-900 dark:text-zinc-100 placeholder-slate-400 focus:outline-none focus:border-blue-600 transition-colors"
       />
       {value && (
         <button
           onClick={() => { onChange(''); setOpen(false); }}
-          className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white cursor-pointer"
+          className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 dark:hover:text-white cursor-pointer"
         >
           <X className="w-3.5 h-3.5" />
         </button>
@@ -90,8 +90,8 @@ function LocationInput({
 
       {/* Dropdown */}
       {open && suggestions.length > 0 && (
-        <div className="absolute top-full left-0 right-0 mt-1.5 z-50 bg-slate-900/98 border border-cyan-500/30 rounded-xl shadow-2xl overflow-hidden max-h-44 overflow-y-auto backdrop-blur-xl">
-          <div className="px-3 py-1 text-[9px] font-mono text-cyan-400/70 uppercase tracking-wider border-b border-white/10">
+        <div className="absolute top-full left-0 right-0 mt-1.5 z-50 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl shadow-xl overflow-hidden max-h-44 overflow-y-auto">
+          <div className="px-3 py-1 text-[9px] font-mono text-slate-400 uppercase tracking-wider border-b border-slate-100 dark:border-zinc-800">
             {suggestions.length} campus location{suggestions.length !== 1 ? 's' : ''} found
           </div>
           {suggestions.map((loc) => {
@@ -104,12 +104,12 @@ function LocationInput({
                   onSelect(loc);
                   setOpen(false);
                 }}
-                className="w-full px-3 py-2 hover:bg-cyan-500/15 transition-colors flex items-center gap-2.5 text-left border-b border-white/5 last:border-0 cursor-pointer"
+                className="w-full px-3 py-2 hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors flex items-center gap-2.5 text-left border-b border-slate-100 dark:border-zinc-800/50 last:border-0 cursor-pointer"
               >
-                <Icon className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                <Icon className="w-3.5 h-3.5 text-blue-600 shrink-0" />
                 <div className="min-w-0">
-                  <p className="text-xs font-semibold text-white truncate">{loc.name}</p>
-                  <p className="text-[10px] text-slate-400 truncate">{loc.categoryLabel}</p>
+                  <p className="text-xs font-semibold text-slate-900 dark:text-zinc-100 truncate">{loc.name}</p>
+                  <p className="text-[10px] text-slate-500 dark:text-zinc-400 truncate">{loc.categoryLabel}</p>
                 </div>
               </button>
             );
@@ -133,7 +133,7 @@ export default function AIChatWindow({
     {
       id: '1',
       sender: 'ai',
-      text: "👋 Hi! I am DISHAA AI, your smart virtual campus assistant. Ask me about building blocks, faculty cabins, canteens, or multi-floor routes!",
+      text: "👋 Hi! I am DISHAA AI, your campus assistant. Ask me about building blocks, faculty cabins, canteens, or multi-floor routes!",
       timestamp: 'Just now',
     },
   ]);
@@ -282,65 +282,49 @@ export default function AIChatWindow({
 
   // ── Render ──────────────────────────────────────────────────────────────
   return (
-    <div className="w-full h-full min-h-[450px] lg:min-h-0 rounded-3xl overflow-hidden border border-white/15 glass-panel shadow-2xl flex flex-col relative">
+    <div className="w-full h-full rounded-2xl overflow-hidden border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm flex flex-col relative">
 
       {/* ── Header ────────────────────────────────────────────── */}
-      <div className="p-4 glass-panel border-b border-white/10 flex items-center justify-between shrink-0">
+      <div className="p-3.5 px-4 bg-white dark:bg-zinc-900 border-b border-slate-200 dark:border-zinc-800 flex items-center justify-between shrink-0">
         <div className="flex items-center gap-3">
-          <div className="relative w-10 h-10 rounded-2xl bg-gradient-to-br from-blue-600 via-cyan-500 to-indigo-600 flex items-center justify-center shadow-[0_0_15px_rgba(56,189,248,0.5)]">
-            <Bot className="w-6 h-6 text-white" />
-            <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-400 border-2 border-slate-900" />
+          <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-xs">
+            <Bot className="w-4 h-4 text-white" />
           </div>
           <div>
-            <div className="flex items-center gap-1.5">
-              <h3 className="font-bold text-slate-100 text-base">DISHAA AI Assistant</h3>
-              <Sparkles className="w-4 h-4 text-cyan-400 animate-spin" style={{ animationDuration: '8s' }} />
-            </div>
-            <p className="text-xs text-cyan-300/80 font-mono">Virtual Campus Guide &bull; Online</p>
+            <h3 className="font-bold text-slate-900 dark:text-zinc-100 text-sm">Campus AI Guide</h3>
+            <p className="text-xs text-slate-500 dark:text-zinc-400 font-normal">Interactive Spatial & Route Guide</p>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
-          <div className="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-400/30 text-cyan-300 text-xs font-medium hidden sm:block">
-            AI v2.0
-          </div>
           {onToggleCollapse && (
             <button
               onClick={onToggleCollapse}
-              className="p-2 rounded-xl text-slate-400 hover:text-white glass-card hover:bg-white/15 border border-white/15 transition-all cursor-pointer flex items-center gap-1"
+              className="p-1.5 px-2.5 rounded-lg text-slate-500 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer flex items-center gap-1 text-xs"
               title="Hide AI Assistant"
             >
-              <PanelRightClose className="w-5 h-5 text-cyan-400" />
-              <span className="text-xs font-medium hidden sm:inline">Hide</span>
+              <PanelRightClose className="w-4 h-4" />
+              <span className="hidden sm:inline">Hide</span>
             </button>
           )}
         </div>
       </div>
 
       {/* ── Show Directions Toggle Button ──────────────────────── */}
-      <div className="px-4 py-3 border-b border-white/10 bg-slate-900/60 shrink-0">
+      <div className="px-4 py-2.5 border-b border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-900/50 shrink-0">
         <button
           onClick={() => {
             setDirectionsOpen(!directionsOpen);
             if (directionsOpen) handleClearDirections();
           }}
-          className={`w-full py-3 px-5 rounded-2xl font-bold text-sm flex items-center justify-center gap-3 cursor-pointer transition-all duration-300 border ${
+          className={`w-full py-2 px-4 rounded-xl font-semibold text-xs flex items-center justify-center gap-2 cursor-pointer transition-colors ${
             directionsOpen
-              ? 'bg-gradient-to-r from-emerald-600 to-cyan-500 border-emerald-400/40 text-white shadow-[0_0_25px_rgba(52,211,153,0.5)] scale-[1.02]'
-              : 'bg-gradient-to-r from-blue-600 via-cyan-500 to-indigo-600 border-cyan-400/40 text-white shadow-[0_0_25px_rgba(56,189,248,0.6)] hover:shadow-[0_0_40px_rgba(56,189,248,0.9)] hover:scale-[1.02]'
+              ? 'bg-slate-200 dark:bg-zinc-800 text-slate-800 dark:text-zinc-200 hover:bg-slate-300 dark:hover:bg-zinc-700'
+              : 'bg-blue-600 hover:bg-blue-700 text-white shadow-xs'
           }`}
         >
-          <div className={`p-1.5 rounded-xl bg-white/20 transition-transform duration-300 ${directionsOpen ? 'rotate-45' : ''}`}>
-            <Navigation2 className="w-5 h-5 text-white" />
-          </div>
-          <span className="tracking-wide text-base">
-            {directionsOpen ? '✕ Close Directions' : '🗺️ Show Directions'}
-          </span>
-          {!directionsOpen && (
-            <span className="ml-auto text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/20 border border-white/20 text-cyan-100">
-              BETA
-            </span>
-          )}
+          <Navigation2 className={`w-3.5 h-3.5 ${directionsOpen ? 'rotate-45' : ''}`} />
+          <span>{directionsOpen ? 'Close Route Planner' : 'Get Directions & Route Planner'}</span>
         </button>
       </div>
 
@@ -349,14 +333,14 @@ export default function AIChatWindow({
         <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
 
           {/* Upper 40% — From / To inputs */}
-          <div className="h-[40%] shrink-0 overflow-y-auto px-4 py-3 bg-slate-900/50 border-b border-white/10 space-y-3">
-            <p className="text-[10px] font-mono text-cyan-400/80 uppercase tracking-widest">
-              📍 Route Planner — G.H. Raisoni Campus
+          <div className="h-[40%] shrink-0 overflow-y-auto px-4 py-3 bg-slate-50/50 dark:bg-zinc-900/50 border-b border-slate-200 dark:border-zinc-800 space-y-3">
+            <p className="text-[10px] font-mono text-slate-500 uppercase tracking-wider font-semibold">
+              📍 Route Planner — Campus Navigation
             </p>
 
             {/* From Input */}
             <div className="space-y-1">
-              <label htmlFor="from-input" className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider">
+              <label htmlFor="from-input" className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 uppercase tracking-wider font-semibold">
                 Start Point
               </label>
               <div className="flex items-center gap-2">
@@ -367,7 +351,7 @@ export default function AIChatWindow({
                     onChange={(v) => { setFromQuery(v); if (!v) setFromLoc(null); }}
                     onSelect={(loc) => { setFromLoc(loc); setFromQuery(loc.name); }}
                     placeholder="From: e.g. Main Gate, Block A…"
-                    dotColor="bg-emerald-400 shadow-emerald-400/80"
+                    dotColor="bg-emerald-500"
                   />
                 </div>
                 <button
@@ -376,21 +360,21 @@ export default function AIChatWindow({
                     setPickingFor(next);
                     onPickOnMap?.(next);
                   }}
-                  className={`shrink-0 w-10 h-10 rounded-xl flex items-center justify-center border transition-all cursor-pointer ${
+                  className={`shrink-0 w-9 h-9 rounded-xl flex items-center justify-center border transition-all cursor-pointer ${
                     pickingFor === 'from'
-                      ? 'bg-emerald-500 border-emerald-400 text-white shadow-[0_0_15px_rgba(52,211,153,0.7)] animate-pulse'
-                      : 'bg-slate-800 border-white/15 text-slate-400 hover:text-emerald-400 hover:border-emerald-400/40'
+                      ? 'bg-emerald-600 border-emerald-500 text-white shadow-sm'
+                      : 'bg-white dark:bg-zinc-800 border-slate-200 dark:border-zinc-700 text-slate-400 hover:text-emerald-600'
                   }`}
                   title="Pick on Map"
                 >
-                  <Crosshair className="w-5 h-5" />
+                  <Crosshair className="w-4 h-4" />
                 </button>
               </div>
               {pickingFor === 'from' && (
-                <p className="text-[10px] text-emerald-400 pl-2 animate-pulse font-mono">👆 Tap a location on the map...</p>
+                <p className="text-[10px] text-emerald-600 dark:text-emerald-400 pl-2 font-mono">Tap a location on the map...</p>
               )}
               {fromLoc && !pickingFor && (
-                <p className="text-[10px] text-emerald-300/80 pl-2 flex items-center gap-1">
+                <p className="text-[10px] text-emerald-600 dark:text-emerald-400 pl-2 flex items-center gap-1">
                   <CheckCircle2 className="w-3 h-3" />
                   {fromLoc.categoryLabel}
                 </p>
@@ -399,12 +383,12 @@ export default function AIChatWindow({
 
             {/* Swap arrow */}
             <div className="flex items-center justify-center">
-              <ArrowRight className="w-4 h-4 text-slate-500 rotate-90" />
+              <ArrowRight className="w-4 h-4 text-slate-400 rotate-90" />
             </div>
 
             {/* To Input */}
             <div className="space-y-1">
-              <label htmlFor="to-input" className="text-[10px] font-mono text-red-400 uppercase tracking-wider">
+              <label htmlFor="to-input" className="text-[10px] font-mono text-rose-600 dark:text-rose-400 uppercase tracking-wider font-semibold">
                 Destination
               </label>
               <div className="flex items-center gap-2">
@@ -415,7 +399,7 @@ export default function AIChatWindow({
                     onChange={(v) => { setToQuery(v); if (!v) setToLoc(null); }}
                     onSelect={(loc) => { setToLoc(loc); setToQuery(loc.name); }}
                     placeholder="To: e.g. Block C, Canteen, Hostel…"
-                    dotColor="bg-red-400 shadow-red-400/80"
+                    dotColor="bg-rose-500"
                   />
                 </div>
                 <button
@@ -424,21 +408,21 @@ export default function AIChatWindow({
                     setPickingFor(next);
                     onPickOnMap?.(next);
                   }}
-                  className={`shrink-0 w-10 h-10 rounded-xl flex items-center justify-center border transition-all cursor-pointer ${
+                  className={`shrink-0 w-9 h-9 rounded-xl flex items-center justify-center border transition-all cursor-pointer ${
                     pickingFor === 'to'
-                      ? 'bg-red-500 border-red-400 text-white shadow-[0_0_15px_rgba(248,113,113,0.7)] animate-pulse'
-                      : 'bg-slate-800 border-white/15 text-slate-400 hover:text-red-400 hover:border-red-400/40'
+                      ? 'bg-rose-600 border-rose-500 text-white shadow-sm'
+                      : 'bg-white dark:bg-zinc-800 border-slate-200 dark:border-zinc-700 text-slate-400 hover:text-rose-600'
                   }`}
                   title="Pick on Map"
                 >
-                  <Crosshair className="w-5 h-5" />
+                  <Crosshair className="w-4 h-4" />
                 </button>
               </div>
               {pickingFor === 'to' && (
-                <p className="text-[10px] text-red-400 pl-2 animate-pulse font-mono">👆 Tap a location on the map...</p>
+                <p className="text-[10px] text-rose-600 dark:text-rose-400 pl-2 font-mono">Tap a location on the map...</p>
               )}
               {toLoc && !pickingFor && (
-                <p className="text-[10px] text-red-300/80 pl-2 flex items-center gap-1">
+                <p className="text-[10px] text-rose-600 dark:text-rose-400 pl-2 flex items-center gap-1">
                   <CheckCircle2 className="w-3 h-3" />
                   {toLoc.categoryLabel}
                 </p>
@@ -449,47 +433,44 @@ export default function AIChatWindow({
             <button
               onClick={handleGetDirections}
               disabled={!fromLoc || !toLoc || fromLoc.id === toLoc.id}
-              className={`w-full py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition-all duration-200 border cursor-pointer ${
+              className={`w-full py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer ${
                 fromLoc && toLoc && fromLoc.id !== toLoc.id
-                  ? 'bg-gradient-to-r from-blue-600 to-cyan-500 border-cyan-400/30 text-white shadow-[0_0_18px_rgba(56,189,248,0.7)] hover:scale-[1.02]'
-                  : 'bg-slate-800/60 border-white/10 text-slate-500 cursor-not-allowed opacity-50'
+                  ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-sm'
+                  : 'bg-slate-200 dark:bg-zinc-800 text-slate-400 dark:text-zinc-500 cursor-not-allowed'
               }`}
             >
-              <Navigation2 className="w-4 h-4" />
-              <span>Get Directions (A* Route)</span>
+              <Navigation2 className="w-3.5 h-3.5" />
+              <span>Calculate Route</span>
             </button>
 
             {routeActive && (
               <button
                 onClick={handleClearDirections}
-                className="w-full py-2 rounded-xl text-[11px] font-medium text-slate-400 hover:text-red-300 border border-white/10 hover:border-red-400/30 transition-colors cursor-pointer"
+                className="w-full py-1.5 rounded-xl text-[11px] font-medium text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 transition-colors cursor-pointer"
               >
                 ✕ Clear Route
               </button>
             )}
           </div>
 
-          {/* Lower 60% — Gamified Step-by-step instructions */}
+          {/* Lower 60% — Step-by-step instructions */}
           <div ref={stepsRef} className="flex-1 overflow-y-auto px-4 py-3 space-y-3 min-h-0">
             {!routeActive || !directionsState?.milestones || directionsState.milestones.length === 0 ? (
-              <div className="h-full flex flex-col items-center justify-center text-center space-y-2 opacity-50">
-                <MapPin className="w-8 h-8 text-cyan-400/40" />
-                <p className="text-xs text-slate-500 font-mono">
-                  Select start & destination,<br />then tap Get Directions.
+              <div className="h-full flex flex-col items-center justify-center text-center space-y-2 opacity-60">
+                <MapPin className="w-7 h-7 text-slate-400" />
+                <p className="text-xs text-slate-500 font-medium">
+                  Select start & destination,<br />then tap Calculate Route.
                 </p>
               </div>
             ) : (
               <>
                 {/* Route summary header with Follow Next Step Controls */}
-                <div className="p-3.5 rounded-2xl glass-card border border-cyan-500/30 bg-slate-900/80 space-y-3">
+                <div className="p-3 rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-800/50 space-y-2.5">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-                      <span className="text-xs font-bold text-cyan-300 uppercase tracking-wider font-mono">
-                        Gamified Route Progress
-                      </span>
-                    </div>
-                    <span className="text-[10px] font-mono text-cyan-400 font-bold px-2.5 py-0.5 rounded-full bg-cyan-500/20 border border-cyan-400/30">
+                    <span className="text-xs font-bold text-slate-800 dark:text-zinc-200">
+                      Route Progress
+                    </span>
+                    <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold px-2 py-0.5 rounded-md bg-blue-50 dark:bg-zinc-800 border border-blue-200 dark:border-zinc-700">
                       STEP {(directionsState.currentStepIndex || 0) + 1} OF {directionsState.milestones.length}
                     </span>
                   </div>
@@ -502,9 +483,9 @@ export default function AIChatWindow({
                         onDirectionsChange?.({ ...directionsState, currentStepIndex: prev });
                       }}
                       disabled={(directionsState.currentStepIndex || 0) === 0}
-                      className="px-3 py-2 rounded-xl bg-slate-800 border border-white/15 text-slate-300 text-xs font-semibold disabled:opacity-40 disabled:cursor-not-allowed hover:bg-white/10 transition-colors cursor-pointer"
+                      className="px-3 py-1.5 rounded-lg bg-white dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 text-slate-700 dark:text-zinc-300 text-xs font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-100 transition-colors cursor-pointer"
                     >
-                      ⬅ Prev
+                      Prev
                     </button>
 
                     <button
@@ -516,16 +497,16 @@ export default function AIChatWindow({
                         onDirectionsChange?.({ ...directionsState, currentStepIndex: next });
                       }}
                       disabled={(directionsState.currentStepIndex || 0) === directionsState.milestones.length - 1}
-                      className="flex-1 py-2 px-4 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-emerald-500 text-white text-xs font-extrabold flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(56,189,248,0.5)] hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer"
+                      className="flex-1 py-1.5 px-3 rounded-lg bg-blue-600 text-white text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer"
                     >
                       <span>Follow Step {(directionsState.currentStepIndex || 0) + 1}</span>
-                      <ArrowRight className="w-4 h-4" />
+                      <ArrowRight className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 </div>
 
-                {/* 4 Milestone Step Cards */}
-                <div className="space-y-2.5">
+                {/* Milestone Step Cards */}
+                <div className="space-y-2">
                   {directionsState.milestones.map((m, idx) => {
                     const isActive = (directionsState.currentStepIndex || 0) === idx;
                     return (
@@ -534,34 +515,34 @@ export default function AIChatWindow({
                         onClick={() => {
                           onDirectionsChange?.({ ...directionsState, currentStepIndex: idx });
                         }}
-                        className={`p-3 rounded-2xl border transition-all cursor-pointer ${
+                        className={`p-3 rounded-xl border transition-all cursor-pointer ${
                           isActive
-                            ? 'border-cyan-400 bg-cyan-950/40 shadow-[0_0_20px_rgba(56,189,248,0.4)] scale-[1.01]'
-                            : 'border-white/10 bg-slate-900/60 hover:bg-white/5 opacity-80 hover:opacity-100'
+                            ? 'border-blue-600 bg-blue-50/50 dark:bg-blue-950/30'
+                            : 'border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:border-slate-300'
                         }`}
                       >
                         <div className="flex items-center gap-3">
                           <div
-                            className={`w-7 h-7 rounded-xl flex items-center justify-center text-xs font-bold shrink-0 ${
+                            className={`w-6 h-6 rounded-lg flex items-center justify-center text-xs font-bold shrink-0 ${
                               isActive
-                                ? 'bg-gradient-to-br from-cyan-400 to-blue-600 text-slate-950 shadow-md animate-pulse'
-                                : 'bg-slate-800 text-slate-400 border border-white/10'
+                                ? 'bg-blue-600 text-white'
+                                : 'bg-slate-100 dark:bg-zinc-800 text-slate-500'
                             }`}
                           >
                             {m.stepNumber}
                           </div>
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center justify-between">
-                              <h5 className={`text-xs font-bold truncate ${isActive ? 'text-cyan-300' : 'text-slate-200'}`}>
+                              <h5 className={`text-xs font-semibold truncate ${isActive ? 'text-blue-600 dark:text-blue-400' : 'text-slate-800 dark:text-zinc-200'}`}>
                                 {m.title}
                               </h5>
                               {isActive && (
-                                <span className="text-[9px] font-mono font-bold text-emerald-400 px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/40">
+                                <span className="text-[9px] font-mono font-bold text-blue-600 px-1.5 py-0.2 rounded bg-blue-100 dark:bg-zinc-800">
                                   ACTIVE
                                 </span>
                               )}
                             </div>
-                            <p className="text-[11px] text-slate-300 line-clamp-2 mt-0.5 leading-relaxed">
+                            <p className="text-[11px] text-slate-500 dark:text-zinc-400 line-clamp-2 mt-0.5 leading-normal">
                               {m.instruction}
                             </p>
                           </div>
@@ -578,30 +559,30 @@ export default function AIChatWindow({
         /* ── CHAT MODE ─────────────────────────────────────────── */
         <>
           {/* Messages List */}
-          <div className="flex-1 p-4 overflow-y-auto space-y-4 min-h-0">
+          <div className="flex-1 p-4 overflow-y-auto space-y-3.5 min-h-0 bg-slate-50/50 dark:bg-zinc-950/40">
             {messages.map((msg) => (
               <div
                 key={msg.id}
-                className={`flex items-start gap-3 ${msg.sender === 'user' ? 'flex-row-reverse' : ''}`}
+                className={`flex items-start gap-2.5 ${msg.sender === 'user' ? 'flex-row-reverse' : ''}`}
               >
                 <div
-                  className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${
+                  className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 text-xs ${
                     msg.sender === 'user'
                       ? 'bg-blue-600 text-white'
-                      : 'bg-gradient-to-br from-cyan-500 to-blue-600 text-white shadow-[0_0_10px_rgba(56,189,248,0.4)]'
+                      : 'bg-slate-200 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300'
                   }`}
                 >
-                  {msg.sender === 'user' ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
+                  {msg.sender === 'user' ? <User className="w-3.5 h-3.5" /> : <Bot className="w-3.5 h-3.5" />}
                 </div>
                 <div
-                  className={`max-w-[80%] p-3.5 rounded-2xl text-xs sm:text-sm leading-relaxed ${
+                  className={`max-w-[82%] p-3 rounded-2xl text-xs leading-relaxed ${
                     msg.sender === 'user'
-                      ? 'bg-blue-600/90 text-white rounded-tr-none'
-                      : 'glass-card border border-white/10 text-slate-200 rounded-tl-none'
+                      ? 'bg-blue-600 text-white rounded-tr-none'
+                      : 'bg-white dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 text-slate-800 dark:text-zinc-100 rounded-tl-none shadow-2xs'
                   }`}
                 >
                   <p>{msg.text}</p>
-                  <span className="block text-[10px] text-slate-400/80 mt-1 text-right font-mono">
+                  <span className="block text-[9px] opacity-70 mt-1 text-right font-mono">
                     {msg.timestamp}
                   </span>
                 </div>
@@ -609,14 +590,14 @@ export default function AIChatWindow({
             ))}
 
             {isTyping && (
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white">
-                  <Bot className="w-4 h-4" />
+              <div className="flex items-center gap-2.5">
+                <div className="w-7 h-7 rounded-lg bg-slate-200 dark:bg-zinc-800 flex items-center justify-center text-slate-600">
+                  <Bot className="w-3.5 h-3.5" />
                 </div>
-                <div className="glass-card px-4 py-2.5 rounded-2xl rounded-tl-none border border-white/10 flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-cyan-400 animate-bounce" />
-                  <span className="w-2 h-2 rounded-full bg-blue-400 animate-bounce" style={{ animationDelay: '0.2s' }} />
-                  <span className="w-2 h-2 rounded-full bg-indigo-400 animate-bounce" style={{ animationDelay: '0.4s' }} />
+                <div className="bg-white dark:bg-zinc-800 px-3.5 py-2 rounded-2xl rounded-tl-none border border-slate-200 dark:border-zinc-700 flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: '0.2s' }} />
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: '0.4s' }} />
                 </div>
               </div>
             )}
@@ -624,12 +605,12 @@ export default function AIChatWindow({
           </div>
 
           {/* Quick Chips */}
-          <div className="px-4 py-2 flex items-center gap-2 overflow-x-auto border-t border-white/5 shrink-0">
+          <div className="px-3 py-2 flex items-center gap-1.5 overflow-x-auto border-t border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shrink-0">
             {['Where is Block C?', 'Find Canteen 1', 'Faculty Cabins', 'Sports Ground'].map((chip, idx) => (
               <button
                 key={idx}
                 onClick={() => handleSendMessage(chip)}
-                className="px-3 py-1 rounded-full glass-card text-[11px] font-medium text-slate-300 hover:text-cyan-300 hover:border-cyan-400/40 transition-colors whitespace-nowrap cursor-pointer"
+                className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-zinc-800 hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-zinc-700 text-[11px] font-medium text-slate-600 dark:text-zinc-300 transition-colors whitespace-nowrap cursor-pointer"
               >
                 {chip}
               </button>
@@ -639,24 +620,21 @@ export default function AIChatWindow({
           {/* Input Form */}
           <form
             onSubmit={(e) => { e.preventDefault(); handleSendMessage(); }}
-            className="p-3 glass-panel border-t border-white/10 flex items-center gap-2 shrink-0"
+            className="p-2.5 bg-white dark:bg-zinc-900 border-t border-slate-200 dark:border-zinc-800 flex items-center gap-2 shrink-0"
           >
-            <button type="button" className="p-2.5 rounded-xl text-slate-400 hover:text-cyan-300 hover:bg-white/10 transition-colors cursor-pointer" title="Voice Search">
-              <Mic className="w-5 h-5" />
-            </button>
             <input
               type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               placeholder="Ask DISHAA AI about campus locations..."
-              className="flex-1 py-2.5 px-4 rounded-xl bg-slate-900/80 border border-white/15 text-xs sm:text-sm text-white placeholder-slate-400 focus:outline-none focus:border-cyan-400 transition-colors"
+              className="flex-1 py-2 px-3.5 rounded-xl bg-slate-50 dark:bg-zinc-800/80 border border-slate-200 dark:border-zinc-700 text-xs text-slate-900 dark:text-zinc-100 placeholder-slate-400 focus:outline-none focus:border-blue-600 transition-colors"
             />
             <button
               type="submit"
               disabled={!inputValue.trim()}
-              className="p-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white disabled:opacity-40 disabled:cursor-not-allowed shadow-[0_0_12px_rgba(56,189,248,0.4)] transition-all cursor-pointer"
+              className="p-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white disabled:opacity-40 disabled:cursor-not-allowed shadow-xs transition-all cursor-pointer"
             >
-              <Send className="w-5 h-5" />
+              <Send className="w-4 h-4" />
             </button>
           </form>
         </>
@@ -664,3 +642,4 @@ export default function AIChatWindow({
     </div>
   );
 }
+

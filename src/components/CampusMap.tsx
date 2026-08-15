@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useEffect, useState, useRef } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import { Search, Navigation, Building, Coffee, Trophy, X, Crosshair, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
-import { campusLocations, DirectionsState } from '@/lib/campusData';
+import { campusLocations, DirectionsState, CampusLocation } from '@/lib/campusData';
 
 // Custom SVG Markers for DISHAA Map
 const createCustomIcon = (color: string, label: string) => {
@@ -79,6 +79,15 @@ const createHumanAvatarIcon = (stepNum: number) => {
     iconAnchor: [22, 22],
   });
 };
+
+function MapEventsHandler({ onSelectCoords }: { onSelectCoords: (coords: [number, number]) => void }) {
+  useMapEvents({
+    click(e) {
+      onSelectCoords([e.latlng.lat, e.latlng.lng]);
+    },
+  });
+  return null;
+}
 
 function MapRecenter({ center }: { center: [number, number] }) {
   const map = useMap();
@@ -180,8 +189,8 @@ function AnimatedRoute({ positions }: { positions: [number, number][] }) {
 }
 
 const campusBounds: L.LatLngBoundsExpression = [
-  [21.1210, 78.9990],
-  [21.1280, 79.0070],
+  [21.1200, 78.9970],
+  [21.1290, 79.0090],
 ];
 
 interface CampusMapProps {
@@ -194,9 +203,10 @@ interface CampusMapProps {
 
 export default function CampusMap({ isChatCollapsed, directions, pickingFor, onSelectLocation, onDirectionsChange }: CampusMapProps) {
   const defaultCenter: [number, number] = [21.1245, 79.0030];
+  const defaultZoom = 17.5;
   const [selectedCenter, setSelectedCenter] = useState<[number, number]>(defaultCenter);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedFilter, setSelectedFilter] = useState<string>('all');
+  const [selectedFilter, setSelectedFilter] = useState<string>('block');
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [mapHeightPercent, setMapHeightPercent] = useState(50); // Default 50%
   const isDraggingRef = useRef(false);
@@ -250,12 +260,6 @@ export default function CampusMap({ isChatCollapsed, directions, pickingFor, onS
   const activeMilestone = isDirectionsActive
     ? directions?.milestones?.[directions?.currentStepIndex || 0]
     : null;
-  const humanCoords = activeMilestone?.coords || directions?.from?.coords;
-
-  // Use the full road-following path from A* pathfinding
-  const routePositions: [number, number][] = (isDirectionsActive && directions?.routePath?.length >= 2)
-    ? directions.routePath
-    : [];
 
   const suggestions = campusLocations.filter((loc) => {
     if (!searchQuery.trim()) return false;
@@ -292,15 +296,15 @@ export default function CampusMap({ isChatCollapsed, directions, pickingFor, onS
   };
 
   return (
-    <div className="relative w-full h-full min-h-[450px] lg:min-h-0 rounded-3xl overflow-hidden border border-white/15 glass-panel shadow-2xl flex flex-col">
+    <div className="relative w-full h-full rounded-2xl overflow-hidden border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm flex flex-col">
 
       {/* Map Control Header Bar */}
-      <div className="relative z-20 p-3 sm:p-4 glass-panel border-b border-white/10 flex flex-wrap items-center justify-between gap-3">
+      <div className="relative z-20 p-2.5 sm:p-3 bg-white dark:bg-zinc-900 border-b border-slate-200 dark:border-zinc-800 flex flex-wrap items-center justify-between gap-2.5">
 
-        {/* Google-Style Search Input Bar with Autocomplete Dropdown */}
-        <div ref={searchRef} className="relative flex-1 min-w-[220px]">
+        {/* Google/Apple-Style Search Input Bar with Autocomplete Dropdown */}
+        <div ref={searchRef} className="relative flex-1 min-w-[200px]">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-cyan-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input
               type="text"
               value={searchQuery}
@@ -312,7 +316,7 @@ export default function CampusMap({ isChatCollapsed, directions, pickingFor, onS
                 if (searchQuery.trim()) setShowSuggestions(true);
               }}
               placeholder="Search campus blocks, canteen, hostel..."
-              className="w-full pl-9 pr-9 py-2 text-xs sm:text-sm rounded-xl bg-slate-900/90 border border-white/15 text-white placeholder-slate-400 focus:outline-none focus:border-cyan-400 transition-colors shadow-inner"
+              className="w-full pl-9 pr-9 py-2 text-xs sm:text-sm rounded-xl bg-slate-50 dark:bg-zinc-800/80 border border-slate-200 dark:border-zinc-700 text-slate-900 dark:text-zinc-100 placeholder-slate-400 focus:outline-none focus:border-blue-600 transition-colors"
             />
             {searchQuery && (
               <button
@@ -320,7 +324,7 @@ export default function CampusMap({ isChatCollapsed, directions, pickingFor, onS
                   setSearchQuery('');
                   setShowSuggestions(false);
                 }}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 dark:hover:text-white"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -328,11 +332,11 @@ export default function CampusMap({ isChatCollapsed, directions, pickingFor, onS
           </div>
 
           {showSuggestions && suggestions.length > 0 && (
-            <div className="absolute top-full left-0 right-0 mt-2 glass-panel bg-slate-900/95 border border-cyan-500/30 rounded-2xl shadow-2xl overflow-hidden z-50 max-h-64 overflow-y-auto backdrop-blur-xl">
-              <div className="px-3 py-1.5 text-[10px] font-mono text-cyan-400/80 uppercase tracking-wider border-b border-white/10">
+            <div className="absolute top-full left-0 right-0 mt-1.5 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl shadow-xl overflow-hidden z-50 max-h-64 overflow-y-auto">
+              <div className="px-3 py-1.5 text-[10px] font-mono text-slate-400 uppercase tracking-wider border-b border-slate-100 dark:border-zinc-800">
                 Suggested Campus Locations ({suggestions.length})
               </div>
-              <ul className="divide-y divide-white/5">
+              <ul className="divide-y divide-slate-100 dark:divide-zinc-800">
                 {suggestions.map((item) => {
                   let Icon = Building;
                   if (item.type === 'amenity') Icon = Coffee;
@@ -342,27 +346,27 @@ export default function CampusMap({ isChatCollapsed, directions, pickingFor, onS
                     <li
                       key={item.id}
                       onClick={() => handleSelectSuggestion(item)}
-                      className="px-4 py-2.5 hover:bg-cyan-500/15 cursor-pointer transition-colors flex items-center justify-between group"
+                      className="px-3.5 py-2.5 hover:bg-slate-50 dark:hover:bg-zinc-800/80 cursor-pointer transition-colors flex items-center justify-between group"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="p-2 rounded-xl bg-slate-800 border border-white/10 group-hover:border-cyan-400/40 text-cyan-400">
+                        <div className="p-2 rounded-lg bg-slate-100 dark:bg-zinc-800 text-blue-600">
                           <Icon className="w-4 h-4" />
                         </div>
                         <div>
                           <div className="flex items-center gap-2">
-                            <span className="font-bold text-xs sm:text-sm text-white group-hover:text-cyan-300">
+                            <span className="font-semibold text-xs sm:text-sm text-slate-900 dark:text-zinc-100">
                               {item.name}
                             </span>
-                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-white/10 font-mono">
+                            <span className="text-[10px] px-2 py-0.5 rounded-md bg-slate-100 dark:bg-zinc-800 text-slate-500 font-mono">
                               {item.categoryLabel}
                             </span>
                           </div>
-                          <p className="text-[11px] text-slate-400 line-clamp-1 mt-0.5">
+                          <p className="text-[11px] text-slate-500 dark:text-zinc-400 line-clamp-1 mt-0.5">
                             {item.description}
                           </p>
                         </div>
                       </div>
-                      <Navigation className="w-4 h-4 text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-all" />
+                      <Navigation className="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition-colors" />
                     </li>
                   );
                 })}
@@ -372,20 +376,20 @@ export default function CampusMap({ isChatCollapsed, directions, pickingFor, onS
         </div>
 
         {/* Filter Pills */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
+        <div className="flex items-center gap-1 overflow-x-auto">
           {[
-            { id: 'all', label: 'All Places' },
             { id: 'block', label: 'Blocks' },
-            { id: 'amenity', label: 'Food & Services' },
-            { id: 'sports', label: 'Sports Grounds' },
+            { id: 'amenity', label: 'Services' },
+            { id: 'sports', label: 'Sports' },
+            { id: 'all', label: 'All Places' },
           ].map((f) => (
             <button
               key={f.id}
               onClick={() => setSelectedFilter(f.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all whitespace-nowrap cursor-pointer ${
+              className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors whitespace-nowrap cursor-pointer ${
                 selectedFilter === f.id
-                  ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-[0_0_10px_rgba(56,189,248,0.5)]'
-                  : 'bg-slate-900/60 text-slate-300 hover:bg-white/10'
+                  ? 'bg-blue-600 text-white shadow-xs'
+                  : 'bg-slate-100 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300 hover:bg-slate-200 dark:hover:bg-zinc-700'
               }`}
             >
               {f.label}
@@ -404,75 +408,98 @@ export default function CampusMap({ isChatCollapsed, directions, pickingFor, onS
         >
           <MapContainer
             center={defaultCenter}
-            zoom={17.5}
-            minZoom={15.5}
-            maxZoom={19.5}
+            zoom={defaultZoom}
+            minZoom={16.5}
+            maxZoom={19}
             maxBounds={campusBounds}
             maxBoundsViscosity={1.0}
-            scrollWheelZoom={true}
+            zoomControl={false}
             className="w-full h-full"
-            style={{ background: '#0f172a' }}
+            style={{ background: '#f8fafc' }}
           >
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               maxNativeZoom={19}
-              maxZoom={20}
+              maxZoom={19}
+            />
+
+            <MapEventsHandler
+              onSelectCoords={(coords) => {
+                if (pickingFor) {
+                  const tempLoc: CampusLocation = {
+                    id: `custom-${Date.now()}`,
+                    name: `Selected Point (${coords[0].toFixed(5)}, ${coords[1].toFixed(5)})`,
+                    type: 'amenity',
+                    categoryLabel: 'Custom Location',
+                    description: 'Custom coordinates picked directly on campus map',
+                    coords,
+                    image: '/college-front.jpg',
+                  };
+                  onSelectLocation?.(tempLoc);
+                }
+              }}
             />
 
             <MapRecenter center={selectedCenter} />
             <MapResizer isCollapsed={isChatCollapsed} directionsActive={isDirectionsActive} heightPercent={mapHeightPercent} />
 
-            {/* Animated Route Polyline */}
-            {routePositions.length >= 2 && <AnimatedRoute positions={routePositions} />}
-
-            {/* Gamified Human Figure Marker */}
-            {isDirectionsActive && humanCoords && (
+            {/* Render Route Polylines */}
+            {isDirectionsActive && directions?.routePath && directions.routePath.length > 0 && (
               <>
-                <HumanAvatarRecenter coords={humanCoords} />
-                <Marker
-                  position={humanCoords}
-                  icon={createHumanAvatarIcon((directions?.currentStepIndex || 0) + 1)}
-                  zIndexOffset={1000}
+                <Polyline
+                  positions={directions.routePath}
+                  pathOptions={{ color: '#0284c7', weight: 8, opacity: 0.6 }}
+                />
+                <Polyline
+                  positions={directions.routePath}
+                  pathOptions={{ color: '#38bdf8', weight: 4, opacity: 0.95, dashArray: '8, 12' }}
                 />
               </>
             )}
 
-            {/* Picking Mode Banner Overlay */}
-            {pickingFor && (
-              <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000] px-5 py-2.5 rounded-full bg-slate-900/95 border border-cyan-400 text-cyan-200 text-xs font-bold shadow-[0_0_25px_rgba(56,189,248,0.8)] flex items-center gap-2.5 animate-bounce backdrop-blur-md">
-                <Crosshair className="w-4 h-4 text-cyan-400 animate-spin" style={{ animationDuration: '4s' }} />
-                <span>Tap any pin on the map to set as {pickingFor === 'from' ? '🟢 Start Point' : '🔴 Destination'}</span>
-              </div>
+            {/* Render Human Moving Avatar */}
+            {isDirectionsActive && activeMilestone?.coords && (
+              <Marker
+                position={activeMilestone.coords}
+                icon={createHumanAvatarIcon((directions?.currentStepIndex || 0) + 1)}
+                zIndexOffset={1000}
+              >
+                <Popup className="custom-leaflet-popup">
+                  <div className="p-1 text-slate-900 font-sans text-xs">
+                    <p className="font-bold text-blue-600">🚶 You are here</p>
+                    <p className="text-[11px] text-slate-600 mt-0.5">{activeMilestone.instruction}</p>
+                  </div>
+                </Popup>
+              </Marker>
             )}
 
-            {/* Markers */}
-            {filteredLocations
-              .filter((loc) => {
-                if (pickingFor) return true;
-                if (isDirectionsActive) {
-                  return loc.id === directions?.from?.id || loc.id === directions?.to?.id;
-                }
-                return true;
-              })
-              .map((loc) => {
-              const isFrom = isDirectionsActive && directions?.from?.id === loc.id;
-              const isTo = isDirectionsActive && directions?.to?.id === loc.id;
-              let icon = blockIcon;
-              if (isFrom) icon = fromIcon;
-              else if (isTo) icon = toIcon;
-              else if (loc.type === 'amenity') icon = amenityIcon;
-              else if (loc.type === 'sports') icon = sportsIcon;
+            {/* Render Campus Location Markers */}
+            {filteredLocations.map((loc) => {
+              const isFrom = directions?.from?.id === loc.id;
+              const isTo = directions?.to?.id === loc.id;
+
+              const markerIcon = isFrom
+                ? fromIcon
+                : isTo
+                ? toIcon
+                : loc.type === 'amenity'
+                ? amenityIcon
+                : loc.type === 'sports'
+                ? sportsIcon
+                : blockIcon;
 
               return (
                 <Marker
                   key={loc.id}
                   position={loc.coords}
-                  icon={icon}
+                  icon={markerIcon}
                   eventHandlers={{
                     click: () => {
-                      if (pickingFor && onSelectLocation) {
-                        onSelectLocation(loc);
+                      if (pickingFor) {
+                        onSelectLocation?.(loc);
+                      } else {
+                        setSelectedCenter(loc.coords);
                       }
                     },
                   }}
@@ -509,25 +536,19 @@ export default function CampusMap({ isChatCollapsed, directions, pickingFor, onS
           </MapContainer>
 
           {/* Map Legend Overlay */}
-          <div className="absolute bottom-4 left-4 z-10 glass-panel px-3 py-2 rounded-xl text-[11px] text-slate-200 space-y-1 border border-white/10 hidden sm:block">
+          <div className="absolute bottom-4 left-4 z-10 bg-white/95 dark:bg-zinc-900/95 px-3 py-2 rounded-xl text-[11px] text-slate-700 dark:text-zinc-300 space-y-1 border border-slate-200 dark:border-zinc-800 shadow-sm hidden sm:block">
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-[0_0_6px_#3b82f6]" />
+              <span className="w-2.5 h-2.5 rounded-full bg-blue-600" />
               <span>Academic Blocks</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_6px_#22d3ee]" />
+              <span className="w-2.5 h-2.5 rounded-full bg-cyan-500" />
               <span>Amenities & Cafés</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]" />
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
               <span>Sports & Hostels</span>
             </div>
-            {isDirectionsActive && (
-              <div className="flex items-center gap-2 pt-1 border-t border-white/10">
-                <span className="w-10 h-1.5 rounded-full bg-gradient-to-r from-emerald-400 to-sky-400 shadow-[0_0_6px_#38bdf8]" />
-                <span className="text-cyan-300 font-semibold">Active Route</span>
-              </div>
-            )}
           </div>
         </div>
 
@@ -536,17 +557,17 @@ export default function CampusMap({ isChatCollapsed, directions, pickingFor, onS
           <div
             onMouseDown={handleMouseDown}
             onTouchStart={handleTouchStart}
-            className="w-full h-3 bg-slate-900 border-y border-cyan-500/40 flex items-center justify-center cursor-row-resize hover:bg-cyan-950/80 transition-colors z-30 shrink-0 group select-none shadow-md"
+            className="w-full h-2.5 bg-slate-900 border-y border-white/10 flex items-center justify-center cursor-row-resize hover:bg-slate-800 transition-colors z-30 shrink-0 group select-none shadow-sm"
             title="Drag up/down to adjust Map and Image window sizes"
           >
-            <div className="w-12 h-1 rounded-full bg-cyan-400/80 group-hover:bg-cyan-300 transition-colors shadow-[0_0_8px_#38bdf8]" />
+            <div className="w-10 h-1 rounded-full bg-slate-500 group-hover:bg-slate-300 transition-colors" />
           </div>
         )}
 
         {/* Lower Resizable Image Window */}
         {isDirectionsActive && (
           <div
-            style={{ height: `calc(${100 - mapHeightPercent}% - 12px)` }}
+            style={{ height: `calc(${100 - mapHeightPercent}% - 10px)` }}
             className="w-full relative overflow-hidden bg-slate-900/90 flex flex-col justify-between p-3.5"
           >
             <div className="absolute inset-0">
@@ -556,29 +577,25 @@ export default function CampusMap({ isChatCollapsed, directions, pickingFor, onS
                 alt={activeMilestone?.title || 'Campus Scene'}
                 fill
                 sizes="600px"
-                className="object-cover opacity-60 transition-all duration-700 scale-105"
+                className="object-cover opacity-60 transition-all duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent" />
             </div>
 
             {/* Top Badge */}
             <div className="relative z-10 flex items-center justify-between">
-              <span className="px-3 py-1 rounded-full bg-cyan-500/90 border border-cyan-300 text-slate-950 font-bold text-[10px] font-mono tracking-wider shadow-lg flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-slate-950 animate-ping" />
-                📸 STEP {(directions?.currentStepIndex || 0) + 1} VIEW
-              </span>
-              <span className="px-2.5 py-0.5 rounded-full bg-slate-900/80 border border-white/20 text-slate-300 text-[10px] font-mono">
-                Backend Image Ready
+              <span className="px-3 py-1 rounded-lg bg-slate-900/90 border border-white/15 text-slate-200 font-medium text-xs shadow-sm">
+                Step {(directions?.currentStepIndex || 0) + 1} of {directions?.milestones?.length || 1}
               </span>
             </div>
 
             {/* Bottom Info & Next Step Button */}
             <div className="relative z-10 space-y-2">
-              <div className="bg-slate-900/85 backdrop-blur-md border border-white/15 p-3 rounded-2xl">
-                <h5 className="font-bold text-xs sm:text-sm text-cyan-300">
+              <div className="bg-slate-900/90 border border-white/10 p-3 rounded-xl">
+                <h5 className="font-semibold text-xs sm:text-sm text-white">
                   {activeMilestone?.title || 'Campus Navigation'}
                 </h5>
-                <p className="text-[11px] text-slate-200 mt-1 line-clamp-2 leading-relaxed">
+                <p className="text-xs text-slate-300 mt-1 line-clamp-2 leading-relaxed">
                   {activeMilestone?.instruction}
                 </p>
               </div>
@@ -591,7 +608,7 @@ export default function CampusMap({ isChatCollapsed, directions, pickingFor, onS
                     const nextIdx = ((directions.currentStepIndex || 0) + 1) % directions.milestones.length;
                     onDirectionsChange?.({ ...directions, currentStepIndex: nextIdx });
                   }}
-                  className="px-6 py-2 rounded-full bg-gradient-to-r from-blue-600 via-cyan-500 to-emerald-500 text-white font-extrabold text-xs shadow-[0_0_20px_rgba(56,189,248,0.7)] hover:scale-105 transition-all flex items-center gap-2 border border-white/30 cursor-pointer"
+                  className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs shadow-sm transition-colors flex items-center gap-1.5 border border-white/10 cursor-pointer"
                 >
                   <span>Next Step</span>
                   <ArrowRight className="w-4 h-4" />
