@@ -7,6 +7,7 @@ import SplashScreen from '@/components/SplashScreen';
 import { LandingPage } from '@/components/landing/LandingPage';
 import { FacultyPortal } from '@/components/landing/FacultyPortal';
 import AIChatWindow from '@/components/AIChatWindow';
+import BroadcastBanner from '@/components/BroadcastBanner';
 import BottomNavbar from '@/components/BottomNavbar';
 import InsideBlockModal from '@/components/InsideBlockModal';
 import AdminPortalModal from '@/components/AdminPortalModal';
@@ -122,6 +123,9 @@ export default function AppHome() {
                   </button>
                 </div>
               </header>
+
+              {/* Live Admin Emergency Broadcast Banner */}
+              <BroadcastBanner />
 
               {/* Campus Map View */}
               <main className="flex-1 min-h-0 overflow-hidden p-1.5 sm:p-2.5 relative">

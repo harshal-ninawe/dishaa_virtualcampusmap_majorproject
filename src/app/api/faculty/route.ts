@@ -135,3 +135,60 @@ export async function POST(req: NextRequest) {
     if (client) await client.close();
   }
 }
+
+// DELETE /api/faculty - Remove faculty entry from MongoDB
+export async function DELETE(req: NextRequest) {
+  let client;
+  try {
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get('id');
+    const email = searchParams.get('email');
+
+    if (!id && !email) {
+      return NextResponse.json(
+        { success: false, error: 'Faculty ID or Email is required for deletion.' },
+        { status: 400 }
+      );
+    }
+
+    client = await getMongoClient();
+    const db = client.db('dishaadb');
+    const collection = db.collection('faculties');
+
+    let query: Record<string, unknown> = {};
+    if (id) {
+      try {
+        const { ObjectId } = await import('mongodb');
+        query = { _id: new ObjectId(id) };
+      } catch {
+        query = { _id: id };
+      }
+    } else if (email) {
+      query = { email: email.trim().toLowerCase() };
+    }
+
+    const result = await collection.deleteOne(query);
+
+    if (result.deletedCount === 0) {
+      return NextResponse.json(
+        { success: false, error: 'Faculty record not found in database.' },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: 'Faculty record deleted successfully from MongoDB Atlas!',
+      deletedCount: result.deletedCount,
+    });
+  } catch (error: unknown) {
+    const msg = error instanceof Error ? error.message : 'Unknown database error';
+    console.error('Error deleting faculty from MongoDB:', msg);
+    return NextResponse.json(
+      { success: false, error: `Database Error: ${msg}` },
+      { status: 500 }
+    );
+  } finally {
+    if (client) await client.close();
+  }
+}

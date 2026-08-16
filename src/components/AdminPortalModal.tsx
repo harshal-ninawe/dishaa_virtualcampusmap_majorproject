@@ -31,8 +31,8 @@ export default function AdminPortalModal({ isOpen, onClose, isInline = false }: 
     email?: string;
   } | null>(null);
 
-  // Authenticated Dashboard Tab State: 'search-faculty' | 'host-event' | 'my-events' | 'my-profile'
-  const [dashboardTab, setDashboardTab] = useState<'search-faculty' | 'host-event' | 'my-events' | 'my-profile'>('search-faculty');
+  // Authenticated Dashboard Tab State: 'search-faculty' | 'broadcasts' | 'host-event' | 'my-events' | 'my-profile'
+  const [dashboardTab, setDashboardTab] = useState<'search-faculty' | 'broadcasts' | 'host-event' | 'my-events' | 'my-profile'>('search-faculty');
 
   // Faculty Form Fields
   const [facultyName, setFacultyName] = useState('');
@@ -57,10 +57,21 @@ export default function AdminPortalModal({ isOpen, onClose, isInline = false }: 
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  // ── SEARCH FACULTY STATE ──────────────────────────────────────────────────
+  // ── SEARCH & MANAGEMENT STATE ──────────────────────────────────────────────
   const [searchFacultyQuery, setSearchFacultyQuery] = useState('');
+  const [selectedDeptFilter, setSelectedDeptFilter] = useState<string>('All Departments');
   const [facultyResults, setFacultyResults] = useState<any[]>([]);
   const [isSearchingFaculty, setIsSearchingFaculty] = useState(false);
+
+  // ── EMERGENCY BROADCAST STATE ──────────────────────────────────────────────
+  const [broadcastTitle, setBroadcastTitle] = useState('');
+  const [broadcastMessage, setBroadcastMessage] = useState('');
+  const [broadcastSeverity, setBroadcastSeverity] = useState<'emergency' | 'warning' | 'announcement' | 'info'>('warning');
+  const [isPublishingBroadcast, setIsPublishingBroadcast] = useState(false);
+  const [broadcastList, setBroadcastList] = useState<any[]>([]);
+  const [loadingBroadcasts, setLoadingBroadcasts] = useState(false);
+  const [broadcastSuccessMsg, setBroadcastSuccessMsg] = useState('');
+  const [broadcastErrorMsg, setBroadcastErrorMsg] = useState('');
 
   // ── HOST EVENT FORM STATE ─────────────────────────────────────────────────
   const [eventTitle, setEventTitle] = useState('');
@@ -108,6 +119,7 @@ export default function AdminPortalModal({ isOpen, onClose, isInline = false }: 
   useEffect(() => {
     if (isAuthenticated) {
       if (dashboardTab === 'search-faculty') fetchFacultyList();
+      if (dashboardTab === 'broadcasts') fetchBroadcasts();
       if (dashboardTab === 'my-events') fetchMyEvents();
     }
   }, [isAuthenticated, dashboardTab]);
@@ -124,6 +136,79 @@ export default function AdminPortalModal({ isOpen, onClose, isInline = false }: 
       console.error(err);
     } finally {
       setIsSearchingFaculty(false);
+    }
+  };
+
+  const fetchBroadcasts = async () => {
+    setLoadingBroadcasts(true);
+    try {
+      const res = await fetch('/api/broadcasts');
+      const data = await res.json();
+      if (data.success && data.data) {
+        setBroadcastList(data.data);
+      }
+    } catch (err) {
+      console.error('Failed to fetch broadcasts:', err);
+    } finally {
+      setLoadingBroadcasts(false);
+    }
+  };
+
+  const handlePublishBroadcast = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!broadcastTitle.trim() || !broadcastMessage.trim()) {
+      setBroadcastErrorMsg('Please fill in both Broadcast Title and Message.');
+      return;
+    }
+
+    setIsPublishingBroadcast(true);
+    setBroadcastSuccessMsg('');
+    setBroadcastErrorMsg('');
+
+    try {
+      const res = await fetch('/api/broadcasts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: broadcastTitle,
+          message: broadcastMessage,
+          severity: broadcastSeverity,
+          createdBy: loggedInUser?.name || 'System Admin',
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setBroadcastSuccessMsg('🚨 Emergency Broadcast published live to all campus users & MongoDB!');
+        setBroadcastTitle('');
+        setBroadcastMessage('');
+        fetchBroadcasts();
+      } else {
+        setBroadcastErrorMsg(data.error || 'Failed to publish broadcast.');
+      }
+    } catch (err) {
+      console.error(err);
+      setBroadcastErrorMsg('Network error publishing broadcast.');
+    } finally {
+      setIsPublishingBroadcast(false);
+    }
+  };
+
+  const handleDeleteBroadcast = async (id: string, title: string) => {
+    if (!confirm(`Remove broadcast alert "${title}" from MongoDB Atlas?`)) return;
+
+    try {
+      const res = await fetch(`/api/broadcasts?id=${id}`, { method: 'DELETE' });
+      const data = await res.json();
+      if (data.success) {
+        setBroadcastSuccessMsg(`🗑️ Broadcast "${title}" removed successfully!`);
+        setBroadcastList((prev) => prev.filter((b) => b._id !== id));
+      } else {
+        setBroadcastErrorMsg(data.error || 'Failed to remove broadcast.');
+      }
+    } catch (err) {
+      console.error(err);
+      setBroadcastErrorMsg('Network error deleting broadcast.');
     }
   };
 
@@ -313,24 +398,51 @@ export default function AdminPortalModal({ isOpen, onClose, isInline = false }: 
     }
   };
 
-  // Administrator Login Handler
+  // Administrator Login Handler (Master Admin: test@admin.com / Raisoni@admin)
   const handleAdminLogin = (e: React.FormEvent) => {
     e.preventDefault();
     setAdminError('');
 
+    const userClean = adminUsername.trim().toLowerCase();
+    const passClean = adminPassword.trim();
+
     if (
-      (adminUsername === 'admin' || adminUsername === 'admin@dishaa.edu') &&
-      adminPassword === 'admin123'
+      (userClean === 'test@admin.com' || userClean === 'admin') &&
+      passClean === 'Raisoni@admin'
     ) {
       setIsAuthenticated(true);
       setLoggedInUser({
         role: 'admin',
         name: 'System Administrator',
-        department: 'DISHAA System Core',
-        location: 'Main Server Control Room',
+        department: 'Campus Master Administration',
+        location: 'Main Administrative Office - Admin Wing',
+        email: 'test@admin.com',
       });
     } else {
-      setAdminError('Invalid Admin credentials. Try: admin / admin123');
+      setAdminError('Invalid Admin credentials! Use ID: test@admin.com & Password: Raisoni@admin');
+    }
+  };
+
+  // Delete Faculty Handler (Admin function to remove faculty entry from MongoDB Atlas)
+  const handleDeleteFaculty = async (facultyId?: string, facultyEmail?: string, facultyName?: string) => {
+    if (!confirm(`Are you sure you want to remove ${facultyName || 'this faculty member'} from MongoDB Atlas? This action cannot be undone.`)) {
+      return;
+    }
+
+    try {
+      const url = facultyId ? `/api/faculty?id=${facultyId}` : `/api/faculty?email=${encodeURIComponent(facultyEmail || '')}`;
+      const res = await fetch(url, { method: 'DELETE' });
+      const data = await res.json();
+
+      if (data.success) {
+        setSuccessMessage(`🗑️ ${facultyName || 'Faculty member'} entry removed successfully from MongoDB Atlas dishaadb.faculties!`);
+        setFacultyResults((prev) => prev.filter((f) => f._id !== facultyId && f.email !== facultyEmail));
+      } else {
+        setErrorMessage(data.error || 'Failed to delete faculty record.');
+      }
+    } catch (err) {
+      console.error(err);
+      setErrorMessage('Network error attempting to delete faculty.');
     }
   };
 
@@ -345,6 +457,11 @@ export default function AdminPortalModal({ isOpen, onClose, isInline = false }: 
   };
 
   const filteredFacultyList = facultyResults.filter((f) => {
+    // 1. Filter by Department Dropdown
+    const matchesDept = selectedDeptFilter === 'All Departments' || f.department === selectedDeptFilter;
+    if (!matchesDept) return false;
+
+    // 2. Filter by Search Query
     if (!searchFacultyQuery.trim()) return true;
     const q = searchFacultyQuery.toLowerCase();
     const locStr = f.sittingLocation ? `${f.sittingLocation.block} ${f.sittingLocation.floor} ${f.sittingLocation.roomNo}` : '';
@@ -352,6 +469,7 @@ export default function AdminPortalModal({ isOpen, onClose, isInline = false }: 
       f.name?.toLowerCase().includes(q) ||
       f.department?.toLowerCase().includes(q) ||
       f.designation?.toLowerCase().includes(q) ||
+      f.email?.toLowerCase().includes(q) ||
       locStr.toLowerCase().includes(q)
     );
   });
@@ -744,7 +862,7 @@ export default function AdminPortalModal({ isOpen, onClose, isInline = false }: 
 
                     <div className="space-y-1">
                       <label className="text-[11px] font-mono font-bold text-slate-700 dark:text-zinc-300 uppercase">
-                        Admin Username / Email
+                        Admin Email Address
                       </label>
                       <div className="relative">
                         <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -753,7 +871,7 @@ export default function AdminPortalModal({ isOpen, onClose, isInline = false }: 
                           required
                           value={adminUsername}
                           onChange={(e) => setAdminUsername(e.target.value)}
-                          placeholder="admin or admin@dishaa.edu"
+                          placeholder="test@admin.com"
                           className="w-full py-2 pl-9 pr-3 rounded-xl bg-slate-50 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 text-xs text-slate-900 dark:text-zinc-100 placeholder-slate-400 focus:outline-none focus:border-blue-600"
                         />
                       </div>
@@ -761,7 +879,7 @@ export default function AdminPortalModal({ isOpen, onClose, isInline = false }: 
 
                     <div className="space-y-1">
                       <label className="text-[11px] font-mono font-bold text-slate-700 dark:text-zinc-300 uppercase">
-                        Password
+                        Master Password
                       </label>
                       <div className="relative">
                         <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -787,12 +905,12 @@ export default function AdminPortalModal({ isOpen, onClose, isInline = false }: 
                       <button
                         type="button"
                         onClick={() => {
-                          setAdminUsername('admin');
-                          setAdminPassword('admin123');
+                          setAdminUsername('test@admin.com');
+                          setAdminPassword('Raisoni@admin');
                         }}
                         className="text-blue-600 hover:underline font-medium text-[11px]"
                       >
-                        ⚡ Fill Demo Admin Credentials
+                        ⚡ Fill Admin Credentials (test@admin.com / Raisoni@admin)
                       </button>
                     </div>
 
@@ -840,7 +958,9 @@ export default function AdminPortalModal({ isOpen, onClose, isInline = false }: 
                 </div>
 
                 {/* Dashboard Action Tabs */}
-                <div className="p-1 rounded-xl bg-slate-100 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 grid grid-cols-2 sm:grid-cols-4 gap-1">
+                <div className={`p-1 rounded-xl bg-slate-100 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 grid gap-1 ${
+                  loggedInUser?.role === 'admin' ? 'grid-cols-2 sm:grid-cols-5' : 'grid-cols-2 sm:grid-cols-4'
+                }`}>
                   <button
                     onClick={() => setDashboardTab('search-faculty')}
                     className={`py-2 px-2.5 rounded-lg font-semibold text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
@@ -852,6 +972,20 @@ export default function AdminPortalModal({ isOpen, onClose, isInline = false }: 
                     <Search className="w-3.5 h-3.5" />
                     <span>Faculty</span>
                   </button>
+
+                  {loggedInUser?.role === 'admin' && (
+                    <button
+                      onClick={() => setDashboardTab('broadcasts')}
+                      className={`py-2 px-2.5 rounded-lg font-semibold text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                        dashboardTab === 'broadcasts'
+                          ? 'bg-red-600 text-white shadow-xs'
+                          : 'text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30'
+                      }`}
+                    >
+                      <AlertCircle className="w-3.5 h-3.5" />
+                      <span>🚨 Broadcasts</span>
+                    </button>
+                  )}
 
                   <button
                     onClick={() => setDashboardTab('host-event')}
@@ -890,54 +1024,104 @@ export default function AdminPortalModal({ isOpen, onClose, isInline = false }: 
                   </button>
                 </div>
 
-                {/* 🔍 DASHBOARD TAB 1: SEARCH OTHER FACULTIES */}
+                {/* 🔍 DASHBOARD TAB 1: SEARCH & MANAGE FACULTY */}
                 {dashboardTab === 'search-faculty' && (
-                  <div className="space-y-4">
-                    <div className="relative">
-                      <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-cyan-400" />
-                      <input
-                        type="text"
-                        value={searchFacultyQuery}
-                        onChange={(e) => setSearchFacultyQuery(e.target.value)}
-                        placeholder="Search faculty by Name, Department, or Room No..."
-                        className="w-full py-3 pl-10 pr-4 rounded-2xl bg-slate-950 border border-white/15 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
-                      />
+                  <div className="space-y-3.5">
+                    {/* Filter & Search Bar */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      <div className="space-y-1">
+                        <label className="text-[10px] font-mono font-bold text-slate-500 dark:text-zinc-400 uppercase">
+                          Filter By Department
+                        </label>
+                        <select
+                          value={selectedDeptFilter}
+                          onChange={(e) => setSelectedDeptFilter(e.target.value)}
+                          className="w-full py-2 px-3 rounded-xl bg-white dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 text-xs text-slate-900 dark:text-zinc-100 focus:outline-none focus:border-blue-600"
+                        >
+                          <option value="All Departments">🏢 All Departments</option>
+                          {departments.map((d, i) => (
+                            <option key={i} value={d}>
+                              {d}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div className="space-y-1">
+                        <label className="text-[10px] font-mono font-bold text-slate-500 dark:text-zinc-400 uppercase">
+                          Search Faculty Name / Email / Room
+                        </label>
+                        <div className="relative">
+                          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                          <input
+                            type="text"
+                            value={searchFacultyQuery}
+                            onChange={(e) => setSearchFacultyQuery(e.target.value)}
+                            placeholder="Search by Name, Email, Room No..."
+                            className="w-full py-2 pl-9 pr-3 rounded-xl bg-white dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 text-xs text-slate-900 dark:text-zinc-100 placeholder-slate-400 focus:outline-none focus:border-blue-600"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between text-xs text-slate-500 dark:text-zinc-400 px-1 font-mono">
+                      <span>Showing {filteredFacultyList.length} faculty entries</span>
+                      {selectedDeptFilter !== 'All Departments' && (
+                        <span className="text-blue-600 dark:text-blue-400 font-bold">
+                          Filtered: {selectedDeptFilter}
+                        </span>
+                      )}
                     </div>
 
                     {isSearchingFaculty ? (
-                      <div className="py-12 text-center text-xs text-cyan-400 font-mono">
+                      <div className="py-10 text-center text-xs text-blue-600 font-mono">
                         Querying MongoDB Atlas faculty records...
                       </div>
                     ) : filteredFacultyList.length === 0 ? (
-                      <div className="py-12 text-center text-xs text-slate-400 glass-card rounded-2xl border border-white/10 p-6">
-                        No faculty members match your search query.
+                      <div className="py-10 text-center text-xs text-slate-500 bg-white dark:bg-zinc-800 rounded-xl border border-slate-200 dark:border-zinc-700 p-6">
+                        No faculty members match the selected department or query.
                       </div>
                     ) : (
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[350px] overflow-y-auto pr-1">
                         {filteredFacultyList.map((f, i) => (
                           <div
                             key={f._id || i}
-                            className="p-3.5 rounded-2xl glass-card border border-white/15 bg-slate-950/70 hover:border-cyan-400/40 transition-all space-y-1.5"
+                            className="p-3.5 rounded-xl bg-white dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 hover:border-blue-500/40 transition-all space-y-2 shadow-2xs"
                           >
-                            <div className="flex items-center justify-between">
-                              <h5 className="font-extrabold text-sm text-white">{f.name}</h5>
-                              <span className="px-2 py-0.5 rounded-full bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-[10px] font-mono">
+                            <div className="flex items-center justify-between gap-2">
+                              <h5 className="font-bold text-sm text-slate-900 dark:text-zinc-100">{f.name}</h5>
+                              <span className="px-2 py-0.5 rounded-md bg-blue-50 dark:bg-zinc-700 border border-blue-200 dark:border-zinc-600 text-blue-600 dark:text-blue-400 text-[10px] font-mono font-bold">
                                 {f.designation || 'Faculty'}
                               </span>
                             </div>
-                            <p className="text-xs text-slate-300 font-medium">{f.department}</p>
+                            <p className="text-xs text-slate-600 dark:text-zinc-400 font-medium">{f.department}</p>
                             {f.sittingLocation && (
-                              <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-mono pt-1 border-t border-white/10">
-                                <MapPin className="w-3.5 h-3.5 shrink-0" />
+                              <div className="flex items-center gap-1.5 text-xs text-slate-700 dark:text-zinc-300 font-mono pt-1 border-t border-slate-100 dark:border-zinc-700/60">
+                                <MapPin className="w-3.5 h-3.5 text-blue-600 shrink-0" />
                                 <span>
                                   {f.sittingLocation.block} &bull; Floor {f.sittingLocation.floor} &bull; {f.sittingLocation.roomNo}
                                 </span>
                               </div>
                             )}
                             {f.email && (
-                              <div className="flex items-center gap-1.5 text-[11px] text-slate-400 font-mono">
-                                <Mail className="w-3 h-3 text-cyan-400 shrink-0" />
+                              <div className="flex items-center gap-1.5 text-[11px] text-slate-500 font-mono">
+                                <Mail className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                                 <span>{f.email}</span>
+                              </div>
+                            )}
+
+                            {/* 🛡️ ADMIN ONLY: REMOVE / DELETE FACULTY FROM MONGO */}
+                            {loggedInUser?.role === 'admin' && (
+                              <div className="pt-2 border-t border-slate-100 dark:border-zinc-700 flex justify-end">
+                                <button
+                                  type="button"
+                                  onClick={() => handleDeleteFaculty(f._id, f.email, f.name)}
+                                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-50 hover:bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-300 text-xs font-bold border border-red-200 dark:border-red-800 transition-colors cursor-pointer"
+                                  title="Remove/Delete Faculty entry from MongoDB Atlas"
+                                >
+                                  <Trash2 className="w-3.5 h-3.5" />
+                                  <span>Remove / Delete Faculty</span>
+                                </button>
                               </div>
                             )}
                           </div>
@@ -947,7 +1131,135 @@ export default function AdminPortalModal({ isOpen, onClose, isInline = false }: 
                   </div>
                 )}
 
-                {/* 🎉 DASHBOARD TAB 2: HOST EVENT FORM */}
+                {/* 🚨 DASHBOARD TAB 2: EMERGENCY BROADCAST MANAGER (ADMIN ONLY) */}
+                {dashboardTab === 'broadcasts' && loggedInUser?.role === 'admin' && (
+                  <div className="space-y-4">
+                    <form onSubmit={handlePublishBroadcast} className="space-y-3 bg-white dark:bg-zinc-800 p-4 rounded-xl border border-slate-200 dark:border-zinc-700 shadow-2xs">
+                      <div className="flex items-center gap-2 text-xs font-bold text-red-600 dark:text-red-400">
+                        <AlertCircle className="w-4 h-4" />
+                        <span>Publish Campus Emergency Broadcast Banner</span>
+                      </div>
+
+                      {broadcastSuccessMsg && (
+                        <div className="p-3 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 text-xs font-semibold flex items-center gap-2">
+                          <CheckCircle2 className="w-4 h-4 shrink-0" />
+                          <span>{broadcastSuccessMsg}</span>
+                        </div>
+                      )}
+
+                      {broadcastErrorMsg && (
+                        <div className="p-3 rounded-lg bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 text-xs font-semibold flex items-center gap-2">
+                          <AlertCircle className="w-4 h-4 shrink-0" />
+                          <span>{broadcastErrorMsg}</span>
+                        </div>
+                      )}
+
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                        <div className="space-y-1 sm:col-span-2">
+                          <label className="text-[10px] font-mono font-bold text-slate-500 uppercase">
+                            Broadcast Title *
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            value={broadcastTitle}
+                            onChange={(e) => setBroadcastTitle(e.target.value)}
+                            placeholder="e.g. Rain Alert / Gate B Maintenance / Tech Fest Notice"
+                            className="w-full py-2 px-3 rounded-xl bg-slate-50 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 text-xs text-slate-900 dark:text-zinc-100 placeholder-slate-400 focus:outline-none focus:border-red-600"
+                          />
+                        </div>
+
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-mono font-bold text-slate-500 uppercase">
+                            Severity Level
+                          </label>
+                          <select
+                            value={broadcastSeverity}
+                            onChange={(e) => setBroadcastSeverity(e.target.value as any)}
+                            className="w-full py-2 px-2.5 rounded-xl bg-slate-50 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 text-xs text-slate-900 dark:text-zinc-100 font-bold focus:outline-none focus:border-red-600"
+                          >
+                            <option value="emergency">🚨 Emergency Alert</option>
+                            <option value="warning">⚠️ Campus Warning</option>
+                            <option value="announcement">📢 Announcement</option>
+                            <option value="info">ℹ️ General Info</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className="space-y-1">
+                        <label className="text-[10px] font-mono font-bold text-slate-500 uppercase">
+                          Message Body *
+                        </label>
+                        <textarea
+                          required
+                          rows={2}
+                          value={broadcastMessage}
+                          onChange={(e) => setBroadcastMessage(e.target.value)}
+                          placeholder="Describe the emergency instructions or notification for campus students & staff..."
+                          className="w-full py-2 px-3 rounded-xl bg-slate-50 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 text-xs text-slate-900 dark:text-zinc-100 placeholder-slate-400 focus:outline-none focus:border-red-600 resize-none"
+                        />
+                      </div>
+
+                      <button
+                        type="submit"
+                        disabled={isPublishingBroadcast}
+                        className="w-full py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs shadow-xs transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                      >
+                        <Megaphone className="w-4 h-4" />
+                        <span>{isPublishingBroadcast ? 'Publishing to MongoDB...' : 'Publish Broadcast Banner Live'}</span>
+                      </button>
+                    </form>
+
+                    {/* Active Broadcasts List */}
+                    <div className="space-y-2">
+                      <h5 className="text-xs font-mono font-bold text-slate-700 dark:text-zinc-300 uppercase">
+                        Active Emergency Broadcasts ({broadcastList.length})
+                      </h5>
+
+                      {loadingBroadcasts ? (
+                        <div className="py-6 text-center text-xs text-slate-400 font-mono">
+                          Loading active broadcasts from MongoDB...
+                        </div>
+                      ) : broadcastList.length === 0 ? (
+                        <div className="p-4 rounded-xl bg-white dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 text-center text-xs text-slate-500">
+                          No active emergency broadcasts right now.
+                        </div>
+                      ) : (
+                        <div className="space-y-2 max-h-[220px] overflow-y-auto pr-1">
+                          {broadcastList.map((b) => (
+                            <div
+                              key={b._id}
+                              className="p-3 rounded-xl bg-white dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 flex items-center justify-between gap-3 shadow-2xs"
+                            >
+                              <div className="space-y-1 min-w-0">
+                                <div className="flex items-center gap-2">
+                                  <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase ${
+                                    b.severity === 'emergency' ? 'bg-red-100 text-red-700 border border-red-300' : 'bg-amber-100 text-amber-800 border border-amber-300'
+                                  }`}>
+                                    {b.severity}
+                                  </span>
+                                  <h6 className="font-bold text-xs text-slate-900 dark:text-zinc-100 truncate">{b.title}</h6>
+                                </div>
+                                <p className="text-xs text-slate-600 dark:text-zinc-400 line-clamp-2">{b.message}</p>
+                              </div>
+
+                              <button
+                                type="button"
+                                onClick={() => handleDeleteBroadcast(b._id, b.title)}
+                                className="p-2 rounded-lg bg-red-50 hover:bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-300 transition-colors cursor-pointer shrink-0"
+                                title="Remove / Dismiss Broadcast"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* 🎉 DASHBOARD TAB 3: HOST EVENT FORM */}
                 {dashboardTab === 'host-event' && (
                   <form onSubmit={handleHostEvent} className="space-y-4">
                     <div className="p-3 rounded-2xl bg-emerald-950/30 border border-emerald-500/30 text-xs text-emerald-200 flex items-center gap-2">
