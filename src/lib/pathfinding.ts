@@ -2,7 +2,7 @@
 // Uses real OSM road data for road-following navigation
 
 import { roadNodes, roadEdges } from './roadNetwork';
-import { StepMilestone, CampusLocation, officialRoutePoints, OfficialRoutePoint } from './campusData';
+import { StepMilestone, CampusLocation, officialRoutePoints, OfficialRoutePoint, getNearestBuildingEntryPoint } from './campusData';
 
 // Build adjacency list from edges
 interface GraphEdge {
@@ -102,11 +102,28 @@ class MinHeap {
 }
 
 // A* pathfinding: returns ordered list of [lat, lon] coordinates along roads
+// Supports automatic nearest building entry point selection for Block A, B, C
 export function findRoute(
-  fromCoord: [number, number],
-  toCoord: [number, number]
+  fromLocOrCoord: CampusLocation | [number, number],
+  toLocOrCoord: CampusLocation | [number, number]
 ): { path: [number, number][]; distance: number; nodeCount: number } | null {
   buildGraph();
+
+  let fromCoord: [number, number];
+  let toCoord: [number, number];
+
+  if (Array.isArray(fromLocOrCoord)) {
+    fromCoord = fromLocOrCoord;
+  } else {
+    const targetRef = Array.isArray(toLocOrCoord) ? toLocOrCoord : toLocOrCoord.coords;
+    fromCoord = getNearestBuildingEntryPoint(fromLocOrCoord.name, targetRef);
+  }
+
+  if (Array.isArray(toLocOrCoord)) {
+    toCoord = toLocOrCoord;
+  } else {
+    toCoord = getNearestBuildingEntryPoint(toLocOrCoord.name, fromCoord);
+  }
 
   const startNode = findNearestNode(fromCoord);
   const endNode = findNearestNode(toCoord);
@@ -179,8 +196,12 @@ export function findRoute(
     }
   }
 
-  // No path found — fallback to direct line
-  return null;
+  // Fallback direct path
+  return {
+    path: [fromCoord, toCoord],
+    distance: haversine(fromCoord, toCoord),
+    nodeCount: 2,
+  };
 }
 
 // Get bearing direction between two coordinates
@@ -259,7 +280,8 @@ export function generateStepsFromRoute(
   return steps;
 }
 
-// Generate max 4 gamified milestone steps using the official 17 campus route points
+// Generate max 4 gamified milestone steps strictly along the active route path
+// SNAPS ALL STEP MILESTONE MARKERS DIRECTLY ONTO THE BLUE ROUTE PATH LINE
 export function generateMilestonesFromRoute(
   path: [number, number][],
   fromLoc: CampusLocation,
@@ -281,7 +303,7 @@ export function generateMilestonesFromRoute(
     };
   }
 
-  // Find candidate official route points that lie along or near the generated road path
+  // Find candidate mandatory route points that lie strictly within 35m of nodes along the calculated path
   const candidatePoints: { point: OfficialRoutePoint; pathIdx: number; distToPath: number }[] = [];
 
   for (const pt of officialRoutePoints) {
@@ -296,48 +318,60 @@ export function generateMilestonesFromRoute(
       }
     }
 
-    // Include point if within 50m of route path
-    if (minDist <= 50) {
+    // Must be within 35 meters of the path AND not at extreme ends of path
+    if (minDist <= 35 && bestIdx > 0 && bestIdx < path.length - 1) {
       candidatePoints.push({ point: pt, pathIdx: bestIdx, distToPath: minDist });
     }
   }
 
-  // Sort candidates chronologically along the route path
+  // Sort candidates strictly chronologically along the path
   candidatePoints.sort((a, b) => a.pathIdx - b.pathIdx);
 
-  // Filter out points too close to start or end or duplicate names
+  // Filter out duplicate or matching names
   const intermediateCandidates = candidatePoints.filter(
     (c) =>
       c.point.name.toLowerCase() !== fromLoc.name.toLowerCase() &&
       c.point.name.toLowerCase() !== toLoc.name.toLowerCase()
   );
 
-  // Pick at most 2 intermediate official route points
-  let selectedIntermediates: OfficialRoutePoint[] = [];
+  // Pick at most 2 intermediate mandatory route points strictly along the path
+  let selectedIntermediates: { point: OfficialRoutePoint; pathIdx: number }[] = [];
   if (intermediateCandidates.length === 1) {
-    selectedIntermediates = [intermediateCandidates[0].point];
+    selectedIntermediates = [intermediateCandidates[0]];
   } else if (intermediateCandidates.length >= 2) {
-    const p1 = intermediateCandidates[Math.floor((intermediateCandidates.length - 1) * 0.33)].point;
-    const p2 = intermediateCandidates[Math.floor((intermediateCandidates.length - 1) * 0.66)].point;
-    if (p1.pointId !== p2.pointId) {
-      selectedIntermediates = [p1, p2];
+    const idx1 = Math.floor((intermediateCandidates.length - 1) * 0.33);
+    const idx2 = Math.floor((intermediateCandidates.length - 1) * 0.66);
+    const c1 = intermediateCandidates[idx1];
+    const c2 = intermediateCandidates[idx2];
+    if (c1.point.pointId !== c2.point.pointId) {
+      selectedIntermediates = [c1, c2];
     } else {
-      selectedIntermediates = [p1];
+      selectedIntermediates = [c1];
     }
   }
 
-  // Build the 4 Milestones: Start, Intermediate 1, Intermediate 2, End
+  // Build 4 Milestones with coordinates SNAPPED STRICTLY TO THE BLUE ROUTE PATH LINE
   const walkTime = Math.max(1, Math.round(totalDistance / 80));
   const rawList: { name: string; coords: [number, number]; info: string; image: string; pointId?: number }[] = [
-    { name: fromLoc.name, coords: fromLoc.coords, info: fromLoc.description, image: fromLoc.image },
-    ...selectedIntermediates.map((pt) => ({
-      name: pt.name,
-      coords: pt.coords,
-      info: pt.info,
-      image: pt.image,
-      pointId: pt.pointId,
+    {
+      name: fromLoc.name,
+      coords: path[0], // Snapped to Start of Blue Path
+      info: fromLoc.description,
+      image: fromLoc.image,
+    },
+    ...selectedIntermediates.map((item) => ({
+      name: item.point.name,
+      coords: path[item.pathIdx], // Snapped to exact point on Blue Path line
+      info: item.point.info,
+      image: item.point.image,
+      pointId: item.point.pointId,
     })),
-    { name: toLoc.name, coords: toLoc.coords, info: toLoc.description, image: toLoc.image },
+    {
+      name: toLoc.name,
+      coords: path[path.length - 1], // Snapped to Destination End of Blue Path
+      info: toLoc.description,
+      image: toLoc.image,
+    },
   ];
 
   // Limit to at most 4 steps
@@ -352,14 +386,14 @@ export function generateMilestonesFromRoute(
       title = `Step ${idx + 1}: Arrived at ${pt.name}`;
       instruction = `Reach your destination ${pt.name}! (Total: ~${Math.round(totalDistance)}m, ~${walkTime} min walk).`;
     } else {
-      instruction = `Follow the campus path past Route Point ${pt.pointId ? '#' + pt.pointId : ''} (${pt.name}).`;
+      instruction = `Follow the campus path past ${pt.name} (Route Point ${pt.pointId ? '#' + pt.pointId : ''}).`;
     }
 
     return {
       stepNumber: idx + 1,
       title,
       instruction,
-      coords: pt.coords,
+      coords: pt.coords, // 100% ON THE BLUE ROUTE PATH LINE
       image: pt.image || '/college-front.jpg',
       pointId: pt.pointId,
     };

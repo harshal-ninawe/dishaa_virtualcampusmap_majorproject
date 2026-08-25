@@ -56,6 +56,7 @@ const createDirectionIcon = (color: string, label: string) => {
 
 const blockIcon = createCustomIcon('#3b82f6', 'block');
 const amenityIcon = createCustomIcon('#06b6d4', 'amenity');
+const canteenIcon = createCustomIcon('#f59e0b', 'canteen');
 const sportsIcon = createCustomIcon('#10b981', 'sports');
 const fromIcon = createDirectionIcon('#22c55e', 'from');
 const toIcon = createDirectionIcon('#ef4444', 'to');
@@ -380,8 +381,8 @@ export default function CampusMap({ isChatCollapsed, directions, pickingFor, onS
           {[
             { id: 'block', label: 'Blocks' },
             { id: 'amenity', label: 'Services' },
+            { id: 'canteen', label: 'Canteens' },
             { id: 'sports', label: 'Sports' },
-            { id: 'all', label: 'All Places' },
           ].map((f) => (
             <button
               key={f.id}
@@ -485,6 +486,8 @@ export default function CampusMap({ isChatCollapsed, directions, pickingFor, onS
                 ? toIcon
                 : loc.type === 'amenity'
                 ? amenityIcon
+                : loc.type === 'canteen'
+                ? canteenIcon
                 : loc.type === 'sports'
                 ? sportsIcon
                 : blockIcon;

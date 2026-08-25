@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import SplashScreen from '@/components/SplashScreen';
@@ -13,7 +13,7 @@ import InsideBlockModal from '@/components/InsideBlockModal';
 import AdminPortalModal from '@/components/AdminPortalModal';
 import EventsModal from '@/components/EventsModal';
 import FacultyFinderPanel from '@/components/FacultyFinderPanel';
-import { MapPin, Bot, Sun, Moon, ChevronRight, ChevronLeft, Layers, Sparkles } from 'lucide-react';
+import { MapPin, Bot, Sun, Moon, Sparkles } from 'lucide-react';
 import { useTheme } from '@/context/ThemeContext';
 import { DirectionsState, CampusLocation } from '@/lib/campusData';
 
@@ -39,7 +39,61 @@ export default function AppHome() {
   const [pickingFor, setPickingFor] = useState<'from' | 'to' | null>(null);
   const [mapPickedLocation, setMapPickedLocation] = useState<CampusLocation | null>(null);
 
+  // Draggable Left Panel Width (Desktop/Landscape boundary slider)
+  const [panelWidth, setPanelWidth] = useState(440); // default 440px width
+  const isDraggingHRef = useRef(false);
+
   const { theme, toggleTheme } = useTheme();
+
+  // Handle Horizontal Resize (Desktop Left Panel boundary)
+  const handleHMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    isDraggingHRef.current = true;
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+    document.addEventListener('mousemove', handleHMouseMove);
+    document.addEventListener('mouseup', handleHMouseUp);
+  };
+
+  const handleHMouseMove = (e: MouseEvent) => {
+    if (!isDraggingHRef.current) return;
+    const newWidth = e.clientX - 64; // Navbar is 64px wide
+    const minW = 320;
+    const maxW = Math.min(800, window.innerWidth - 350);
+    const clamped = Math.max(minW, Math.min(maxW, newWidth));
+    setPanelWidth(clamped);
+    window.dispatchEvent(new Event('resize'));
+  };
+
+  const handleHMouseUp = () => {
+    isDraggingHRef.current = false;
+    document.body.style.cursor = '';
+    document.body.style.userSelect = '';
+    document.removeEventListener('mousemove', handleHMouseMove);
+    document.removeEventListener('mouseup', handleHMouseUp);
+  };
+
+  const handleHTouchStart = () => {
+    isDraggingHRef.current = true;
+    document.addEventListener('touchmove', handleHTouchMove);
+    document.addEventListener('touchend', handleHTouchEnd);
+  };
+
+  const handleHTouchMove = (e: TouchEvent) => {
+    if (!isDraggingHRef.current || !e.touches[0]) return;
+    const newWidth = e.touches[0].clientX - 64;
+    const minW = 300;
+    const maxW = Math.min(800, window.innerWidth - 300);
+    const clamped = Math.max(minW, Math.min(maxW, newWidth));
+    setPanelWidth(clamped);
+    window.dispatchEvent(new Event('resize'));
+  };
+
+  const handleHTouchEnd = () => {
+    isDraggingHRef.current = false;
+    document.removeEventListener('touchmove', handleHTouchMove);
+    document.removeEventListener('touchend', handleHTouchEnd);
+  };
 
   return (
     <main className="relative min-h-screen w-full overflow-x-hidden bg-slate-50 dark:bg-zinc-950 font-sans text-slate-900 dark:text-zinc-100">
@@ -94,6 +148,73 @@ export default function AppHome() {
               onToggleChat={() => setIsChatCollapsed(!isChatCollapsed)}
             />
 
+            {/* Resizable Left Route Planner & Feature Panel */}
+            <div
+              id="mobile-feature-panel"
+              style={!isChatCollapsed ? { width: `${panelWidth}px` } : undefined}
+              className={`order-2 md:order-1 transition-all duration-75 ease-out shrink-0 border-t md:border-t-0 border-slate-200 dark:border-zinc-800 p-2 sm:p-2.5 ${
+                isChatCollapsed
+                  ? 'hidden md:hidden'
+                  : 'w-full block h-auto md:h-full min-h-[460px] md:min-h-0'
+              }`}
+            >
+              {activeTab === 'ai' && (
+                <AIChatWindow
+                  onToggleCollapse={() => setIsChatCollapsed(true)}
+                  onDirectionsChange={(state) => setDirections(state)}
+                  onPickOnMap={(mode) => setPickingFor(mode)}
+                  mapPickedLocation={mapPickedLocation}
+                  directionsState={directions}
+                />
+              )}
+
+              {activeTab === 'inside-block' && (
+                <InsideBlockModal
+                  isOpen={true}
+                  isInline={true}
+                  onClose={() => setIsChatCollapsed(true)}
+                />
+              )}
+
+              {activeTab === 'faculty' && (
+                <FacultyFinderPanel
+                  onClose={() => setIsChatCollapsed(true)}
+                />
+              )}
+
+              {activeTab === 'events' && (
+                <EventsModal
+                  isOpen={true}
+                  isInline={true}
+                  onClose={() => setIsChatCollapsed(true)}
+                />
+              )}
+
+              {activeTab === 'admin' && (
+                <AdminPortalModal
+                  isOpen={true}
+                  isInline={true}
+                  onClose={() => setIsChatCollapsed(true)}
+                />
+              )}
+            </div>
+
+            {/* Draggable Vertical Resizer Bar (Between Left Panel and Map workspace on PC/Landscape) */}
+            {!isChatCollapsed && (
+              <div
+                onMouseDown={handleHMouseDown}
+                onTouchStart={handleHTouchStart}
+                className="hidden md:flex order-1.5 w-3 h-full bg-slate-200/80 dark:bg-zinc-800/80 hover:bg-blue-600 dark:hover:bg-blue-600 cursor-col-resize items-center justify-center transition-colors shrink-0 group z-30 select-none border-x border-slate-300/60 dark:border-zinc-700/60 shadow-xs"
+                title="Drag left or right to resize Route Planner & Feature Panel boundary"
+              >
+                <div className="flex flex-col gap-1 items-center opacity-60 group-hover:opacity-100 transition-opacity">
+                  <span className="w-1 h-1 rounded-full bg-slate-600 dark:bg-zinc-400 group-hover:bg-white" />
+                  <span className="w-1 h-1 rounded-full bg-slate-600 dark:bg-zinc-400 group-hover:bg-white" />
+                  <span className="w-1 h-1 rounded-full bg-slate-600 dark:bg-zinc-400 group-hover:bg-white" />
+                </div>
+              </div>
+            )}
+
             {/* Main Campus Map Workspace (Top on Mobile Portrait, Right on PC/Landscape) */}
             <div className="order-1 md:order-2 flex flex-col h-[52vh] md:h-full w-full flex-1 min-w-0 overflow-hidden shrink-0 md:shrink">
               
@@ -145,56 +266,6 @@ export default function AppHome() {
 
             </div>
 
-            {/* Feature Panel (Below Map on Mobile Portrait, Left on PC/Landscape) */}
-            <div
-              id="mobile-feature-panel"
-              className={`order-2 md:order-1 transition-all duration-300 ease-in-out shrink-0 border-t md:border-t-0 md:border-r border-slate-200 dark:border-zinc-800 p-2 sm:p-2.5 ${
-                isChatCollapsed
-                  ? 'hidden md:hidden'
-                  : 'w-full md:w-[360px] lg:w-[400px] xl:w-[440px] block h-auto md:h-full min-h-[460px] md:min-h-0'
-              }`}
-            >
-              {activeTab === 'ai' && (
-                <AIChatWindow
-                  onToggleCollapse={() => setIsChatCollapsed(true)}
-                  onDirectionsChange={(state) => setDirections(state)}
-                  onPickOnMap={(mode) => setPickingFor(mode)}
-                  mapPickedLocation={mapPickedLocation}
-                  directionsState={directions}
-                />
-              )}
-
-              {activeTab === 'inside-block' && (
-                <InsideBlockModal
-                  isOpen={true}
-                  isInline={true}
-                  onClose={() => setIsChatCollapsed(true)}
-                />
-              )}
-
-              {activeTab === 'faculty' && (
-                <FacultyFinderPanel
-                  onClose={() => setIsChatCollapsed(true)}
-                />
-              )}
-
-              {activeTab === 'events' && (
-                <EventsModal
-                  isOpen={true}
-                  isInline={true}
-                  onClose={() => setIsChatCollapsed(true)}
-                />
-              )}
-
-              {activeTab === 'admin' && (
-                <AdminPortalModal
-                  isOpen={true}
-                  isInline={true}
-                  onClose={() => setIsChatCollapsed(true)}
-                />
-              )}
-            </div>
-
           </motion.div>
         )}
 
@@ -202,4 +273,3 @@ export default function AppHome() {
     </main>
   );
 }
-
