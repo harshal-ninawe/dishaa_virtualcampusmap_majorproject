@@ -4,13 +4,12 @@ import { ObjectId } from 'mongodb';
 
 // GET /api/events - Retrieve active non-expired campus events
 export async function GET(req: NextRequest) {
-  let client;
   try {
     const { searchParams } = new URL(req.url);
     const includeExpired = searchParams.get('includeExpired') === 'true';
     const facultyEmail = searchParams.get('facultyEmail');
 
-    client = await getMongoClient();
+    const client = await getMongoClient();
     const db = client.db('dishaadb');
     const collection = db.collection('events');
 
@@ -34,14 +33,11 @@ export async function GET(req: NextRequest) {
       { success: false, error: `Database Error: ${msg}` },
       { status: 500 }
     );
-  } finally {
-    if (client) await client.close();
   }
 }
 
 // POST /api/events - Host a new campus event (Created by Faculty)
 export async function POST(req: NextRequest) {
-  let client;
   try {
     const body = await req.json();
     const {
@@ -64,7 +60,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    client = await getMongoClient();
+    const client = await getMongoClient();
     const db = client.db('dishaadb');
     const collection = db.collection('events');
 
@@ -103,14 +99,11 @@ export async function POST(req: NextRequest) {
       { success: false, error: `Database Write Error: ${msg}` },
       { status: 500 }
     );
-  } finally {
-    if (client) await client.close();
   }
 }
 
 // DELETE /api/events?id=... - Delete event by ID
 export async function DELETE(req: NextRequest) {
-  let client;
   try {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get('id');
@@ -119,7 +112,7 @@ export async function DELETE(req: NextRequest) {
       return NextResponse.json({ success: false, error: 'Event ID is required' }, { status: 400 });
     }
 
-    client = await getMongoClient();
+    const client = await getMongoClient();
     const db = client.db('dishaadb');
     const collection = db.collection('events');
 
@@ -137,7 +130,5 @@ export async function DELETE(req: NextRequest) {
       { success: false, error: `Database Delete Error: ${msg}` },
       { status: 500 }
     );
-  } finally {
-    if (client) await client.close();
   }
 }

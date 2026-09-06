@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import SplashScreen from '@/components/SplashScreen';
@@ -15,7 +15,7 @@ import EventsModal from '@/components/EventsModal';
 import FacultyFinderPanel from '@/components/FacultyFinderPanel';
 import { MapPin, Bot, Sun, Moon, Sparkles } from 'lucide-react';
 import { useTheme } from '@/context/ThemeContext';
-import { DirectionsState, CampusLocation } from '@/lib/campusData';
+import { DirectionsState, CampusLocation, syncCloudinaryImages } from '@/lib/campusData';
 
 // Dynamic import for Leaflet Campus Map (Client-side rendering only)
 const CampusMap = dynamic(() => import('@/components/CampusMap'), {
@@ -29,6 +29,18 @@ const CampusMap = dynamic(() => import('@/components/CampusMap'), {
 });
 
 export default function AppHome() {
+  // Sync Cloudinary Image links from MongoDB images collection on load
+  useEffect(() => {
+    fetch('/api/images')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && Array.isArray(data.images)) {
+          syncCloudinaryImages(data.images);
+        }
+      })
+      .catch((err) => console.error('Failed to sync Cloudinary images:', err));
+  }, []);
+
   // Navigation Flow State: 'splash' -> 'welcome' -> 'home'
   const [stage, setStage] = useState<'splash' | 'welcome' | 'faculty-preview' | 'home'>('splash');
   const [activeTab, setActiveTab] = useState('ai');

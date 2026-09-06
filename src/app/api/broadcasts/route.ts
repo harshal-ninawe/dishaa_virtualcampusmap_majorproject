@@ -4,9 +4,8 @@ import { ObjectId } from 'mongodb';
 
 // GET /api/broadcasts - Retrieve active campus emergency broadcasts
 export async function GET(req: NextRequest) {
-  let client;
   try {
-    client = await getMongoClient();
+    const client = await getMongoClient();
     const db = client.db('dishaadb');
     const collection = db.collection('broadcasts');
 
@@ -24,14 +23,11 @@ export async function GET(req: NextRequest) {
       { success: false, error: `Database Error: ${msg}` },
       { status: 500 }
     );
-  } finally {
-    if (client) await client.close();
   }
 }
 
 // POST /api/broadcasts - Publish a new Emergency Broadcast Alert (Admin only)
 export async function POST(req: NextRequest) {
-  let client;
   try {
     const body = await req.json();
     const { title, message, severity = 'warning', createdBy = 'System Admin' } = body;
@@ -43,7 +39,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    client = await getMongoClient();
+    const client = await getMongoClient();
     const db = client.db('dishaadb');
     const collection = db.collection('broadcasts');
 
@@ -73,14 +69,11 @@ export async function POST(req: NextRequest) {
       { success: false, error: `Database Write Error: ${msg}` },
       { status: 500 }
     );
-  } finally {
-    if (client) await client.close();
   }
 }
 
 // DELETE /api/broadcasts?id=... - Remove/Dismiss a broadcast alert
 export async function DELETE(req: NextRequest) {
-  let client;
   try {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get('id');
@@ -92,7 +85,7 @@ export async function DELETE(req: NextRequest) {
       );
     }
 
-    client = await getMongoClient();
+    const client = await getMongoClient();
     const db = client.db('dishaadb');
     const collection = db.collection('broadcasts');
 
@@ -117,7 +110,5 @@ export async function DELETE(req: NextRequest) {
       { success: false, error: `Database Delete Error: ${msg}` },
       { status: 500 }
     );
-  } finally {
-    if (client) await client.close();
   }
 }

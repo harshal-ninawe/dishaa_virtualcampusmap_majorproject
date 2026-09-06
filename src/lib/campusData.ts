@@ -157,3 +157,37 @@ export interface DirectionsState {
   currentStepIndex: number;
   milestones: StepMilestone[];
 }
+
+// Sync dynamic Cloudinary image URLs fetched from MongoDB images collection
+export function syncCloudinaryImages(storedImages: Array<{ locationId: string; pointId?: number | null; imageUrl: string }>) {
+  if (!Array.isArray(storedImages)) return;
+
+  const imageMap = new Map<string, string>();
+  const pointMap = new Map<number, string>();
+
+  storedImages.forEach((item) => {
+    if (item.locationId && item.imageUrl) {
+      imageMap.set(item.locationId.toLowerCase(), item.imageUrl);
+    }
+    if (item.pointId !== undefined && item.pointId !== null && item.imageUrl) {
+      pointMap.set(Number(item.pointId), item.imageUrl);
+    }
+  });
+
+  // Update campusLocations
+  campusLocations.forEach((loc) => {
+    if (imageMap.has(loc.id.toLowerCase())) {
+      loc.image = imageMap.get(loc.id.toLowerCase())!;
+    }
+  });
+
+  // Update officialRoutePoints
+  officialRoutePoints.forEach((pt) => {
+    if (pointMap.has(pt.pointId)) {
+      pt.image = pointMap.get(pt.pointId)!;
+    } else if (imageMap.has(`point-${pt.pointId}`)) {
+      pt.image = imageMap.get(`point-${pt.pointId}`)!;
+    }
+  });
+}
+
