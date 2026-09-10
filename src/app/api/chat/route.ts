@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { DISHAA_SYSTEM_PROMPT, parseCampusQuery } from '@/lib/campusKnowledge';
 
+// Deploy on Vercel Node.js Runtime for fast serverless execution
+export const runtime = 'nodejs';
+
 export async function POST(req: NextRequest) {
   try {
     const { message } = await req.json();
@@ -15,47 +18,68 @@ export async function POST(req: NextRequest) {
     const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY;
     const fallbackResult = parseCampusQuery(message);
 
+    // Fast-Path Intent Recognition (Instant 0ms response for clear navigation queries)
+    const q = message.toLowerCase().trim();
+    const isNavigationQuery = (q.includes('from') && (q.includes('to') || q.includes('go to') || q.includes('reach'))) ||
+                              q.startsWith('how to go') || q.startsWith('how can i go');
+
+    if (isNavigationQuery && fallbackResult.actions && fallbackResult.actions.length > 0) {
+      return NextResponse.json({
+        success: true,
+        reply: fallbackResult.reply,
+        actions: fallbackResult.actions
+      });
+    }
+
     if (apiKey) {
-      try {
-        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-        const body = {
-          contents: [
-            {
-              role: 'user',
-              parts: [
-                {
-                  text: `${DISHAA_SYSTEM_PROMPT}\n\nUSER QUESTION:\n${message}\n\nPlease respond with clear, friendly, and structured Markdown guidance.`
-                }
-              ]
+      // Try high-speed Gemini 2.0 Flash first, fallback to 1.5 Flash if needed
+      const models = ['gemini-2.0-flash', 'gemini-1.5-flash'];
+
+      for (const modelName of models) {
+        try {
+          const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
+          const body = {
+            systemInstruction: {
+              parts: [{ text: `${DISHAA_SYSTEM_PROMPT}\n\nRespond with concise, friendly, and structured Markdown guidance under 120 words.` }]
+            },
+            contents: [
+              {
+                role: 'user',
+                parts: [{ text: message }]
+              }
+            ],
+            generationConfig: {
+              maxOutputTokens: 350,
+              temperature: 0.4
             }
-          ]
-        };
+          };
 
-        const res = await fetch(geminiUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body)
-        });
+          const res = await fetch(geminiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+          });
 
-        if (res.ok) {
-          const data = await res.json();
-          const candidateText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-          if (candidateText) {
-            return NextResponse.json({
-              success: true,
-              reply: candidateText,
-              actions: fallbackResult.actions || []
-            });
+          if (res.ok) {
+            const data = await res.json();
+            const candidateText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (candidateText) {
+              return NextResponse.json({
+                success: true,
+                reply: candidateText,
+                actions: fallbackResult.actions || []
+              });
+            }
+          } else {
+            console.warn(`Gemini model ${modelName} returned status ${res.status}, trying next fallback...`);
           }
-        } else {
-          console.warn('Gemini API response not OK, falling back to Campus Engine:', res.status, await res.text());
+        } catch (err) {
+          console.error(`Error with model ${modelName}:`, err);
         }
-      } catch (err) {
-        console.error('Error invoking Gemini API:', err);
       }
     }
 
-    // High-precision Campus Engine Fallback
+    // High-precision Campus Engine Fallback (Instant zero-latency response)
     return NextResponse.json({
       success: true,
       reply: fallbackResult.reply,
