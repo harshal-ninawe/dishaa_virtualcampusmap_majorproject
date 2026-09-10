@@ -101,45 +101,17 @@ class MinHeap {
   }
 }
 
-// A* pathfinding: returns ordered list of [lat, lon] coordinates along roads
-// Supports automatic nearest building entry point selection for Block A, B, C
-export function findRoute(
-  fromLocOrCoord: CampusLocation | [number, number],
-  toLocOrCoord: CampusLocation | [number, number]
-): { path: [number, number][]; distance: number; nodeCount: number } | null {
-  buildGraph();
+import { RouteOption } from './campusData';
 
-  let fromCoord: [number, number];
-  let toCoord: [number, number];
-
-  if (Array.isArray(fromLocOrCoord)) {
-    fromCoord = fromLocOrCoord;
-  } else {
-    const targetRef = Array.isArray(toLocOrCoord) ? toLocOrCoord : toLocOrCoord.coords;
-    fromCoord = getNearestBuildingEntryPoint(fromLocOrCoord.name, targetRef);
-  }
-
-  if (Array.isArray(toLocOrCoord)) {
-    toCoord = toLocOrCoord;
-  } else {
-    toCoord = getNearestBuildingEntryPoint(toLocOrCoord.name, fromCoord);
-  }
-
-  const startNode = findNearestNode(fromCoord);
-  const endNode = findNearestNode(toCoord);
-
-  if (startNode === -1 || endNode === -1) return null;
-  if (startNode === endNode) {
-    return {
-      path: [fromCoord, roadNodes[startNode], toCoord],
-      distance: haversine(fromCoord, toCoord),
-      nodeCount: 1,
-    };
-  }
-
+// Core A* pathfinding helper with optional penalized edge weights
+function runAStarSearch(
+  startNode: number,
+  endNode: number,
+  fromCoord: [number, number],
+  toCoord: [number, number],
+  penalizedEdges: Map<string, number> = new Map()
+): { path: [number, number][]; distance: number; nodePath: number[] } | null {
   const endCoord = roadNodes[endNode];
-
-  // A* algorithm
   const gScore: Record<number, number> = {};
   const fScore: Record<number, number> = {};
   const cameFrom: Record<number, number> = {};
@@ -156,7 +128,6 @@ export function findRoute(
     const currentNode = current.node;
 
     if (currentNode === endNode) {
-      // Reconstruct path
       const nodePath: number[] = [];
       let node = endNode;
       while (node !== undefined && node !== startNode) {
@@ -165,17 +136,22 @@ export function findRoute(
       }
       nodePath.unshift(startNode);
 
-      // Convert node IDs to coordinates, prepend fromCoord and append toCoord
       const coordPath: [number, number][] = [fromCoord];
       for (const nid of nodePath) {
         coordPath.push(roadNodes[nid]);
       }
       coordPath.push(toCoord);
 
+      // Compute actual geographical length along coordPath
+      let realDist = 0;
+      for (let i = 0; i < coordPath.length - 1; i++) {
+        realDist += haversine(coordPath[i], coordPath[i + 1]);
+      }
+
       return {
         path: coordPath,
-        distance: gScore[endNode],
-        nodeCount: nodePath.length,
+        distance: Math.round(realDist),
+        nodePath,
       };
     }
 
@@ -186,7 +162,12 @@ export function findRoute(
     for (const { neighbor, distance } of neighbors) {
       if (visited.has(neighbor)) continue;
 
-      const tentativeG = (gScore[currentNode] ?? Infinity) + distance;
+      const edgeKey1 = `${currentNode}-${neighbor}`;
+      const edgeKey2 = `${neighbor}-${currentNode}`;
+      const penalty = penalizedEdges.get(edgeKey1) || penalizedEdges.get(edgeKey2) || 0;
+
+      const edgeCost = distance + penalty;
+      const tentativeG = (gScore[currentNode] ?? Infinity) + edgeCost;
       if (tentativeG < (gScore[neighbor] ?? Infinity)) {
         cameFrom[neighbor] = currentNode;
         gScore[neighbor] = tentativeG;
@@ -196,12 +177,150 @@ export function findRoute(
     }
   }
 
-  // Fallback direct path
-  return {
-    path: [fromCoord, toCoord],
-    distance: haversine(fromCoord, toCoord),
-    nodeCount: 2,
-  };
+  return null;
+}
+
+// Find up to 3 distinct alternate routes between start and end location
+export function findMultipleRoutes(
+  fromLocOrCoord: CampusLocation | [number, number],
+  toLocOrCoord: CampusLocation | [number, number]
+): RouteOption[] {
+  buildGraph();
+
+  let fromName = 'Start Location';
+  let toName = 'Destination';
+  let fromCoord: [number, number];
+  let toCoord: [number, number];
+
+  if (Array.isArray(fromLocOrCoord)) {
+    fromCoord = fromLocOrCoord;
+  } else {
+    fromName = fromLocOrCoord.name;
+    const targetRef = Array.isArray(toLocOrCoord) ? toLocOrCoord : toLocOrCoord.coords;
+    fromCoord = getNearestBuildingEntryPoint(fromLocOrCoord.name, targetRef, fromLocOrCoord.coords);
+  }
+
+  if (Array.isArray(toLocOrCoord)) {
+    toCoord = toLocOrCoord;
+  } else {
+    toName = toLocOrCoord.name;
+    toCoord = getNearestBuildingEntryPoint(toLocOrCoord.name, fromCoord, toLocOrCoord.coords);
+  }
+
+  const startNode = findNearestNode(fromCoord);
+  const endNode = findNearestNode(toCoord);
+
+  if (startNode === -1 || endNode === -1) return [];
+
+  const fromLocObj: CampusLocation = Array.isArray(fromLocOrCoord) 
+    ? { id: 'start', coords: fromCoord, name: fromName, type: 'amenity', categoryLabel: 'Start Point', description: '', image: '/college-front.jpg' }
+    : fromLocOrCoord;
+
+  const toLocObj: CampusLocation = Array.isArray(toLocOrCoord)
+    ? { id: 'dest', coords: toCoord, name: toName, type: 'amenity', categoryLabel: 'Destination', description: '', image: '/college-front.jpg' }
+    : toLocOrCoord;
+
+  const routes: RouteOption[] = [];
+  const penalizedEdges = new Map<string, number>();
+
+  // Colors & Configuration for up to 3 routes
+  const routeConfigs = [
+    { id: 'route-1', name: 'Route 1 (Shortest Path)', color: '#2563eb', isShortest: true, penaltyAmount: 200 },
+    { id: 'route-2', name: 'Route 2 (Alternative Pathway)', color: '#8b5cf6', isShortest: false, penaltyAmount: 400 },
+    { id: 'route-3', name: 'Route 3 (Outer Pathway)', color: '#059669', isShortest: false, penaltyAmount: 800 },
+  ];
+
+  for (let i = 0; i < routeConfigs.length; i++) {
+    const config = routeConfigs[i];
+    const res = runAStarSearch(startNode, endNode, fromCoord, toCoord, penalizedEdges);
+    if (!res) break;
+
+    // Check uniqueness compared to existing routes
+    const isDuplicate = routes.some((existing) => {
+      if (Math.abs(existing.distance - res.distance) < 5) return true;
+      const currentNodes = new Set(res.nodePath);
+      const existingNodes = new Set(existing.nodePath);
+      let intersection = 0;
+      currentNodes.forEach((n) => { if (existingNodes.has(n)) intersection++; });
+      const overlap = intersection / Math.max(currentNodes.size, existingNodes.size);
+      return overlap > 0.85; // >85% node overlap considered duplicate
+    });
+
+    // Add penalty to edges in current path for next iteration
+    for (let k = 0; k < res.nodePath.length - 1; k++) {
+      const u = res.nodePath[k];
+      const v = res.nodePath[k + 1];
+      penalizedEdges.set(`${u}-${v}`, (penalizedEdges.get(`${u}-${v}`) || 0) + config.penaltyAmount);
+      penalizedEdges.set(`${v}-${u}`, (penalizedEdges.get(`${v}-${u}`) || 0) + config.penaltyAmount);
+    }
+
+    if (!isDuplicate || i === 0) {
+      const milestoneRes = generateMilestonesFromRoute(res.path, fromLocObj, toLocObj, res.distance);
+      routes.push({
+        id: config.id,
+        name: i === 0 ? `Shortest Route (${res.distance}m)` : `Alternative ${i + 1} (${res.distance}m)`,
+        path: res.path,
+        distance: res.distance,
+        steps: milestoneRes.steps,
+        milestones: milestoneRes.milestones,
+        isShortest: config.isShortest,
+        color: config.color,
+        nodePath: res.nodePath,
+      });
+    }
+  }
+
+  // Fallback single route if penalties yielded no distinct paths
+  if (routes.length === 0) {
+    const fallbackRes = runAStarSearch(startNode, endNode, fromCoord, toCoord);
+    if (fallbackRes) {
+      const milestoneRes = generateMilestonesFromRoute(fallbackRes.path, fromLocObj, toLocObj, fallbackRes.distance);
+      routes.push({
+        id: 'route-1',
+        name: `Shortest Route (${fallbackRes.distance}m)`,
+        path: fallbackRes.path,
+        distance: fallbackRes.distance,
+        steps: milestoneRes.steps,
+        milestones: milestoneRes.milestones,
+        isShortest: true,
+        color: '#2563eb',
+        nodePath: fallbackRes.nodePath,
+      });
+    } else {
+      const directPath: [number, number][] = [fromCoord, toCoord];
+      const dist = Math.round(haversine(fromCoord, toCoord));
+      const milestoneRes = generateMilestonesFromRoute(directPath, fromLocObj, toLocObj, dist);
+      routes.push({
+        id: 'route-1',
+        name: `Direct Route (${dist}m)`,
+        path: directPath,
+        distance: dist,
+        steps: milestoneRes.steps,
+        milestones: milestoneRes.milestones,
+        isShortest: true,
+        color: '#2563eb',
+        nodePath: [startNode, endNode],
+      });
+    }
+  }
+
+  return routes;
+}
+
+// A* pathfinding (single shortest route for backward compatibility)
+export function findRoute(
+  fromLocOrCoord: CampusLocation | [number, number],
+  toLocOrCoord: CampusLocation | [number, number]
+): { path: [number, number][]; distance: number; nodeCount: number } | null {
+  const routes = findMultipleRoutes(fromLocOrCoord, toLocOrCoord);
+  if (routes.length > 0) {
+    return {
+      path: routes[0].path,
+      distance: routes[0].distance,
+      nodeCount: routes[0].path.length,
+    };
+  }
+  return null;
 }
 
 // Get bearing direction between two coordinates

@@ -1,0 +1,707 @@
+[
+  {
+    "file": "a_block_label_176_811.png",
+    "room": "017 ClassRoom",
+    "objPos": {
+      "x": 234.1,
+      "z": 261.6
+    },
+    "bestDoor": {
+      "objX": 488.3,
+      "objZ": 308.4,
+      "imgX": 1580,
+      "imgY": 965,
+      "dist": 258
+    }
+  },
+  {
+    "file": "a_block_label_175_810.png",
+    "room": "016 Physics Lab",
+    "objPos": {
+      "x": 241.1,
+      "z": 442.4
+    },
+    "bestDoor": {
+      "objX": 482.1,
+      "objZ": 437.9,
+      "imgX": 1560,
+      "imgY": 1370,
+      "dist": 241
+    }
+  },
+  {
+    "file": "a_block_label_174_809.png",
+    "room": "015 Classroom",
+    "objPos": {
+      "x": 244.5,
+      "z": 626.2
+    },
+    "bestDoor": {
+      "objX": 487.9,
+      "objZ": 629.2,
+      "imgX": 1579,
+      "imgY": 1969,
+      "dist": 243
+    }
+  },
+  {
+    "file": "a_block_label_173_808.png",
+    "room": "014 Digital Electronics Lab",
+    "objPos": {
+      "x": 255,
+      "z": 1142.1
+    },
+    "bestDoor": {
+      "objX": 495,
+      "objZ": 1142.3,
+      "imgX": 1602,
+      "imgY": 3574,
+      "dist": 240
+    }
+  },
+  {
+    "file": "a_block_label_172_807.png",
+    "room": "013 Chemistry Lab",
+    "objPos": {
+      "x": 255,
+      "z": 1394.6
+    },
+    "bestDoor": {
+      "objX": 482.1,
+      "objZ": 1377.5,
+      "imgX": 1560,
+      "imgY": 4310,
+      "dist": 228
+    }
+  },
+  {
+    "file": "a_block_label_177_812.png",
+    "room": "020 Classroom",
+    "objPos": {
+      "x": 713.9,
+      "z": 608.8
+    },
+    "bestDoor": {
+      "objX": 763.3,
+      "objZ": 616.9,
+      "imgX": 2470,
+      "imgY": 1930,
+      "dist": 50
+    }
+  },
+  {
+    "file": "a_block_label_169_804.png",
+    "room": "010 Computer Lab",
+    "objPos": {
+      "x": 717.4,
+      "z": 1100.1
+    },
+    "bestDoor": {
+      "objX": 781.8,
+      "objZ": 1102.7,
+      "imgX": 2530,
+      "imgY": 3450,
+      "dist": 64
+    }
+  },
+  {
+    "file": "a_block_label_171_806.png",
+    "room": "011",
+    "objPos": {
+      "x": 717.4,
+      "z": 1234.3
+    },
+    "bestDoor": {
+      "objX": 778.7,
+      "objZ": 1268.9,
+      "imgX": 2520,
+      "imgY": 3970,
+      "dist": 70
+    }
+  },
+  {
+    "file": "a_block_label_170_805.png",
+    "room": "012 Staff Room",
+    "objPos": {
+      "x": 724.4,
+      "z": 1385.1
+    },
+    "bestDoor": {
+      "objX": 756.1,
+      "objZ": 1376.5,
+      "imgX": 2447,
+      "imgY": 4307,
+      "dist": 33
+    }
+  },
+  {
+    "file": "a_block_label_179_814.png",
+    "room": "019 Fisheries Lab",
+    "objPos": {
+      "x": 731.3,
+      "z": 481.7
+    },
+    "bestDoor": {
+      "objX": 761.7,
+      "objZ": 477.8,
+      "imgX": 2465,
+      "imgY": 1495,
+      "dist": 31
+    }
+  },
+  {
+    "file": "a_block_label_178_813.png",
+    "room": "018 Biology Lab",
+    "objPos": {
+      "x": 731.3,
+      "z": 305.6
+    },
+    "bestDoor": {
+      "objX": 765.3,
+      "objZ": 394.7,
+      "imgX": 2477,
+      "imgY": 1235,
+      "dist": 95
+    }
+  },
+  {
+    "file": "a_block_label_168_803.png",
+    "room": "009(B) Womens Washroom",
+    "objPos": {
+      "x": 1091.6,
+      "z": 1265.5
+    },
+    "bestDoor": {
+      "objX": 1188.2,
+      "objZ": 1102.7,
+      "imgX": 3845,
+      "imgY": 3450,
+      "dist": 189
+    }
+  },
+  {
+    "file": "a_block_label_182_817.png",
+    "room": "021",
+    "objPos": {
+      "x": 1169.4,
+      "z": 570.7
+    },
+    "bestDoor": {
+      "objX": 1278.8,
+      "objZ": 679.2,
+      "imgX": 4138,
+      "imgY": 2125,
+      "dist": 154
+    }
+  },
+  {
+    "file": "a_block_label_167_802.png",
+    "room": "009(A) Mens Washroom",
+    "objPos": {
+      "x": 1251.7,
+      "z": 1198.2
+    },
+    "bestDoor": {
+      "objX": 1202.1,
+      "objZ": 1102.7,
+      "imgX": 3890,
+      "imgY": 3450,
+      "dist": 108
+    }
+  },
+  {
+    "file": "a_block_label_181_816.png",
+    "room": "022 Record Room",
+    "objPos": {
+      "x": 1475.4,
+      "z": 584.9
+    },
+    "bestDoor": {
+      "objX": 1585.6,
+      "objZ": 679.2,
+      "imgX": 5131,
+      "imgY": 2125,
+      "dist": 145
+    }
+  },
+  {
+    "file": "a_block_label_164_799.png",
+    "room": "006 Principal Cabin",
+    "objPos": {
+      "x": 1475.5,
+      "z": 1414.4
+    },
+    "bestDoor": {
+      "objX": 1502.8,
+      "objZ": 1422,
+      "imgX": 4863,
+      "imgY": 4449,
+      "dist": 28
+    }
+  },
+  {
+    "file": "a_block_label_165_800.png",
+    "room": "007 Faculty Room",
+    "objPos": {
+      "x": 1580.3,
+      "z": 1273.7
+    },
+    "bestDoor": {
+      "objX": 1600.3,
+      "objZ": 1262.5,
+      "imgX": 5179,
+      "imgY": 3950,
+      "dist": 23
+    }
+  },
+  {
+    "file": "a_block_label_166_801.png",
+    "room": "008 Staff Room",
+    "objPos": {
+      "x": 1591.7,
+      "z": 1102.7
+    },
+    "bestDoor": {
+      "objX": 1615.7,
+      "objZ": 1118.9,
+      "imgX": 5228,
+      "imgY": 3501,
+      "dist": 29
+    }
+  },
+  {
+    "file": "a_block_label_180_815.png",
+    "room": "Students Section",
+    "objPos": {
+      "x": 1711.8,
+      "z": 316.7
+    },
+    "bestDoor": {
+      "objX": 1791.3,
+      "objZ": 278.1,
+      "imgX": 5797,
+      "imgY": 870,
+      "dist": 88
+    }
+  },
+  {
+    "file": "a_block_label_208_843.png",
+    "room": "002 Server Room",
+    "objPos": {
+      "x": 1867.6,
+      "z": 1208.7
+    },
+    "bestDoor": {
+      "objX": 2094.5,
+      "objZ": 1238.5,
+      "imgX": 6778,
+      "imgY": 3875,
+      "dist": 229
+    }
+  },
+  {
+    "file": "a_block_label_162_797.png",
+    "room": "001 Server Room",
+    "objPos": {
+      "x": 1883.8,
+      "z": 1077.4
+    },
+    "bestDoor": {
+      "objX": 2096.7,
+      "objZ": 1121.8,
+      "imgX": 6785,
+      "imgY": 3510,
+      "dist": 217
+    }
+  },
+  {
+    "file": "a_block_label_163_798.png",
+    "room": "003,004,005 Store Room",
+    "objPos": {
+      "x": 1886.7,
+      "z": 1354.2
+    },
+    "bestDoor": {
+      "objX": 2094.5,
+      "objZ": 1238.5,
+      "imgX": 6778,
+      "imgY": 3875,
+      "dist": 238
+    }
+  },
+  {
+    "file": "a_block_label_207_842.png",
+    "room": "Reception Desk",
+    "objPos": {
+      "x": 2285.6,
+      "z": 1082.3
+    },
+    "bestDoor": {
+      "objX": 2351.6,
+      "objZ": 1081.9,
+      "imgX": 7610,
+      "imgY": 3385,
+      "dist": 66
+    }
+  },
+  {
+    "file": "a_block_label_206_841.png",
+    "room": "Xerox Centre",
+    "objPos": {
+      "x": 2292.3,
+      "z": 1340.6
+    },
+    "bestDoor": {
+      "objX": 2367.1,
+      "objZ": 1323.2,
+      "imgX": 7660,
+      "imgY": 4140,
+      "dist": 77
+    }
+  },
+  {
+    "file": "a_block_label_205_840.png",
+    "room": "Lift",
+    "objPos": {
+      "x": 2422.9,
+      "z": 1388.7
+    },
+    "bestDoor": {
+      "objX": 2466,
+      "objZ": 1398.3,
+      "imgX": 7980,
+      "imgY": 4375,
+      "dist": 44
+    }
+  },
+  {
+    "file": "a_block_label_200_835.png",
+    "room": "037",
+    "objPos": {
+      "x": 2769.7,
+      "z": 1036
+    },
+    "bestDoor": {
+      "objX": 2770.4,
+      "objZ": 1052.3,
+      "imgX": 8965,
+      "imgY": 3292,
+      "dist": 16
+    }
+  },
+  {
+    "file": "a_block_label_201_836.png",
+    "room": "038",
+    "objPos": {
+      "x": 2770.1,
+      "z": 1105.2
+    },
+    "bestDoor": {
+      "objX": 2766.5,
+      "objZ": 1081.1,
+      "imgX": 8952,
+      "imgY": 3382,
+      "dist": 24
+    }
+  },
+  {
+    "file": "a_block_label_204_839.png",
+    "room": "041 Exam Section",
+    "objPos": {
+      "x": 2774,
+      "z": 1395
+    },
+    "bestDoor": {
+      "objX": 2769.8,
+      "objZ": 1415.4,
+      "imgX": 8963,
+      "imgY": 4428,
+      "dist": 21
+    }
+  },
+  {
+    "file": "a_block_label_202_837.png",
+    "room": "039 Medical Room",
+    "objPos": {
+      "x": 2775.5,
+      "z": 1221.5
+    },
+    "bestDoor": {
+      "objX": 2775.8,
+      "objZ": 1210.5,
+      "imgX": 8982,
+      "imgY": 3788,
+      "dist": 11
+    }
+  },
+  {
+    "file": "a_block_label_203_838.png",
+    "room": "040 Faculty Room",
+    "objPos": {
+      "x": 2779.5,
+      "z": 1312.1
+    },
+    "bestDoor": {
+      "objX": 2780.6,
+      "objZ": 1330.2,
+      "imgX": 8998,
+      "imgY": 4162,
+      "dist": 18
+    }
+  },
+  {
+    "file": "a_block_label_198_833.png",
+    "room": "036 Lab",
+    "objPos": {
+      "x": 3022.6,
+      "z": 1103.4
+    },
+    "bestDoor": {
+      "objX": 2975.9,
+      "objZ": 1148.5,
+      "imgX": 9630,
+      "imgY": 3593,
+      "dist": 65
+    }
+  },
+  {
+    "file": "a_block_label_199_834.png",
+    "room": "035 Machine Lab",
+    "objPos": {
+      "x": 3074.8,
+      "z": 1353.3
+    },
+    "bestDoor": {
+      "objX": 2994.4,
+      "objZ": 1350.9,
+      "imgX": 9690,
+      "imgY": 4227,
+      "dist": 80
+    }
+  },
+  {
+    "file": "a_block_label_183_818.png",
+    "room": "Accounts Section",
+    "objPos": {
+      "x": 3161.7,
+      "z": 315.8
+    },
+    "bestDoor": {
+      "objX": 2990.3,
+      "objZ": 284.5,
+      "imgX": 9677,
+      "imgY": 890,
+      "dist": 174
+    }
+  },
+  {
+    "file": "a_block_label_185_820.png",
+    "room": "034 Classroom",
+    "objPos": {
+      "x": 3193,
+      "z": 549.7
+    },
+    "bestDoor": {
+      "objX": 3241.6,
+      "objZ": 650.4,
+      "imgX": 10490,
+      "imgY": 2035,
+      "dist": 112
+    }
+  },
+  {
+    "file": "a_block_label_197_832.png",
+    "room": "034(B) Mens Washroom",
+    "objPos": {
+      "x": 3343.1,
+      "z": 1220.5
+    },
+    "bestDoor": {
+      "objX": 3363.7,
+      "objZ": 1129.8,
+      "imgX": 10885,
+      "imgY": 3535,
+      "dist": 93
+    }
+  },
+  {
+    "file": "a_block_label_184_819.png",
+    "room": "035 T&P Cell",
+    "objPos": {
+      "x": 3439.8,
+      "z": 573.9
+    },
+    "bestDoor": {
+      "objX": 3482.1,
+      "objZ": 670.1,
+      "imgX": 11268,
+      "imgY": 2097,
+      "dist": 105
+    }
+  },
+  {
+    "file": "a_block_label_196_831.png",
+    "room": "034(A) Ladies Washroom",
+    "objPos": {
+      "x": 3499.6,
+      "z": 1237.9
+    },
+    "bestDoor": {
+      "objX": 3505.3,
+      "objZ": 1140,
+      "imgX": 11343,
+      "imgY": 3567,
+      "dist": 98
+    }
+  },
+  {
+    "file": "a_block_label_186_821.png",
+    "room": "026 Computer Room",
+    "objPos": {
+      "x": 3850.1,
+      "z": 566.4
+    },
+    "bestDoor": {
+      "objX": 3967.8,
+      "objZ": 581.7,
+      "imgX": 12840,
+      "imgY": 1820,
+      "dist": 119
+    }
+  },
+  {
+    "file": "a_block_label_187_822.png",
+    "room": "027 Anotomy Lab",
+    "objPos": {
+      "x": 3850.1,
+      "z": 308.8
+    },
+    "bestDoor": {
+      "objX": 3973.2,
+      "objZ": 413.9,
+      "imgX": 12858,
+      "imgY": 1295,
+      "dist": 162
+    }
+  },
+  {
+    "file": "a_block_label_195_830.png",
+    "room": "033 Pharmaceutical Analysis",
+    "objPos": {
+      "x": 3864,
+      "z": 1091
+    },
+    "bestDoor": {
+      "objX": 3953.9,
+      "objZ": 1176.2,
+      "imgX": 12795,
+      "imgY": 3680,
+      "dist": 124
+    }
+  },
+  {
+    "file": "a_block_label_194_829.png",
+    "room": "032 Phama Chemistry Lab",
+    "objPos": {
+      "x": 3874.4,
+      "z": 1309.4
+    },
+    "bestDoor": {
+      "objX": 3953.4,
+      "objZ": 1282.7,
+      "imgX": 12793,
+      "imgY": 4013,
+      "dist": 83
+    }
+  },
+  {
+    "file": "a_block_label_188_823.png",
+    "room": "02(A) Faculty Room",
+    "objPos": {
+      "x": 4097,
+      "z": 266.7
+    },
+    "bestDoor": {
+      "objX": 4155.8,
+      "objZ": 282.9,
+      "imgX": 13448,
+      "imgY": 885,
+      "dist": 61
+    }
+  },
+  {
+    "file": "a_block_label_193_828.png",
+    "room": "031(A) Aseptic Room",
+    "objPos": {
+      "x": 4107.4,
+      "z": 1380.7
+    },
+    "bestDoor": {
+      "objX": 4159.4,
+      "objZ": 1390.3,
+      "imgX": 13460,
+      "imgY": 4350,
+      "dist": 53
+    }
+  },
+  {
+    "file": "a_block_label_190_825.png",
+    "room": "029 Social Pharmacy",
+    "objPos": {
+      "x": 4329.9,
+      "z": 566.4
+    },
+    "bestDoor": {
+      "objX": 4250.1,
+      "objZ": 575.3,
+      "imgX": 13753,
+      "imgY": 1800,
+      "dist": 80
+    }
+  },
+  {
+    "file": "a_block_label_192_827.png",
+    "room": "031 Pharmacology Lab",
+    "objPos": {
+      "x": 4343.8,
+      "z": 1305.6
+    },
+    "bestDoor": {
+      "objX": 4262.9,
+      "objZ": 1294.4,
+      "imgX": 13795,
+      "imgY": 4050,
+      "dist": 82
+    }
+  },
+  {
+    "file": "a_block_label_189_824.png",
+    "room": "028 Lab",
+    "objPos": {
+      "x": 4347.3,
+      "z": 302.6
+    },
+    "bestDoor": {
+      "objX": 4267.6,
+      "objZ": 425.1,
+      "imgX": 13810,
+      "imgY": 1330,
+      "dist": 146
+    }
+  },
+  {
+    "file": "a_block_label_191_826.png",
+    "room": "030 Pharmaceutical Lab",
+    "objPos": {
+      "x": 4361.2,
+      "z": 1098.4
+    },
+    "bestDoor": {
+      "objX": 4252.1,
+      "objZ": 1079.5,
+      "imgX": 13760,
+      "imgY": 3378,
+      "dist": 111
+    }
+  }
+]

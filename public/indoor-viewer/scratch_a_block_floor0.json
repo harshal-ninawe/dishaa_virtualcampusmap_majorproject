@@ -1,0 +1,1390 @@
+{
+  "name": "Ground Floor",
+  "level": "0th Floor",
+  "planImage": "./a block OG.jpg",
+  "planSize": {
+    "width": 4697.1,
+    "depth": 1539.9
+  },
+  "modelPath": "./a block.obj",
+  "mtlPath": "./a_block.mtl",
+  "rooms": [
+    {
+      "id": "017",
+      "name": "017 Classroom",
+      "category": "Classroom",
+      "labelGroup": "label_176_811"
+    },
+    {
+      "id": "016",
+      "name": "016 Physics Lab",
+      "category": "Lab",
+      "labelGroup": "label_175_810"
+    },
+    {
+      "id": "015",
+      "name": "015 Classroom",
+      "category": "Classroom",
+      "labelGroup": "label_174_809"
+    },
+    {
+      "id": "014",
+      "name": "014 Digital Electronics Lab",
+      "category": "Lab",
+      "labelGroup": "label_173_808"
+    },
+    {
+      "id": "013",
+      "name": "013 Chemistry Lab",
+      "category": "Lab",
+      "labelGroup": "label_172_807"
+    },
+    {
+      "id": "020",
+      "name": "020 Classroom",
+      "category": "Classroom",
+      "labelGroup": "label_177_812"
+    },
+    {
+      "id": "019",
+      "name": "019 Fisheries Lab",
+      "category": "Lab",
+      "labelGroup": "label_179_814"
+    },
+    {
+      "id": "018",
+      "name": "018 Biology Lab",
+      "category": "Lab",
+      "labelGroup": "label_178_813"
+    },
+    {
+      "id": "010",
+      "name": "010 Computer Lab",
+      "category": "Lab",
+      "labelGroup": "label_169_804"
+    },
+    {
+      "id": "011",
+      "name": "011 Lab",
+      "category": "Lab",
+      "labelGroup": "label_171_806"
+    },
+    {
+      "id": "012",
+      "name": "012 Staff Room",
+      "category": "Staff",
+      "labelGroup": "label_170_805"
+    },
+    {
+      "id": "021",
+      "name": "021 Faculty Room",
+      "category": "Faculty",
+      "labelGroup": "label_182_817"
+    },
+    {
+      "id": "022",
+      "name": "022 Record Room",
+      "category": "Faculty",
+      "labelGroup": "label_181_816"
+    },
+    {
+      "id": "009A",
+      "name": "009(A) Men's Washroom",
+      "category": "Washroom",
+      "labelGroup": "label_167_802"
+    },
+    {
+      "id": "009B",
+      "name": "009(B) Women's Washroom",
+      "category": "Washroom",
+      "labelGroup": "label_168_803"
+    },
+    {
+      "id": "008",
+      "name": "008 Staff Room",
+      "category": "Staff",
+      "labelGroup": "label_166_801"
+    },
+    {
+      "id": "007",
+      "name": "007 Faculty Room",
+      "category": "Faculty",
+      "labelGroup": "label_165_800"
+    },
+    {
+      "id": "006",
+      "name": "006 Principal Cabin",
+      "category": "Admin",
+      "labelGroup": "label_164_799"
+    },
+    {
+      "id": "students_sec",
+      "name": "Students Section",
+      "category": "Admin",
+      "labelGroup": "label_180_815"
+    },
+    {
+      "id": "accounts_sec",
+      "name": "Accounts Section",
+      "category": "Admin",
+      "labelGroup": "label_183_818"
+    },
+    {
+      "id": "001",
+      "name": "001 Server Room",
+      "category": "Service",
+      "labelGroup": "label_162_797"
+    },
+    {
+      "id": "002",
+      "name": "002 Server Room",
+      "category": "Service",
+      "labelGroup": "label_208_843"
+    },
+    {
+      "id": "003_store",
+      "name": "003,004,005 Store Room",
+      "category": "Service",
+      "labelGroup": "label_163_798"
+    },
+    {
+      "id": "reception",
+      "name": "Reception Desk",
+      "category": "Admin",
+      "labelGroup": "label_207_842"
+    },
+    {
+      "id": "xerox",
+      "name": "Xerox Centre",
+      "category": "Service",
+      "labelGroup": "label_206_841"
+    },
+    {
+      "id": "lift",
+      "name": "Elevator / Lift",
+      "category": "Service",
+      "labelGroup": "label_205_840"
+    },
+    {
+      "id": "037",
+      "name": "037 Faculty Room",
+      "category": "Faculty",
+      "labelGroup": "label_200_835"
+    },
+    {
+      "id": "038",
+      "name": "038 Faculty Room",
+      "category": "Faculty",
+      "labelGroup": "label_201_836"
+    },
+    {
+      "id": "039",
+      "name": "039 Medical Room",
+      "category": "Admin",
+      "labelGroup": "label_202_837"
+    },
+    {
+      "id": "040",
+      "name": "040 Faculty Room",
+      "category": "Faculty",
+      "labelGroup": "label_203_838"
+    },
+    {
+      "id": "041",
+      "name": "041 Exam Section",
+      "category": "Admin",
+      "labelGroup": "label_204_839"
+    },
+    {
+      "id": "036",
+      "name": "036 Lab",
+      "category": "Lab",
+      "labelGroup": "label_198_833"
+    },
+    {
+      "id": "035M",
+      "name": "035 Machine Lab",
+      "category": "Lab",
+      "labelGroup": "label_199_834"
+    },
+    {
+      "id": "034B",
+      "name": "034(B) Men's Washroom",
+      "category": "Washroom",
+      "labelGroup": "label_197_832"
+    },
+    {
+      "id": "034A",
+      "name": "034(A) Ladies Washroom",
+      "category": "Washroom",
+      "labelGroup": "label_196_831"
+    },
+    {
+      "id": "035TP",
+      "name": "035 T&P Cell",
+      "category": "Admin",
+      "labelGroup": "label_184_819"
+    },
+    {
+      "id": "034C",
+      "name": "034 Classroom",
+      "category": "Classroom",
+      "labelGroup": "label_185_820"
+    },
+    {
+      "id": "026",
+      "name": "026 Computer Room",
+      "category": "Lab",
+      "labelGroup": "label_186_821"
+    },
+    {
+      "id": "027",
+      "name": "027 Anatomy Lab",
+      "category": "Lab",
+      "labelGroup": "label_187_822"
+    },
+    {
+      "id": "028",
+      "name": "028 Lab",
+      "category": "Lab",
+      "labelGroup": "label_189_824"
+    },
+    {
+      "id": "02A",
+      "name": "02(A) Faculty Room",
+      "category": "Faculty",
+      "labelGroup": "label_188_823"
+    },
+    {
+      "id": "029",
+      "name": "029 Social Pharmacy",
+      "category": "Lab",
+      "labelGroup": "label_190_825"
+    },
+    {
+      "id": "030",
+      "name": "030 Pharmaceutical Lab",
+      "category": "Lab",
+      "labelGroup": "label_191_826"
+    },
+    {
+      "id": "031",
+      "name": "031 Pharmacology Lab",
+      "category": "Lab",
+      "labelGroup": "label_192_827"
+    },
+    {
+      "id": "031A",
+      "name": "031(A) Aseptic Room",
+      "category": "Lab",
+      "labelGroup": "label_193_828"
+    },
+    {
+      "id": "032",
+      "name": "032 Pharma Chemistry Lab",
+      "category": "Lab",
+      "labelGroup": "label_194_829"
+    },
+    {
+      "id": "033",
+      "name": "033 Pharmaceutical Analysis",
+      "category": "Lab",
+      "labelGroup": "label_195_830"
+    }
+  ],
+  "roomCoords": {
+    "017": {
+      "x": 234.1,
+      "z": 261.6
+    },
+    "016": {
+      "x": 241.1,
+      "z": 442.4
+    },
+    "015": {
+      "x": 244.5,
+      "z": 626.2
+    },
+    "014": {
+      "x": 255,
+      "z": 1142.1
+    },
+    "013": {
+      "x": 255,
+      "z": 1394.6
+    },
+    "020": {
+      "x": 713.9,
+      "z": 608.8
+    },
+    "019": {
+      "x": 731.3,
+      "z": 481.7
+    },
+    "018": {
+      "x": 731.3,
+      "z": 305.6
+    },
+    "010": {
+      "x": 717.4,
+      "z": 1100.1
+    },
+    "011": {
+      "x": 717.4,
+      "z": 1234.3
+    },
+    "012": {
+      "x": 724.4,
+      "z": 1385.1
+    },
+    "021": {
+      "x": 1169.4,
+      "z": 570.7
+    },
+    "022": {
+      "x": 1475.4,
+      "z": 584.9
+    },
+    "009A": {
+      "x": 1251.7,
+      "z": 1198.2
+    },
+    "009B": {
+      "x": 1091.6,
+      "z": 1265.5
+    },
+    "008": {
+      "x": 1591.7,
+      "z": 1102.7
+    },
+    "007": {
+      "x": 1580.3,
+      "z": 1273.7
+    },
+    "006": {
+      "x": 1475.5,
+      "z": 1414.4
+    },
+    "students_sec": {
+      "x": 1711.8,
+      "z": 316.7
+    },
+    "accounts_sec": {
+      "x": 3161.7,
+      "z": 315.8
+    },
+    "001": {
+      "x": 1883.8,
+      "z": 1077.4
+    },
+    "002": {
+      "x": 1867.6,
+      "z": 1208.7
+    },
+    "003_store": {
+      "x": 1886.7,
+      "z": 1354.2
+    },
+    "reception": {
+      "x": 2285.6,
+      "z": 1082.3
+    },
+    "xerox": {
+      "x": 2292.3,
+      "z": 1340.6
+    },
+    "lift": {
+      "x": 2422.9,
+      "z": 1388.7
+    },
+    "037": {
+      "x": 2769.7,
+      "z": 1036
+    },
+    "038": {
+      "x": 2770.1,
+      "z": 1105.2
+    },
+    "039": {
+      "x": 2775.5,
+      "z": 1221.5
+    },
+    "040": {
+      "x": 2779.5,
+      "z": 1312.1
+    },
+    "041": {
+      "x": 2774,
+      "z": 1395
+    },
+    "036": {
+      "x": 3022.6,
+      "z": 1103.4
+    },
+    "035M": {
+      "x": 3074.8,
+      "z": 1353.3
+    },
+    "034B": {
+      "x": 3343.1,
+      "z": 1220.5
+    },
+    "034A": {
+      "x": 3499.6,
+      "z": 1237.9
+    },
+    "035TP": {
+      "x": 3439.8,
+      "z": 573.9
+    },
+    "034C": {
+      "x": 3193,
+      "z": 549.7
+    },
+    "026": {
+      "x": 3850.1,
+      "z": 566.4
+    },
+    "027": {
+      "x": 3850.1,
+      "z": 308.8
+    },
+    "028": {
+      "x": 4347.3,
+      "z": 302.6
+    },
+    "02A": {
+      "x": 4097,
+      "z": 266.7
+    },
+    "029": {
+      "x": 4329.9,
+      "z": 566.4
+    },
+    "030": {
+      "x": 4361.2,
+      "z": 1098.4
+    },
+    "031": {
+      "x": 4343.8,
+      "z": 1305.6
+    },
+    "031A": {
+      "x": 4107.4,
+      "z": 1380.7
+    },
+    "032": {
+      "x": 3874.4,
+      "z": 1309.4
+    },
+    "033": {
+      "x": 3864,
+      "z": 1091
+    }
+  },
+  "graphNodes": {
+    "MAIN_W_ENTRY": {
+      "x": 380,
+      "z": 865
+    },
+    "MAIN_W_SPINE": {
+      "x": 627,
+      "z": 865
+    },
+    "MAIN_01": {
+      "x": 960,
+      "z": 865
+    },
+    "MAIN_02": {
+      "x": 1334,
+      "z": 865
+    },
+    "MAIN_ADMIN_SPINE": {
+      "x": 1500,
+      "z": 865
+    },
+    "MAIN_03": {
+      "x": 1800,
+      "z": 865
+    },
+    "MAIN_04": {
+      "x": 2137,
+      "z": 865
+    },
+    "MAIN_CENTRAL_ENTRY": {
+      "x": 2320,
+      "z": 865
+    },
+    "MAIN_CENTRAL_SPINE": {
+      "x": 2465,
+      "z": 865
+    },
+    "MAIN_EXAM_SPINE": {
+      "x": 2715,
+      "z": 865
+    },
+    "MAIN_05": {
+      "x": 2975,
+      "z": 865
+    },
+    "MAIN_06": {
+      "x": 3160,
+      "z": 865
+    },
+    "MAIN_07": {
+      "x": 3330,
+      "z": 865
+    },
+    "MAIN_08": {
+      "x": 3495,
+      "z": 865
+    },
+    "MAIN_09": {
+      "x": 3755,
+      "z": 865
+    },
+    "MAIN_10": {
+      "x": 3880,
+      "z": 865
+    },
+    "MAIN_E_SPINE": {
+      "x": 4105,
+      "z": 865
+    },
+    "MAIN_E_ENTRY": {
+      "x": 4360,
+      "z": 865
+    },
+    "W_N_END": {
+      "x": 627,
+      "z": 275
+    },
+    "W_N_01": {
+      "x": 627,
+      "z": 440
+    },
+    "W_N_02": {
+      "x": 627,
+      "z": 620
+    },
+    "W_S_01": {
+      "x": 627,
+      "z": 1110
+    },
+    "W_S_02": {
+      "x": 627,
+      "z": 1240
+    },
+    "W_S_END": {
+      "x": 627,
+      "z": 1380
+    },
+    "D_017": {
+      "x": 488,
+      "z": 308
+    },
+    "D_016": {
+      "x": 482,
+      "z": 438
+    },
+    "D_015": {
+      "x": 488,
+      "z": 629
+    },
+    "D_014": {
+      "x": 495,
+      "z": 1142
+    },
+    "D_013": {
+      "x": 482,
+      "z": 1378
+    },
+    "D_018": {
+      "x": 765,
+      "z": 395
+    },
+    "D_019": {
+      "x": 762,
+      "z": 478
+    },
+    "D_020": {
+      "x": 763,
+      "z": 617
+    },
+    "D_010": {
+      "x": 782,
+      "z": 1103
+    },
+    "D_011": {
+      "x": 779,
+      "z": 1269
+    },
+    "D_012": {
+      "x": 756,
+      "z": 1377
+    },
+    "CORR_FACULTY_N": {
+      "x": 1334,
+      "z": 680
+    },
+    "D_021": {
+      "x": 1279,
+      "z": 679
+    },
+    "D_022": {
+      "x": 1586,
+      "z": 679
+    },
+    "ADMIN_S_01": {
+      "x": 1500,
+      "z": 1110
+    },
+    "ADMIN_S_02": {
+      "x": 1500,
+      "z": 1265
+    },
+    "ADMIN_S_END": {
+      "x": 1500,
+      "z": 1420
+    },
+    "D_008": {
+      "x": 1616,
+      "z": 1119
+    },
+    "D_007": {
+      "x": 1600,
+      "z": 1263
+    },
+    "D_006": {
+      "x": 1503,
+      "z": 1422
+    },
+    "D_009A": {
+      "x": 1202,
+      "z": 1103
+    },
+    "D_009B": {
+      "x": 1188,
+      "z": 1103
+    },
+    "NORTH_COURT_W": {
+      "x": 1828,
+      "z": 150
+    },
+    "NORTH_COURT_MID_W": {
+      "x": 2256,
+      "z": 170
+    },
+    "NORTH_COURT_CTR": {
+      "x": 2465,
+      "z": 216
+    },
+    "NORTH_COURT_MID_E": {
+      "x": 2559,
+      "z": 153
+    },
+    "NORTH_COURT_E": {
+      "x": 2846,
+      "z": 144
+    },
+    "CTR_VERT_01": {
+      "x": 2465,
+      "z": 330
+    },
+    "CTR_VERT_02": {
+      "x": 2465,
+      "z": 475
+    },
+    "CTR_VERT_03": {
+      "x": 2465,
+      "z": 664
+    },
+    "D_STUDENTS_SEC": {
+      "x": 1791,
+      "z": 278
+    },
+    "D_ACCOUNTS_SEC": {
+      "x": 2990,
+      "z": 285
+    },
+    "FOYER_S_01": {
+      "x": 2360,
+      "z": 1082
+    },
+    "FOYER_S_02": {
+      "x": 2360,
+      "z": 1240
+    },
+    "FOYER_S_03": {
+      "x": 2360,
+      "z": 1323
+    },
+    "FOYER_S_END": {
+      "x": 2466,
+      "z": 1398
+    },
+    "D_RECEPTION": {
+      "x": 2352,
+      "z": 1082
+    },
+    "D_XEROX": {
+      "x": 2367,
+      "z": 1323
+    },
+    "D_LIFT": {
+      "x": 2466,
+      "z": 1398
+    },
+    "SERVER_SPUR": {
+      "x": 2095,
+      "z": 1238
+    },
+    "D_001": {
+      "x": 2097,
+      "z": 1122
+    },
+    "D_002": {
+      "x": 2095,
+      "z": 1238
+    },
+    "D_003_STORE": {
+      "x": 2095,
+      "z": 1238
+    },
+    "EXAM_S_01": {
+      "x": 2715,
+      "z": 1052
+    },
+    "EXAM_S_02": {
+      "x": 2715,
+      "z": 1148
+    },
+    "EXAM_S_03": {
+      "x": 2715,
+      "z": 1210
+    },
+    "EXAM_S_04": {
+      "x": 2715,
+      "z": 1330
+    },
+    "EXAM_S_END": {
+      "x": 2715,
+      "z": 1415
+    },
+    "D_037": {
+      "x": 2770,
+      "z": 1052
+    },
+    "D_038": {
+      "x": 2766,
+      "z": 1081
+    },
+    "D_039": {
+      "x": 2776,
+      "z": 1210
+    },
+    "D_040": {
+      "x": 2781,
+      "z": 1330
+    },
+    "D_041": {
+      "x": 2770,
+      "z": 1415
+    },
+    "LAB_BRANCH_01": {
+      "x": 2975,
+      "z": 1148
+    },
+    "LAB_BRANCH_02": {
+      "x": 2994,
+      "z": 1351
+    },
+    "D_036": {
+      "x": 2976,
+      "z": 1148
+    },
+    "D_035M": {
+      "x": 2994,
+      "z": 1351
+    },
+    "WASH_BRANCH_01": {
+      "x": 3360,
+      "z": 1130
+    },
+    "WASH_BRANCH_02": {
+      "x": 3505,
+      "z": 1140
+    },
+    "D_034B": {
+      "x": 3364,
+      "z": 1130
+    },
+    "D_034A": {
+      "x": 3505,
+      "z": 1140
+    },
+    "NE_CORR_01": {
+      "x": 3242,
+      "z": 650
+    },
+    "NE_CORR_02": {
+      "x": 3482,
+      "z": 670
+    },
+    "D_034C": {
+      "x": 3242,
+      "z": 650
+    },
+    "D_035TP": {
+      "x": 3482,
+      "z": 670
+    },
+    "E_N_01": {
+      "x": 4105,
+      "z": 744
+    },
+    "E_N_02": {
+      "x": 4105,
+      "z": 575
+    },
+    "E_N_03": {
+      "x": 4105,
+      "z": 425
+    },
+    "E_N_END": {
+      "x": 4105,
+      "z": 280
+    },
+    "D_026": {
+      "x": 3968,
+      "z": 582
+    },
+    "D_027": {
+      "x": 3973,
+      "z": 414
+    },
+    "D_02A": {
+      "x": 4156,
+      "z": 283
+    },
+    "D_028": {
+      "x": 4268,
+      "z": 425
+    },
+    "D_029": {
+      "x": 4250,
+      "z": 575
+    },
+    "E_S_01": {
+      "x": 4105,
+      "z": 1080
+    },
+    "E_S_02": {
+      "x": 4105,
+      "z": 1176
+    },
+    "E_S_03": {
+      "x": 4105,
+      "z": 1285
+    },
+    "E_S_END": {
+      "x": 4105,
+      "z": 1390
+    },
+    "D_030": {
+      "x": 4252,
+      "z": 1080
+    },
+    "D_033": {
+      "x": 3954,
+      "z": 1176
+    },
+    "D_032": {
+      "x": 3953,
+      "z": 1283
+    },
+    "D_031": {
+      "x": 4263,
+      "z": 1294
+    },
+    "D_031A": {
+      "x": 4159,
+      "z": 1390
+    }
+  },
+  "graphEdges": [
+    [
+      "MAIN_W_ENTRY",
+      "MAIN_W_SPINE"
+    ],
+    [
+      "MAIN_W_SPINE",
+      "MAIN_01"
+    ],
+    [
+      "MAIN_01",
+      "MAIN_02"
+    ],
+    [
+      "MAIN_02",
+      "MAIN_ADMIN_SPINE"
+    ],
+    [
+      "MAIN_ADMIN_SPINE",
+      "MAIN_03"
+    ],
+    [
+      "MAIN_03",
+      "MAIN_04"
+    ],
+    [
+      "MAIN_04",
+      "MAIN_CENTRAL_ENTRY"
+    ],
+    [
+      "MAIN_CENTRAL_ENTRY",
+      "MAIN_CENTRAL_SPINE"
+    ],
+    [
+      "MAIN_CENTRAL_SPINE",
+      "MAIN_EXAM_SPINE"
+    ],
+    [
+      "MAIN_EXAM_SPINE",
+      "MAIN_05"
+    ],
+    [
+      "MAIN_05",
+      "MAIN_06"
+    ],
+    [
+      "MAIN_06",
+      "MAIN_07"
+    ],
+    [
+      "MAIN_07",
+      "MAIN_08"
+    ],
+    [
+      "MAIN_08",
+      "MAIN_09"
+    ],
+    [
+      "MAIN_09",
+      "MAIN_10"
+    ],
+    [
+      "MAIN_10",
+      "MAIN_E_SPINE"
+    ],
+    [
+      "MAIN_E_SPINE",
+      "MAIN_E_ENTRY"
+    ],
+    [
+      "W_N_END",
+      "W_N_01"
+    ],
+    [
+      "W_N_01",
+      "W_N_02"
+    ],
+    [
+      "W_N_02",
+      "MAIN_W_SPINE"
+    ],
+    [
+      "MAIN_W_SPINE",
+      "W_S_01"
+    ],
+    [
+      "W_S_01",
+      "W_S_02"
+    ],
+    [
+      "W_S_02",
+      "W_S_END"
+    ],
+    [
+      "D_017",
+      "W_N_END"
+    ],
+    [
+      "D_018",
+      "W_N_END"
+    ],
+    [
+      "D_016",
+      "W_N_01"
+    ],
+    [
+      "D_019",
+      "W_N_01"
+    ],
+    [
+      "D_015",
+      "W_N_02"
+    ],
+    [
+      "D_020",
+      "W_N_02"
+    ],
+    [
+      "D_014",
+      "W_S_01"
+    ],
+    [
+      "D_010",
+      "W_S_01"
+    ],
+    [
+      "D_011",
+      "W_S_02"
+    ],
+    [
+      "D_013",
+      "W_S_END"
+    ],
+    [
+      "D_012",
+      "W_S_END"
+    ],
+    [
+      "MAIN_02",
+      "CORR_FACULTY_N"
+    ],
+    [
+      "CORR_FACULTY_N",
+      "D_021"
+    ],
+    [
+      "CORR_FACULTY_N",
+      "D_022"
+    ],
+    [
+      "MAIN_ADMIN_SPINE",
+      "ADMIN_S_01"
+    ],
+    [
+      "ADMIN_S_01",
+      "ADMIN_S_02"
+    ],
+    [
+      "ADMIN_S_02",
+      "ADMIN_S_END"
+    ],
+    [
+      "ADMIN_S_01",
+      "D_008"
+    ],
+    [
+      "ADMIN_S_01",
+      "D_009A"
+    ],
+    [
+      "ADMIN_S_01",
+      "D_009B"
+    ],
+    [
+      "ADMIN_S_02",
+      "D_007"
+    ],
+    [
+      "ADMIN_S_END",
+      "D_006"
+    ],
+    [
+      "NORTH_COURT_W",
+      "NORTH_COURT_MID_W"
+    ],
+    [
+      "NORTH_COURT_MID_W",
+      "NORTH_COURT_CTR"
+    ],
+    [
+      "NORTH_COURT_CTR",
+      "NORTH_COURT_MID_E"
+    ],
+    [
+      "NORTH_COURT_MID_E",
+      "NORTH_COURT_E"
+    ],
+    [
+      "NORTH_COURT_W",
+      "D_STUDENTS_SEC"
+    ],
+    [
+      "NORTH_COURT_E",
+      "D_ACCOUNTS_SEC"
+    ],
+    [
+      "NORTH_COURT_CTR",
+      "CTR_VERT_01"
+    ],
+    [
+      "CTR_VERT_01",
+      "CTR_VERT_02"
+    ],
+    [
+      "CTR_VERT_02",
+      "CTR_VERT_03"
+    ],
+    [
+      "CTR_VERT_03",
+      "MAIN_CENTRAL_SPINE"
+    ],
+    [
+      "MAIN_CENTRAL_ENTRY",
+      "FOYER_S_01"
+    ],
+    [
+      "FOYER_S_01",
+      "FOYER_S_02"
+    ],
+    [
+      "FOYER_S_02",
+      "FOYER_S_03"
+    ],
+    [
+      "FOYER_S_03",
+      "FOYER_S_END"
+    ],
+    [
+      "FOYER_S_01",
+      "D_RECEPTION"
+    ],
+    [
+      "FOYER_S_03",
+      "D_XEROX"
+    ],
+    [
+      "FOYER_S_END",
+      "D_LIFT"
+    ],
+    [
+      "FOYER_S_02",
+      "SERVER_SPUR"
+    ],
+    [
+      "SERVER_SPUR",
+      "D_001"
+    ],
+    [
+      "SERVER_SPUR",
+      "D_002"
+    ],
+    [
+      "SERVER_SPUR",
+      "D_003_STORE"
+    ],
+    [
+      "MAIN_EXAM_SPINE",
+      "EXAM_S_01"
+    ],
+    [
+      "EXAM_S_01",
+      "EXAM_S_02"
+    ],
+    [
+      "EXAM_S_02",
+      "EXAM_S_03"
+    ],
+    [
+      "EXAM_S_03",
+      "EXAM_S_04"
+    ],
+    [
+      "EXAM_S_04",
+      "EXAM_S_END"
+    ],
+    [
+      "EXAM_S_01",
+      "D_037"
+    ],
+    [
+      "EXAM_S_01",
+      "D_038"
+    ],
+    [
+      "EXAM_S_03",
+      "D_039"
+    ],
+    [
+      "EXAM_S_04",
+      "D_040"
+    ],
+    [
+      "EXAM_S_END",
+      "D_041"
+    ],
+    [
+      "EXAM_S_02",
+      "LAB_BRANCH_01"
+    ],
+    [
+      "LAB_BRANCH_01",
+      "LAB_BRANCH_02"
+    ],
+    [
+      "LAB_BRANCH_01",
+      "D_036"
+    ],
+    [
+      "LAB_BRANCH_02",
+      "D_035M"
+    ],
+    [
+      "MAIN_07",
+      "WASH_BRANCH_01"
+    ],
+    [
+      "MAIN_08",
+      "WASH_BRANCH_02"
+    ],
+    [
+      "WASH_BRANCH_01",
+      "D_034B"
+    ],
+    [
+      "WASH_BRANCH_02",
+      "D_034A"
+    ],
+    [
+      "MAIN_06",
+      "NE_CORR_01"
+    ],
+    [
+      "MAIN_08",
+      "NE_CORR_02"
+    ],
+    [
+      "NE_CORR_01",
+      "D_034C"
+    ],
+    [
+      "NE_CORR_02",
+      "D_035TP"
+    ],
+    [
+      "MAIN_E_SPINE",
+      "E_N_01"
+    ],
+    [
+      "E_N_01",
+      "E_N_02"
+    ],
+    [
+      "E_N_02",
+      "E_N_03"
+    ],
+    [
+      "E_N_03",
+      "E_N_END"
+    ],
+    [
+      "E_N_02",
+      "D_026"
+    ],
+    [
+      "E_N_03",
+      "D_027"
+    ],
+    [
+      "E_N_03",
+      "D_028"
+    ],
+    [
+      "E_N_02",
+      "D_029"
+    ],
+    [
+      "E_N_END",
+      "D_02A"
+    ],
+    [
+      "MAIN_E_SPINE",
+      "E_S_01"
+    ],
+    [
+      "E_S_01",
+      "E_S_02"
+    ],
+    [
+      "E_S_02",
+      "E_S_03"
+    ],
+    [
+      "E_S_03",
+      "E_S_END"
+    ],
+    [
+      "E_S_01",
+      "D_030"
+    ],
+    [
+      "E_S_02",
+      "D_033"
+    ],
+    [
+      "E_S_03",
+      "D_032"
+    ],
+    [
+      "E_S_03",
+      "D_031"
+    ],
+    [
+      "E_S_END",
+      "D_031A"
+    ]
+  ],
+  "roomToNode": {
+    "017": "D_017",
+    "016": "D_016",
+    "015": "D_015",
+    "014": "D_014",
+    "013": "D_013",
+    "020": "D_020",
+    "019": "D_019",
+    "018": "D_018",
+    "010": "D_010",
+    "011": "D_011",
+    "012": "D_012",
+    "021": "D_021",
+    "022": "D_022",
+    "009A": "D_009A",
+    "009B": "D_009B",
+    "008": "D_008",
+    "007": "D_007",
+    "006": "D_006",
+    "students_sec": "D_STUDENTS_SEC",
+    "accounts_sec": "D_ACCOUNTS_SEC",
+    "001": "D_001",
+    "002": "D_002",
+    "003_store": "D_003_STORE",
+    "reception": "D_RECEPTION",
+    "xerox": "D_XEROX",
+    "lift": "D_LIFT",
+    "037": "D_037",
+    "038": "D_038",
+    "039": "D_039",
+    "040": "D_040",
+    "041": "D_041",
+    "036": "D_036",
+    "035M": "D_035M",
+    "034B": "D_034B",
+    "034A": "D_034A",
+    "035TP": "D_035TP",
+    "034C": "D_034C",
+    "026": "D_026",
+    "027": "D_027",
+    "028": "D_028",
+    "02A": "D_02A",
+    "029": "D_029",
+    "030": "D_030",
+    "031": "D_031",
+    "031A": "D_031A",
+    "032": "D_032",
+    "033": "D_033"
+  }
+}

@@ -51,6 +51,10 @@ export default function AppHome() {
   const [pickingFor, setPickingFor] = useState<'from' | 'to' | null>(null);
   const [mapPickedLocation, setMapPickedLocation] = useState<CampusLocation | null>(null);
 
+  // Indoor Target Floor Map State (from AI Chat triggers)
+  const [indoorTargetBlock, setIndoorTargetBlock] = useState<'BLOCK A' | 'BLOCK B' | 'BLOCK C'>('BLOCK B');
+  const [indoorTargetFloor, setIndoorTargetFloor] = useState<number>(4);
+
   // Draggable Left Panel Width (Desktop/Landscape boundary slider)
   const [panelWidth, setPanelWidth] = useState(440); // default 440px width
   const isDraggingHRef = useRef(false);
@@ -152,10 +156,18 @@ export default function AppHome() {
             <BottomNavbar
               activeTab={activeTab}
               setActiveTab={(tab) => {
+                if (tab !== activeTab && directions.isActive) {
+                  setDirections({ isActive: false } as DirectionsState);
+                }
                 setActiveTab(tab);
                 setIsChatCollapsed(false); // Open Left Feature Panel for selected option
               }}
-              onGoWelcome={() => setStage('welcome')}
+              onGoWelcome={() => {
+                if (directions.isActive) {
+                  setDirections({ isActive: false } as DirectionsState);
+                }
+                setStage('welcome');
+              }}
               isChatOpen={!isChatCollapsed}
               onToggleChat={() => setIsChatCollapsed(!isChatCollapsed)}
             />
@@ -177,6 +189,20 @@ export default function AppHome() {
                   onPickOnMap={(mode) => setPickingFor(mode)}
                   mapPickedLocation={mapPickedLocation}
                   directionsState={directions}
+                  onSwitchTab={(tab) => {
+                    setActiveTab(tab);
+                    setIsChatCollapsed(false);
+                  }}
+                  onOpenIndoorViewer={(block, floor) => {
+                    if (block) setIndoorTargetBlock(block as any);
+                    if (floor !== undefined) setIndoorTargetFloor(floor);
+                    setActiveTab('inside-block');
+                    setIsChatCollapsed(false);
+                  }}
+                  onOpenBroadcasts={() => {
+                    setActiveTab('events');
+                    setIsChatCollapsed(false);
+                  }}
                 />
               )}
 
@@ -184,6 +210,8 @@ export default function AppHome() {
                 <InsideBlockModal
                   isOpen={true}
                   isInline={true}
+                  initialBlock={indoorTargetBlock}
+                  initialFloor={indoorTargetFloor}
                   onClose={() => setIsChatCollapsed(true)}
                 />
               )}

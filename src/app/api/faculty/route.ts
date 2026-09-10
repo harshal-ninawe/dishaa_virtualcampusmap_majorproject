@@ -3,22 +3,43 @@ import { getMongoClient } from '@/lib/mongodb';
 
 // GET /api/faculty - Retrieve all faculties or filter by block, floor, roomNo
 export async function GET(req: NextRequest) {
-  let client;
   try {
     const { searchParams } = new URL(req.url);
     const block = searchParams.get('block');
     const floor = searchParams.get('floor');
     const roomNo = searchParams.get('roomNo');
 
-    client = await getMongoClient();
+    const client = await getMongoClient();
     const db = client.db('dishaadb');
     const collection = db.collection('faculties');
 
     const query: Record<string, unknown> = {};
 
-    if (block) query['sittingLocation.block'] = block;
-    if (floor !== null && floor !== undefined && floor !== '') query['sittingLocation.floor'] = Number(floor);
-    if (roomNo) query['sittingLocation.roomNo'] = roomNo;
+    if (block) {
+      const cleanBlock = block.replace(/^BLOCK\s*/i, '').trim();
+      query['$or'] = [
+        { 'sittingLocation.block': block },
+        { 'sittingLocation.block': `BLOCK ${cleanBlock}` },
+        { 'sittingLocation.block': `Block ${cleanBlock}` },
+        { 'sittingLocation.block': cleanBlock },
+      ];
+    }
+
+    if (floor !== null && floor !== undefined && floor !== '') {
+      query['sittingLocation.floor'] = Number(floor);
+    }
+
+    if (roomNo) {
+      const cleanRoom = roomNo.trim();
+      const roomNumOnly = cleanRoom.replace(/^[A-Za-z]+[-_\s]*/, '');
+      
+      query['$or'] = [
+        { 'sittingLocation.roomNo': cleanRoom },
+        { 'sittingLocation.roomNo': roomNumOnly },
+        { 'sittingLocation.roomNo': { $regex: new RegExp(`^${cleanRoom}$`, 'i') } },
+        { 'sittingLocation.roomNo': { $regex: new RegExp(`.*${roomNumOnly}.*`, 'i') } },
+      ];
+    }
 
     // Project out passwords for security
     const faculties = await collection
@@ -34,19 +55,16 @@ export async function GET(req: NextRequest) {
       { success: false, error: `Database Error: ${msg}` },
       { status: 500 }
     );
-  } finally {
-    if (client) await client.close();
   }
 }
 
 // POST /api/faculty - Handle Faculty Registration & Faculty Login
 export async function POST(req: NextRequest) {
-  let client;
   try {
     const body = await req.json();
     const { action = 'register', email, password } = body;
 
-    client = await getMongoClient();
+    const client = await getMongoClient();
     const db = client.db('dishaadb');
     const collection = db.collection('faculties');
 
@@ -91,7 +109,7 @@ export async function POST(req: NextRequest) {
 
     const facultyDoc = {
       name: name.trim(),
-      designation: designation || 'Faculty',
+      designation: designation || 'Faculty Member',
       department: department.trim(),
       email: email.trim().toLowerCase(),
       phone: phone ? phone.trim() : '',
@@ -131,14 +149,11 @@ export async function POST(req: NextRequest) {
       { success: false, error: `Database Error: ${msg}` },
       { status: 500 }
     );
-  } finally {
-    if (client) await client.close();
   }
 }
 
 // DELETE /api/faculty - Remove faculty entry from MongoDB
 export async function DELETE(req: NextRequest) {
-  let client;
   try {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get('id');
@@ -151,7 +166,7 @@ export async function DELETE(req: NextRequest) {
       );
     }
 
-    client = await getMongoClient();
+    const client = await getMongoClient();
     const db = client.db('dishaadb');
     const collection = db.collection('faculties');
 
@@ -188,7 +203,5 @@ export async function DELETE(req: NextRequest) {
       { success: false, error: `Database Error: ${msg}` },
       { status: 500 }
     );
-  } finally {
-    if (client) await client.close();
   }
 }

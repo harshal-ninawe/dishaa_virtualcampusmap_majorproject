@@ -1,0 +1,4914 @@
+{
+  "1": {
+    "name": "1st Floor",
+    "shortName": "1F",
+    "folder": "./1st floor/",
+    "mtlFile": "1st_floor.mtl",
+    "objFile": "1st floor.obj",
+    "planImage": "./1st final.jpg",
+    "planSize": {
+      "width": 3790,
+      "depth": 1972.5
+    },
+    "rooms": [
+      {
+        "id": "107A",
+        "name": "Smart Room",
+        "category": "class",
+        "labelGroup": "label_139_607"
+      },
+      {
+        "id": "118",
+        "name": "Class Room",
+        "category": "class",
+        "labelGroup": "label_151_619"
+      },
+      {
+        "id": "119",
+        "name": "Class Room",
+        "category": "class",
+        "labelGroup": "label_152_620"
+      },
+      {
+        "id": "120",
+        "name": "Class Room",
+        "category": "class",
+        "labelGroup": "label_153_621"
+      },
+      {
+        "id": "121",
+        "name": "Class Room",
+        "category": "class",
+        "labelGroup": "label_154_622"
+      },
+      {
+        "id": "124",
+        "name": "Class Room",
+        "category": "class",
+        "labelGroup": "label_158_626"
+      },
+      {
+        "id": "126",
+        "name": "Class Room",
+        "category": "class",
+        "labelGroup": "label_157_625"
+      },
+      {
+        "id": "102",
+        "name": "Lab",
+        "category": "lab",
+        "labelGroup": "label_134_602"
+      },
+      {
+        "id": "103A",
+        "name": "A Lab",
+        "category": "lab",
+        "labelGroup": "label_128_596"
+      },
+      {
+        "id": "103B",
+        "name": "B Lab",
+        "category": "lab",
+        "labelGroup": "label_129_597"
+      },
+      {
+        "id": "104",
+        "name": "Block Chain Technology Lab",
+        "category": "lab",
+        "labelGroup": "label_135_603"
+      },
+      {
+        "id": "106",
+        "name": "Robotics Lab",
+        "category": "lab",
+        "labelGroup": "label_138_606"
+      },
+      {
+        "id": "108",
+        "name": "Physics Lab",
+        "category": "lab",
+        "labelGroup": "label_141_609"
+      },
+      {
+        "id": "111",
+        "name": "Physics Lab",
+        "category": "lab",
+        "labelGroup": "label_142_610"
+      },
+      {
+        "id": "123",
+        "name": "Language Lab",
+        "category": "lab",
+        "labelGroup": "label_156_624"
+      },
+      {
+        "id": "125",
+        "name": "AR-VR Lab",
+        "category": "lab",
+        "labelGroup": "label_159_627"
+      },
+      {
+        "id": "122",
+        "name": "Dean First Year Cabin",
+        "category": "dept",
+        "labelGroup": "label_155_623"
+      },
+      {
+        "id": "107B",
+        "name": "Staff Room",
+        "category": "staff",
+        "labelGroup": "label_140_608"
+      },
+      {
+        "id": "110",
+        "name": "Staff Room",
+        "category": "staff",
+        "labelGroup": "label_143_611"
+      },
+      {
+        "id": "105",
+        "name": "Dean Block",
+        "category": "staff",
+        "labelGroup": "label_137_605"
+      },
+      {
+        "id": "director_office",
+        "name": "Director sir Office",
+        "category": "staff",
+        "labelGroup": "label_149_617"
+      },
+      {
+        "id": "101",
+        "name": "Dr. APJ Abdul Kalam Hall",
+        "category": "seminar",
+        "labelGroup": "label_133_601"
+      },
+      {
+        "id": "114",
+        "name": "Board Room",
+        "category": "special",
+        "labelGroup": "label_146_614"
+      },
+      {
+        "id": "115",
+        "name": "Room 115",
+        "category": "special",
+        "labelGroup": "label_147_615"
+      },
+      {
+        "id": "116",
+        "name": "Room 116",
+        "category": "special",
+        "labelGroup": "label_148_616"
+      },
+      {
+        "id": "112",
+        "name": "Girls Washroom",
+        "category": "utility",
+        "labelGroup": "label_144_612"
+      },
+      {
+        "id": "113",
+        "name": "Boys Washroom",
+        "category": "utility",
+        "labelGroup": "label_145_613"
+      },
+      {
+        "id": "117",
+        "name": "Girls Common Room",
+        "category": "utility",
+        "labelGroup": "label_150_618"
+      },
+      {
+        "id": "atrium",
+        "name": "ATRIUM",
+        "category": "utility",
+        "labelGroup": "label_160_628"
+      }
+    ],
+    "roomCoords": {
+      "101": {
+        "x": 762.2,
+        "y": 2,
+        "z": 1385.7
+      },
+      "102": {
+        "x": 510,
+        "y": 2,
+        "z": 1415.6
+      },
+      "104": {
+        "x": 160.5,
+        "y": 2,
+        "z": 1079
+      },
+      "105": {
+        "x": 150.6,
+        "y": 2,
+        "z": 678.7
+      },
+      "106": {
+        "x": 133.1,
+        "y": 2,
+        "z": 356.7
+      },
+      "108": {
+        "x": 672.4,
+        "y": 2,
+        "z": 76.9
+      },
+      "109": {
+        "x": 673.1,
+        "y": 2,
+        "z": 435
+      },
+      "110": {
+        "x": 1038.9,
+        "y": 2,
+        "z": 103.5
+      },
+      "111": {
+        "x": 1011.3,
+        "y": 2,
+        "z": 412
+      },
+      "112": {
+        "x": 1383.7,
+        "y": 2,
+        "z": 38.7
+      },
+      "113": {
+        "x": 1638.4,
+        "y": 2,
+        "z": 55.7
+      },
+      "114": {
+        "x": 1640.9,
+        "y": 2,
+        "z": 315.3
+      },
+      "115": {
+        "x": 1848,
+        "y": 2,
+        "z": 384.7
+      },
+      "116": {
+        "x": 1970.4,
+        "y": 2,
+        "z": 377.7
+      },
+      "117": {
+        "x": 2157.6,
+        "y": 2,
+        "z": 252.4
+      },
+      "118": {
+        "x": 2926.4,
+        "y": 2,
+        "z": 443.1
+      },
+      "119": {
+        "x": 2911.5,
+        "y": 2,
+        "z": 148.5
+      },
+      "120": {
+        "x": 3528,
+        "y": 2,
+        "z": 147.5
+      },
+      "121": {
+        "x": 3510.6,
+        "y": 2,
+        "z": 431.6
+      },
+      "122": {
+        "x": 3523.3,
+        "y": 2,
+        "z": 897
+      },
+      "123": {
+        "x": 3523,
+        "y": 2,
+        "z": 1219.4
+      },
+      "124": {
+        "x": 3518,
+        "y": 2,
+        "z": 1482.5
+      },
+      "125": {
+        "x": 2928.9,
+        "y": 2,
+        "z": 1486
+      },
+      "126": {
+        "x": 2923.9,
+        "y": 2,
+        "z": 1236.9
+      },
+      "103A": {
+        "x": 153.9,
+        "y": 2,
+        "z": 1424.2
+      },
+      "103B": {
+        "x": 148.3,
+        "y": 2,
+        "z": 1525.5
+      },
+      "103C": {
+        "x": 150.5,
+        "y": 2,
+        "z": 1621.6
+      },
+      "107A": {
+        "x": 125.6,
+        "y": 2,
+        "z": 105.1
+      },
+      "107B": {
+        "x": 397.7,
+        "y": 2,
+        "z": 52.2
+      },
+      "staff_room": {
+        "x": 147.9,
+        "y": 2,
+        "z": 1309.5
+      },
+      "director_office": {
+        "x": 1921.9,
+        "y": 2,
+        "z": 87.3
+      },
+      "lift1": {
+        "x": 619.9,
+        "y": 2,
+        "z": 891.4
+      },
+      "lift2": {
+        "x": 2027.7,
+        "y": 2,
+        "z": 844.5
+      },
+      "atrium": {
+        "x": 1687.2,
+        "y": 2,
+        "z": 1446.7
+      }
+    },
+    "graphNodes": {
+      "rd_101": {
+        "x": 700,
+        "z": 1371,
+        "px": 351,
+        "py": 550,
+        "type": "door",
+        "landmark": "Room 101 Dr. APJ Abdul Kalam Hall door"
+      },
+      "rd_102": {
+        "x": 571,
+        "z": 1377,
+        "px": 299,
+        "py": 552,
+        "type": "door",
+        "landmark": "Room 102 Lab door"
+      },
+      "rd_104": {
+        "x": 253,
+        "z": 1065,
+        "px": 171,
+        "py": 438,
+        "type": "door",
+        "landmark": "Room 104 Block Chain Technology door"
+      },
+      "rd_105": {
+        "x": 231,
+        "z": 657,
+        "px": 162,
+        "py": 289,
+        "type": "door",
+        "landmark": "Room 105 Dean Block door"
+      },
+      "rd_106": {
+        "x": 218,
+        "z": 411,
+        "px": 157,
+        "py": 199,
+        "type": "door",
+        "landmark": "Room 106 Robotics Lab door"
+      },
+      "rd_108": {
+        "x": 568,
+        "z": 140,
+        "px": 298,
+        "py": 100,
+        "type": "door",
+        "landmark": "Room 108 Physics Lab door"
+      },
+      "rd_110": {
+        "x": 1189,
+        "z": 403,
+        "px": 548,
+        "py": 196,
+        "type": "door",
+        "landmark": "Room 110 Staff Room door"
+      },
+      "rd_111": {
+        "x": 1189,
+        "z": 403,
+        "px": 548,
+        "py": 196,
+        "type": "door",
+        "landmark": "Room 111 Physics Lab door"
+      },
+      "rd_112": {
+        "x": 1308,
+        "z": -16,
+        "px": 596,
+        "py": 43,
+        "type": "door",
+        "landmark": "Room 112 Girls Washroom door"
+      },
+      "rd_113": {
+        "x": 1549,
+        "z": 74,
+        "px": 693,
+        "py": 76,
+        "type": "door",
+        "landmark": "Room 113 Boys Washroom door"
+      },
+      "rd_114": {
+        "x": 1589,
+        "z": 419,
+        "px": 709,
+        "py": 202,
+        "type": "door",
+        "landmark": "Room 114 Board Room door"
+      },
+      "rd_115": {
+        "x": 1822,
+        "z": 414,
+        "px": 803,
+        "py": 200,
+        "type": "door",
+        "landmark": "Room 115 door"
+      },
+      "rd_116": {
+        "x": 1974,
+        "z": 408,
+        "px": 864,
+        "py": 198,
+        "type": "door",
+        "landmark": "Room 116 door"
+      },
+      "rd_117": {
+        "x": 2170,
+        "z": 384,
+        "px": 943,
+        "py": 189,
+        "type": "door",
+        "landmark": "Room 117 Girls Common Room door"
+      },
+      "rd_118": {
+        "x": 3034,
+        "z": 583,
+        "px": 1291,
+        "py": 262,
+        "type": "door",
+        "landmark": "Room 118 Class Room door"
+      },
+      "rd_119": {
+        "x": 3034,
+        "z": 195,
+        "px": 1291,
+        "py": 120,
+        "type": "door",
+        "landmark": "Room 119 Class Room door"
+      },
+      "rd_120": {
+        "x": 3367,
+        "z": 184,
+        "px": 1425,
+        "py": 116,
+        "type": "door",
+        "landmark": "Room 120 Class Room door"
+      },
+      "rd_121": {
+        "x": 3386,
+        "z": 581,
+        "px": 1433,
+        "py": 261,
+        "type": "door",
+        "landmark": "Room 121 Class Room door"
+      },
+      "rd_122": {
+        "x": 3379,
+        "z": 821,
+        "px": 1430,
+        "py": 349,
+        "type": "door",
+        "landmark": "Room 122 Dean First Year door"
+      },
+      "rd_123": {
+        "x": 3376,
+        "z": 1232,
+        "px": 1429,
+        "py": 499,
+        "type": "door",
+        "landmark": "Room 123 Language Lab door"
+      },
+      "rd_124": {
+        "x": 3379,
+        "z": 1629,
+        "px": 1430,
+        "py": 644,
+        "type": "door",
+        "landmark": "Room 124 Class Room door"
+      },
+      "rd_125": {
+        "x": 3024,
+        "z": 1585,
+        "px": 1287,
+        "py": 628,
+        "type": "door",
+        "landmark": "Room 125 AR-VR Lab door"
+      },
+      "rd_126": {
+        "x": 3024,
+        "z": 1341,
+        "px": 1287,
+        "py": 539,
+        "type": "door",
+        "landmark": "Room 126 Class Room door"
+      },
+      "rd_107A": {
+        "x": 201,
+        "z": 137,
+        "px": 150,
+        "py": 99,
+        "type": "door",
+        "landmark": "Room 107A Smart Room door"
+      },
+      "rd_107B": {
+        "x": 370,
+        "z": 31,
+        "px": 218,
+        "py": 60,
+        "type": "door",
+        "landmark": "Room 107B Staff Room door"
+      },
+      "rd_103A": {
+        "x": 241,
+        "z": 1497,
+        "px": 166,
+        "py": 596,
+        "type": "door",
+        "landmark": "Room 103A Lab door"
+      },
+      "rd_103B": {
+        "x": 238,
+        "z": 1609,
+        "px": 165,
+        "py": 637,
+        "type": "door",
+        "landmark": "Room 103B Lab door"
+      },
+      "rd_director_office": {
+        "x": 1758,
+        "z": 553,
+        "px": 777,
+        "py": 251,
+        "type": "door",
+        "landmark": "Director Office door"
+      },
+      "rd_atrium": {
+        "x": 1641,
+        "z": 1453,
+        "px": 730,
+        "py": 580,
+        "type": "door",
+        "landmark": "Atrium entrance"
+      },
+      "cp_left_top": {
+        "x": 422,
+        "z": 31,
+        "px": 239,
+        "py": 60,
+        "type": "corridor",
+        "landmark": "Left corridor top end"
+      },
+      "cp_j_top_left": {
+        "x": 422,
+        "z": 586,
+        "px": 239,
+        "py": 263,
+        "type": "corridor",
+        "landmark": "Top-Left corridor junction"
+      },
+      "cp_j_bot_left": {
+        "x": 422,
+        "z": 1229,
+        "px": 239,
+        "py": 498,
+        "type": "corridor",
+        "landmark": "Bottom-Left corridor junction"
+      },
+      "cp_left_bot": {
+        "x": 422,
+        "z": 1645,
+        "px": 239,
+        "py": 650,
+        "type": "corridor",
+        "landmark": "Left corridor south end"
+      },
+      "cp_j_top_wash": {
+        "x": 1353,
+        "z": 586,
+        "px": 614,
+        "py": 263,
+        "type": "corridor",
+        "landmark": "Top-Washroom corridor junction"
+      },
+      "cp_j_top_east": {
+        "x": 2182,
+        "z": 586,
+        "px": 948,
+        "py": 263,
+        "type": "corridor",
+        "landmark": "Top-East corridor junction"
+      },
+      "cp_wash_top": {
+        "x": 1353,
+        "z": -16,
+        "px": 614,
+        "py": 43,
+        "type": "corridor",
+        "landmark": "Washroom entrance corridor"
+      },
+      "cp_j_bot_wash": {
+        "x": 1353,
+        "z": 1229,
+        "px": 614,
+        "py": 498,
+        "type": "corridor",
+        "landmark": "Bottom-Washroom corridor junction"
+      },
+      "cp_j_bridge_east": {
+        "x": 2182,
+        "z": 838,
+        "px": 948,
+        "py": 355,
+        "type": "corridor",
+        "landmark": "East corridor & Right Wing bridge junction"
+      },
+      "cp_j_bot_east": {
+        "x": 2182,
+        "z": 1229,
+        "px": 948,
+        "py": 498,
+        "type": "corridor",
+        "landmark": "Bottom-East corridor junction"
+      },
+      "cp_j_bridge_rw": {
+        "x": 3215,
+        "z": 838,
+        "px": 1364,
+        "py": 355,
+        "type": "corridor",
+        "landmark": "Right Wing & bridge junction"
+      },
+      "cp_rw_top": {
+        "x": 3215,
+        "z": 61,
+        "px": 1364,
+        "py": 71,
+        "type": "corridor",
+        "landmark": "Right wing north stairs"
+      },
+      "cp_rw_bot": {
+        "x": 3215,
+        "z": 1749,
+        "px": 1364,
+        "py": 688,
+        "type": "corridor",
+        "landmark": "Right wing south end"
+      },
+      "cp_proj_rd_101": {
+        "x": 700,
+        "z": 1229,
+        "px": 351,
+        "py": 498,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 101 Dr. APJ Abdul Kalam Hall door"
+      },
+      "cp_proj_rd_102": {
+        "x": 571,
+        "z": 1229,
+        "px": 299,
+        "py": 498,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 102 Lab door"
+      },
+      "cp_proj_rd_104": {
+        "x": 422,
+        "z": 1065,
+        "px": 239,
+        "py": 438,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 104 Block Chain Technology door"
+      },
+      "cp_proj_rd_105": {
+        "x": 422,
+        "z": 657,
+        "px": 239,
+        "py": 289,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 105 Dean Block door"
+      },
+      "cp_proj_rd_106": {
+        "x": 422,
+        "z": 411,
+        "px": 239,
+        "py": 199,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 106 Robotics Lab door"
+      },
+      "cp_proj_rd_108": {
+        "x": 568,
+        "z": 586,
+        "px": 298,
+        "py": 263,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 108 Physics Lab door"
+      },
+      "cp_proj_rd_110": {
+        "x": 1189,
+        "z": 586,
+        "px": 548,
+        "py": 263,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 110 Staff Room door"
+      },
+      "cp_proj_rd_111": {
+        "x": 1189,
+        "z": 586,
+        "px": 548,
+        "py": 263,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 111 Physics Lab door"
+      },
+      "cp_proj_rd_112": {
+        "x": 1353,
+        "z": -16,
+        "px": 614,
+        "py": 43,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 112 Girls Washroom door"
+      },
+      "cp_proj_rd_113": {
+        "x": 1353,
+        "z": 74,
+        "px": 614,
+        "py": 76,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 113 Boys Washroom door"
+      },
+      "cp_proj_rd_114": {
+        "x": 1589,
+        "z": 586,
+        "px": 709,
+        "py": 263,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 114 Board Room door"
+      },
+      "cp_proj_rd_115": {
+        "x": 1822,
+        "z": 586,
+        "px": 803,
+        "py": 263,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 115 door"
+      },
+      "cp_proj_rd_116": {
+        "x": 1974,
+        "z": 586,
+        "px": 864,
+        "py": 263,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 116 door"
+      },
+      "cp_proj_rd_117": {
+        "x": 2170,
+        "z": 586,
+        "px": 943,
+        "py": 263,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 117 Girls Common Room door"
+      },
+      "cp_proj_rd_118": {
+        "x": 3215,
+        "z": 583,
+        "px": 1364,
+        "py": 262,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 118 Class Room door"
+      },
+      "cp_proj_rd_119": {
+        "x": 3215,
+        "z": 195,
+        "px": 1364,
+        "py": 120,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 119 Class Room door"
+      },
+      "cp_proj_rd_120": {
+        "x": 3215,
+        "z": 184,
+        "px": 1364,
+        "py": 116,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 120 Class Room door"
+      },
+      "cp_proj_rd_121": {
+        "x": 3215,
+        "z": 581,
+        "px": 1364,
+        "py": 261,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 121 Class Room door"
+      },
+      "cp_proj_rd_122": {
+        "x": 3215,
+        "z": 821,
+        "px": 1364,
+        "py": 349,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 122 Dean First Year door"
+      },
+      "cp_proj_rd_123": {
+        "x": 3215,
+        "z": 1232,
+        "px": 1364,
+        "py": 499,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 123 Language Lab door"
+      },
+      "cp_proj_rd_124": {
+        "x": 3215,
+        "z": 1629,
+        "px": 1364,
+        "py": 644,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 124 Class Room door"
+      },
+      "cp_proj_rd_125": {
+        "x": 3215,
+        "z": 1585,
+        "px": 1364,
+        "py": 628,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 125 AR-VR Lab door"
+      },
+      "cp_proj_rd_126": {
+        "x": 3215,
+        "z": 1341,
+        "px": 1364,
+        "py": 539,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 126 Class Room door"
+      },
+      "cp_proj_rd_107A": {
+        "x": 422,
+        "z": 137,
+        "px": 239,
+        "py": 99,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 107A Smart Room door"
+      },
+      "cp_proj_rd_107B": {
+        "x": 422,
+        "z": 31,
+        "px": 239,
+        "py": 60,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 107B Staff Room door"
+      },
+      "cp_proj_rd_103A": {
+        "x": 422,
+        "z": 1497,
+        "px": 239,
+        "py": 596,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 103A Lab door"
+      },
+      "cp_proj_rd_103B": {
+        "x": 422,
+        "z": 1609,
+        "px": 239,
+        "py": 637,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 103B Lab door"
+      },
+      "cp_proj_rd_director_office": {
+        "x": 1758,
+        "z": 586,
+        "px": 777,
+        "py": 263,
+        "type": "corridor",
+        "landmark": "Corridor outside Director Office door"
+      },
+      "cp_proj_rd_atrium": {
+        "x": 1641,
+        "z": 1229,
+        "px": 730,
+        "py": 498,
+        "type": "corridor",
+        "landmark": "Corridor outside Atrium entrance"
+      }
+    },
+    "graphEdges": [
+      [
+        "cp_left_top",
+        "cp_proj_rd_107B"
+      ],
+      [
+        "cp_proj_rd_107B",
+        "cp_proj_rd_107A"
+      ],
+      [
+        "cp_proj_rd_107A",
+        "cp_proj_rd_106"
+      ],
+      [
+        "cp_proj_rd_106",
+        "cp_j_top_left"
+      ],
+      [
+        "cp_j_top_left",
+        "cp_proj_rd_105"
+      ],
+      [
+        "cp_proj_rd_105",
+        "cp_proj_rd_104"
+      ],
+      [
+        "cp_proj_rd_104",
+        "cp_j_bot_left"
+      ],
+      [
+        "cp_j_bot_left",
+        "cp_proj_rd_103A"
+      ],
+      [
+        "cp_proj_rd_103A",
+        "cp_proj_rd_103B"
+      ],
+      [
+        "cp_proj_rd_103B",
+        "cp_left_bot"
+      ],
+      [
+        "cp_j_top_left",
+        "cp_proj_rd_108"
+      ],
+      [
+        "cp_proj_rd_108",
+        "cp_proj_rd_110"
+      ],
+      [
+        "cp_proj_rd_110",
+        "cp_proj_rd_111"
+      ],
+      [
+        "cp_proj_rd_111",
+        "cp_j_top_wash"
+      ],
+      [
+        "cp_j_top_wash",
+        "cp_proj_rd_114"
+      ],
+      [
+        "cp_proj_rd_114",
+        "cp_proj_rd_director_office"
+      ],
+      [
+        "cp_proj_rd_director_office",
+        "cp_proj_rd_115"
+      ],
+      [
+        "cp_proj_rd_115",
+        "cp_proj_rd_116"
+      ],
+      [
+        "cp_proj_rd_116",
+        "cp_proj_rd_117"
+      ],
+      [
+        "cp_proj_rd_117",
+        "cp_j_top_east"
+      ],
+      [
+        "cp_wash_top",
+        "cp_proj_rd_112"
+      ],
+      [
+        "cp_proj_rd_112",
+        "cp_proj_rd_113"
+      ],
+      [
+        "cp_proj_rd_113",
+        "cp_j_top_wash"
+      ],
+      [
+        "cp_j_top_wash",
+        "cp_j_bot_wash"
+      ],
+      [
+        "cp_j_top_east",
+        "cp_j_bridge_east"
+      ],
+      [
+        "cp_j_bridge_east",
+        "cp_j_bot_east"
+      ],
+      [
+        "cp_j_bridge_east",
+        "cp_j_bridge_rw"
+      ],
+      [
+        "cp_rw_top",
+        "cp_proj_rd_120"
+      ],
+      [
+        "cp_proj_rd_120",
+        "cp_proj_rd_119"
+      ],
+      [
+        "cp_proj_rd_119",
+        "cp_proj_rd_121"
+      ],
+      [
+        "cp_proj_rd_121",
+        "cp_proj_rd_118"
+      ],
+      [
+        "cp_proj_rd_118",
+        "cp_proj_rd_122"
+      ],
+      [
+        "cp_proj_rd_122",
+        "cp_j_bridge_rw"
+      ],
+      [
+        "cp_j_bridge_rw",
+        "cp_proj_rd_123"
+      ],
+      [
+        "cp_proj_rd_123",
+        "cp_proj_rd_126"
+      ],
+      [
+        "cp_proj_rd_126",
+        "cp_proj_rd_125"
+      ],
+      [
+        "cp_proj_rd_125",
+        "cp_proj_rd_124"
+      ],
+      [
+        "cp_proj_rd_124",
+        "cp_rw_bot"
+      ],
+      [
+        "cp_j_bot_left",
+        "cp_proj_rd_102"
+      ],
+      [
+        "cp_proj_rd_102",
+        "cp_proj_rd_101"
+      ],
+      [
+        "cp_proj_rd_101",
+        "cp_j_bot_wash"
+      ],
+      [
+        "cp_j_bot_wash",
+        "cp_proj_rd_atrium"
+      ],
+      [
+        "cp_proj_rd_atrium",
+        "cp_j_bot_east"
+      ],
+      [
+        "rd_101",
+        "cp_proj_rd_101"
+      ],
+      [
+        "rd_102",
+        "cp_proj_rd_102"
+      ],
+      [
+        "rd_104",
+        "cp_proj_rd_104"
+      ],
+      [
+        "rd_105",
+        "cp_proj_rd_105"
+      ],
+      [
+        "rd_106",
+        "cp_proj_rd_106"
+      ],
+      [
+        "rd_108",
+        "cp_proj_rd_108"
+      ],
+      [
+        "rd_110",
+        "cp_proj_rd_110"
+      ],
+      [
+        "rd_111",
+        "cp_proj_rd_111"
+      ],
+      [
+        "rd_112",
+        "cp_proj_rd_112"
+      ],
+      [
+        "rd_113",
+        "cp_proj_rd_113"
+      ],
+      [
+        "rd_114",
+        "cp_proj_rd_114"
+      ],
+      [
+        "rd_115",
+        "cp_proj_rd_115"
+      ],
+      [
+        "rd_116",
+        "cp_proj_rd_116"
+      ],
+      [
+        "rd_117",
+        "cp_proj_rd_117"
+      ],
+      [
+        "rd_118",
+        "cp_proj_rd_118"
+      ],
+      [
+        "rd_119",
+        "cp_proj_rd_119"
+      ],
+      [
+        "rd_120",
+        "cp_proj_rd_120"
+      ],
+      [
+        "rd_121",
+        "cp_proj_rd_121"
+      ],
+      [
+        "rd_122",
+        "cp_proj_rd_122"
+      ],
+      [
+        "rd_123",
+        "cp_proj_rd_123"
+      ],
+      [
+        "rd_124",
+        "cp_proj_rd_124"
+      ],
+      [
+        "rd_125",
+        "cp_proj_rd_125"
+      ],
+      [
+        "rd_126",
+        "cp_proj_rd_126"
+      ],
+      [
+        "rd_107A",
+        "cp_proj_rd_107A"
+      ],
+      [
+        "rd_107B",
+        "cp_proj_rd_107B"
+      ],
+      [
+        "rd_103A",
+        "cp_proj_rd_103A"
+      ],
+      [
+        "rd_103B",
+        "cp_proj_rd_103B"
+      ],
+      [
+        "rd_director_office",
+        "cp_proj_rd_director_office"
+      ],
+      [
+        "rd_atrium",
+        "cp_proj_rd_atrium"
+      ]
+    ],
+    "roomToNode": {
+      "101": "rd_101",
+      "102": "rd_102",
+      "104": "rd_104",
+      "105": "rd_105",
+      "106": "rd_106",
+      "108": "rd_108",
+      "110": "rd_110",
+      "111": "rd_111",
+      "112": "rd_112",
+      "113": "rd_113",
+      "114": "rd_114",
+      "115": "rd_115",
+      "116": "rd_116",
+      "117": "rd_117",
+      "118": "rd_118",
+      "119": "rd_119",
+      "120": "rd_120",
+      "121": "rd_121",
+      "122": "rd_122",
+      "123": "rd_123",
+      "124": "rd_124",
+      "125": "rd_125",
+      "126": "rd_126",
+      "107A": "rd_107A",
+      "107B": "rd_107B",
+      "103A": "rd_103A",
+      "103B": "rd_103B",
+      "director_office": "rd_director_office",
+      "atrium": "rd_atrium"
+    }
+  },
+  "2": {
+    "name": "2nd Floor",
+    "shortName": "2F",
+    "folder": "./2th floor/",
+    "mtlFile": "2nd_floor.mtl",
+    "objFile": "2nd floor.obj",
+    "planImage": "./2nd floor.jpg",
+    "planSize": {
+      "width": 3790,
+      "depth": 1947.5
+    },
+    "rooms": [
+      {
+        "id": "201",
+        "name": "Class Room",
+        "category": "class",
+        "labelGroup": "label_120_563"
+      },
+      {
+        "id": "202",
+        "name": "Class Room",
+        "category": "class",
+        "labelGroup": "label_125_568"
+      },
+      {
+        "id": "207",
+        "name": "Class Room",
+        "category": "class",
+        "labelGroup": "label_128_571"
+      },
+      {
+        "id": "208",
+        "name": "Class Room",
+        "category": "class",
+        "labelGroup": "label_129_572"
+      },
+      {
+        "id": "209",
+        "name": "Class Room",
+        "category": "class",
+        "labelGroup": "label_130_573"
+      },
+      {
+        "id": "216",
+        "name": "Class Room",
+        "category": "class",
+        "labelGroup": "label_136_579"
+      },
+      {
+        "id": "204",
+        "name": "Surveying Lab (204 A & 204 B)",
+        "category": "lab",
+        "labelGroup": "label_121_564"
+      },
+      {
+        "id": "206",
+        "name": "Geotechnical Engineering Lab",
+        "category": "lab",
+        "labelGroup": "label_127_570"
+      },
+      {
+        "id": "210",
+        "name": "Matrix analysis of structure Lab",
+        "category": "lab",
+        "labelGroup": "label_144_587"
+      },
+      {
+        "id": "211",
+        "name": "Environmental Engineering Lab",
+        "category": "lab",
+        "labelGroup": "label_131_574"
+      },
+      {
+        "id": "218",
+        "name": "Lab",
+        "category": "lab",
+        "labelGroup": "label_138_581"
+      },
+      {
+        "id": "219",
+        "name": "Computer Application Lab",
+        "category": "lab",
+        "labelGroup": "label_139_582"
+      },
+      {
+        "id": "220",
+        "name": "Dynamics of machines Lab",
+        "category": "lab",
+        "labelGroup": "label_140_583"
+      },
+      {
+        "id": "221",
+        "name": "PG research Lab & automation in production Lab",
+        "category": "lab",
+        "labelGroup": "label_141_584"
+      },
+      {
+        "id": "222",
+        "name": "Engineering Metallurgy Lab",
+        "category": "lab",
+        "labelGroup": "label_142_585"
+      },
+      {
+        "id": "205",
+        "name": "Department of Civil Engineering (205 A & 205 B)",
+        "category": "dept",
+        "labelGroup": "label_126_569"
+      },
+      {
+        "id": "215",
+        "name": "HOD Cabin",
+        "category": "dept",
+        "labelGroup": "label_135_578"
+      },
+      {
+        "id": "223",
+        "name": "Department of Diploma in Mechanical Engineering",
+        "category": "dept",
+        "labelGroup": "label_143_586"
+      },
+      {
+        "id": "203",
+        "name": "Ekalavya Seminar Hall",
+        "category": "seminar",
+        "labelGroup": "label_124_567"
+      },
+      {
+        "id": "212",
+        "name": "Dance Room",
+        "category": "special",
+        "labelGroup": "label_132_575"
+      },
+      {
+        "id": "224",
+        "name": "Examination Cell",
+        "category": "special",
+        "labelGroup": ""
+      },
+      {
+        "id": "213",
+        "name": "Girls Washroom",
+        "category": "utility",
+        "labelGroup": "label_133_576"
+      },
+      {
+        "id": "214",
+        "name": "Boys Washroom",
+        "category": "utility",
+        "labelGroup": "label_134_577"
+      },
+      {
+        "id": "217",
+        "name": "Girls Common Room",
+        "category": "utility",
+        "labelGroup": "label_137_580"
+      },
+      {
+        "id": "lift1",
+        "name": "Elevator 1",
+        "category": "utility",
+        "labelGroup": "label_122_565"
+      },
+      {
+        "id": "lift2",
+        "name": "Elevator 2",
+        "category": "utility",
+        "labelGroup": "label_123_566"
+      }
+    ],
+    "roomCoords": {
+      "201": {
+        "x": 810.1,
+        "y": 2,
+        "z": 1502
+      },
+      "202": {
+        "x": 802.3,
+        "y": 2,
+        "z": 1352.4
+      },
+      "203": {
+        "x": 541.6,
+        "y": 2,
+        "z": 1445.6
+      },
+      "204": {
+        "x": 196.3,
+        "y": 2,
+        "z": 1423
+      },
+      "205": {
+        "x": 163.5,
+        "y": 2,
+        "z": 1061.9
+      },
+      "206": {
+        "x": 159.2,
+        "y": 2,
+        "z": 732.7
+      },
+      "207": {
+        "x": 133.1,
+        "y": 2,
+        "z": 356.7
+      },
+      "208": {
+        "x": 125.6,
+        "y": 2,
+        "z": 105.1
+      },
+      "209": {
+        "x": 744.1,
+        "y": 2,
+        "z": 97
+      },
+      "210": {
+        "x": 721.8,
+        "y": 2,
+        "z": 392.2
+      },
+      "211": {
+        "x": 1068.6,
+        "y": 2,
+        "z": 365.6
+      },
+      "212": {
+        "x": 1038.9,
+        "y": 2,
+        "z": 103.5
+      },
+      "213": {
+        "x": 1383.7,
+        "y": 2,
+        "z": 38.7
+      },
+      "214": {
+        "x": 1638.4,
+        "y": 2,
+        "z": 55.7
+      },
+      "215": {
+        "x": 1640.9,
+        "y": 2,
+        "z": 315.3
+      },
+      "216": {
+        "x": 1836.6,
+        "y": 2,
+        "z": 263.5
+      },
+      "217": {
+        "x": 1984.7,
+        "y": 2,
+        "z": 262.4
+      },
+      "218": {
+        "x": 2157.6,
+        "y": 2,
+        "z": 255.9
+      },
+      "219": {
+        "x": 2929.3,
+        "y": 2,
+        "z": 461.7
+      },
+      "220": {
+        "x": 2911.5,
+        "y": 2,
+        "z": 127
+      },
+      "221": {
+        "x": 3530.9,
+        "y": 2,
+        "z": 146.5
+      },
+      "222": {
+        "x": 3516.3,
+        "y": 2,
+        "z": 475
+      },
+      "223": {
+        "x": 3523.3,
+        "y": 2,
+        "z": 909.5
+      },
+      "224": {
+        "x": 3222,
+        "y": 2,
+        "z": 1420
+      },
+      "lift1": {
+        "x": 619.9,
+        "y": 2,
+        "z": 891.4
+      },
+      "lift2": {
+        "x": 2027.8,
+        "y": 2,
+        "z": 844.5
+      }
+    },
+    "dynamicLabels": [
+      {
+        "textLines": [
+          "224",
+          "Examination Cell"
+        ],
+        "width": 240,
+        "height": 120,
+        "position": {
+          "x": 3222,
+          "y": 1.8,
+          "z": 1420
+        },
+        "roomId": "224",
+        "category": "special"
+      }
+    ],
+    "graphNodes": {
+      "rd_208": {
+        "x": 320,
+        "z": 137,
+        "px": 320,
+        "py": 137,
+        "type": "door",
+        "landmark": "Room 208 Class Room door"
+      },
+      "rd_207": {
+        "x": 320,
+        "z": 357,
+        "px": 320,
+        "py": 357,
+        "type": "door",
+        "landmark": "Room 207 Class Room door"
+      },
+      "rd_206": {
+        "x": 320,
+        "z": 733,
+        "px": 320,
+        "py": 733,
+        "type": "door",
+        "landmark": "Room 206 Geotechnical Engineering Lab door"
+      },
+      "rd_205": {
+        "x": 320,
+        "z": 1062,
+        "px": 320,
+        "py": 1062,
+        "type": "door",
+        "landmark": "Room 205 Dept of Civil Engineering door"
+      },
+      "rd_204": {
+        "x": 350,
+        "z": 1256,
+        "px": 350,
+        "py": 1256,
+        "type": "door",
+        "landmark": "Room 204 Surveying Lab door"
+      },
+      "rd_203": {
+        "x": 542,
+        "z": 1256,
+        "px": 542,
+        "py": 1256,
+        "type": "door",
+        "landmark": "Room 203 Ekalavya Seminar Hall door"
+      },
+      "rd_202": {
+        "x": 802,
+        "z": 1256,
+        "px": 802,
+        "py": 1256,
+        "type": "door",
+        "landmark": "Room 202 Class Room door"
+      },
+      "rd_201": {
+        "x": 915,
+        "z": 1502,
+        "px": 915,
+        "py": 1502,
+        "type": "door",
+        "landmark": "Room 201 Class Room door"
+      },
+      "rd_209": {
+        "x": 540,
+        "z": 137,
+        "px": 540,
+        "py": 137,
+        "type": "door",
+        "landmark": "Room 209 Class Room door"
+      },
+      "rd_210": {
+        "x": 540,
+        "z": 357,
+        "px": 540,
+        "py": 357,
+        "type": "door",
+        "landmark": "Room 210 Matrix analysis of structure Lab door"
+      },
+      "rd_212": {
+        "x": 1255,
+        "z": 140,
+        "px": 1255,
+        "py": 140,
+        "type": "door",
+        "landmark": "Room 212 Dance Room door"
+      },
+      "rd_211": {
+        "x": 1255,
+        "z": 470,
+        "px": 1255,
+        "py": 470,
+        "type": "door",
+        "landmark": "Room 211 Environmental Engineering Lab door"
+      },
+      "rd_213": {
+        "x": 1353,
+        "z": 60,
+        "px": 1353,
+        "py": 60,
+        "type": "door",
+        "landmark": "Room 213 Girls Washroom door"
+      },
+      "rd_214": {
+        "x": 1515,
+        "z": 80,
+        "px": 1515,
+        "py": 80,
+        "type": "door",
+        "landmark": "Room 214 Boys Washroom door"
+      },
+      "rd_215": {
+        "x": 1640,
+        "z": 495,
+        "px": 1640,
+        "py": 495,
+        "type": "door",
+        "landmark": "Room 215 HOD Cabin door"
+      },
+      "rd_216": {
+        "x": 1836,
+        "z": 495,
+        "px": 1836,
+        "py": 495,
+        "type": "door",
+        "landmark": "Room 216 Class Room door"
+      },
+      "rd_217": {
+        "x": 1984,
+        "z": 495,
+        "px": 1984,
+        "py": 495,
+        "type": "door",
+        "landmark": "Room 217 Girls Common Room door"
+      },
+      "rd_218": {
+        "x": 2157,
+        "z": 495,
+        "px": 2157,
+        "py": 495,
+        "type": "door",
+        "landmark": "Room 218 Lab door"
+      },
+      "rd_lift1": {
+        "x": 540,
+        "z": 838,
+        "px": 540,
+        "py": 838,
+        "type": "door",
+        "landmark": "Elevator 1"
+      },
+      "rd_lift2": {
+        "x": 2028,
+        "z": 838,
+        "px": 2028,
+        "py": 838,
+        "type": "door",
+        "landmark": "Elevator 2"
+      },
+      "rd_220": {
+        "x": 3108,
+        "z": 195,
+        "px": 3108,
+        "py": 195,
+        "type": "door",
+        "landmark": "Room 220 Dynamics of machines Lab door"
+      },
+      "rd_219": {
+        "x": 3108,
+        "z": 462,
+        "px": 3108,
+        "py": 462,
+        "type": "door",
+        "landmark": "Room 219 Computer Application Lab door"
+      },
+      "rd_221": {
+        "x": 3343,
+        "z": 184,
+        "px": 3343,
+        "py": 184,
+        "type": "door",
+        "landmark": "Room 221 PG research Lab door"
+      },
+      "rd_222": {
+        "x": 3343,
+        "z": 475,
+        "px": 3343,
+        "py": 475,
+        "type": "door",
+        "landmark": "Room 222 Engineering Metallurgy Lab door"
+      },
+      "rd_223": {
+        "x": 3343,
+        "z": 890,
+        "px": 3343,
+        "py": 890,
+        "type": "door",
+        "landmark": "Room 223 Dept of Mechanical Diploma door"
+      },
+      "rd_224": {
+        "x": 3215,
+        "z": 1110,
+        "px": 3215,
+        "py": 1110,
+        "type": "door",
+        "landmark": "Room 224 Examination Cell door"
+      },
+      "cp_left_top": {
+        "x": 422,
+        "z": 31,
+        "px": 239,
+        "py": 60,
+        "type": "corridor",
+        "landmark": "West corridor north end"
+      },
+      "cp_j_top_left": {
+        "x": 422,
+        "z": 580,
+        "px": 239,
+        "py": 263,
+        "type": "corridor",
+        "landmark": "Top-Left corridor junction"
+      },
+      "cp_j_bot_left": {
+        "x": 422,
+        "z": 1180,
+        "px": 239,
+        "py": 498,
+        "type": "corridor",
+        "landmark": "Bottom-Left corridor junction"
+      },
+      "cp_left_bot": {
+        "x": 422,
+        "z": 1256,
+        "px": 239,
+        "py": 650,
+        "type": "corridor",
+        "landmark": "West corridor south end outside Room 204"
+      },
+      "cp_j_top_mid": {
+        "x": 1353,
+        "z": 580,
+        "px": 614,
+        "py": 263,
+        "type": "corridor",
+        "landmark": "Top-Middle corridor junction"
+      },
+      "cp_j_bot_mid": {
+        "x": 1353,
+        "z": 1180,
+        "px": 614,
+        "py": 498,
+        "type": "corridor",
+        "landmark": "Bottom-Middle corridor junction"
+      },
+      "cp_mid_top": {
+        "x": 1353,
+        "z": 60,
+        "px": 614,
+        "py": 43,
+        "type": "corridor",
+        "landmark": "Middle corridor north end (Washrooms)"
+      },
+      "cp_j_top_east": {
+        "x": 2182,
+        "z": 580,
+        "px": 948,
+        "py": 263,
+        "type": "corridor",
+        "landmark": "Top-East corridor junction"
+      },
+      "cp_j_bridge_east": {
+        "x": 2182,
+        "z": 838,
+        "px": 948,
+        "py": 355,
+        "type": "corridor",
+        "landmark": "East corridor & Right Wing bridge junction"
+      },
+      "cp_j_bot_east": {
+        "x": 2182,
+        "z": 1180,
+        "px": 948,
+        "py": 498,
+        "type": "corridor",
+        "landmark": "Bottom-East corridor junction"
+      },
+      "cp_j_bridge_rw": {
+        "x": 3215,
+        "z": 838,
+        "px": 1364,
+        "py": 355,
+        "type": "corridor",
+        "landmark": "Right Wing & bridge junction"
+      },
+      "cp_rw_top": {
+        "x": 3215,
+        "z": 61,
+        "px": 1364,
+        "py": 71,
+        "type": "corridor",
+        "landmark": "Right wing north stairs"
+      },
+      "cp_rw_bot": {
+        "x": 3215,
+        "z": 1450,
+        "px": 1364,
+        "py": 688,
+        "type": "corridor",
+        "landmark": "Right wing south end"
+      },
+      "cp_proj_rd_208": {
+        "x": 422,
+        "z": 137,
+        "px": 422,
+        "py": 137,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 208 and 209"
+      },
+      "cp_proj_rd_207": {
+        "x": 422,
+        "z": 357,
+        "px": 422,
+        "py": 357,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 207 and 210"
+      },
+      "cp_proj_rd_206": {
+        "x": 422,
+        "z": 733,
+        "px": 422,
+        "py": 733,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 206"
+      },
+      "cp_proj_rd_lift1": {
+        "x": 422,
+        "z": 838,
+        "px": 422,
+        "py": 838,
+        "type": "corridor",
+        "landmark": "Corridor outside Elevator 1"
+      },
+      "cp_proj_rd_205": {
+        "x": 422,
+        "z": 1062,
+        "px": 422,
+        "py": 1062,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 205"
+      },
+      "cp_proj_rd_214": {
+        "x": 1353,
+        "z": 80,
+        "px": 1353,
+        "py": 80,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 214 Boys Washroom"
+      },
+      "cp_proj_rd_212": {
+        "x": 1353,
+        "z": 140,
+        "px": 1353,
+        "py": 140,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 212 Dance Room"
+      },
+      "cp_proj_rd_211": {
+        "x": 1353,
+        "z": 470,
+        "px": 1353,
+        "py": 470,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 211 Environmental Lab"
+      },
+      "cp_proj_rd_215": {
+        "x": 1640,
+        "z": 580,
+        "px": 1640,
+        "py": 580,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 215 HOD Cabin"
+      },
+      "cp_proj_rd_216": {
+        "x": 1836,
+        "z": 580,
+        "px": 1836,
+        "py": 580,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 216 Class Room"
+      },
+      "cp_proj_rd_217": {
+        "x": 1984,
+        "z": 580,
+        "px": 1984,
+        "py": 580,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 217 Girls Common Room"
+      },
+      "cp_proj_rd_218": {
+        "x": 2157,
+        "z": 580,
+        "px": 2157,
+        "py": 580,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 218 Lab"
+      },
+      "cp_proj_rd_203": {
+        "x": 542,
+        "z": 1180,
+        "px": 542,
+        "py": 1180,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 203 Ekalavya Seminar Hall"
+      },
+      "cp_proj_rd_202": {
+        "x": 802,
+        "z": 1180,
+        "px": 802,
+        "py": 1180,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 202 Class Room"
+      },
+      "cp_j_south_stairs": {
+        "x": 960,
+        "z": 1180,
+        "px": 960,
+        "py": 1180,
+        "type": "corridor",
+        "landmark": "South corridor junction to stairs and Room 201"
+      },
+      "cp_south_stub_bot": {
+        "x": 960,
+        "z": 1502,
+        "px": 960,
+        "py": 1502,
+        "type": "corridor",
+        "landmark": "South hallway outside Room 201 Class Room"
+      },
+      "cp_proj_rd_221": {
+        "x": 3215,
+        "z": 184,
+        "px": 3215,
+        "py": 184,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 221 PG research Lab"
+      },
+      "cp_proj_rd_220": {
+        "x": 3215,
+        "z": 195,
+        "px": 3215,
+        "py": 195,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 220 Dynamics of machines Lab"
+      },
+      "cp_proj_rd_219": {
+        "x": 3215,
+        "z": 462,
+        "px": 3215,
+        "py": 462,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 219 Computer Application Lab"
+      },
+      "cp_proj_rd_222": {
+        "x": 3215,
+        "z": 475,
+        "px": 3215,
+        "py": 475,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 222 Engineering Metallurgy Lab"
+      },
+      "cp_proj_rd_223": {
+        "x": 3215,
+        "z": 890,
+        "px": 3215,
+        "py": 890,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 223 Dept of Mechanical Diploma"
+      },
+      "cp_proj_rd_224": {
+        "x": 3215,
+        "z": 1110,
+        "px": 3215,
+        "py": 1110,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 224 Examination Cell"
+      }
+    },
+    "graphEdges": [
+      [
+        "cp_left_top",
+        "cp_proj_rd_208"
+      ],
+      [
+        "cp_proj_rd_208",
+        "cp_proj_rd_207"
+      ],
+      [
+        "cp_proj_rd_207",
+        "cp_j_top_left"
+      ],
+      [
+        "cp_j_top_left",
+        "cp_proj_rd_206"
+      ],
+      [
+        "cp_proj_rd_206",
+        "cp_proj_rd_lift1"
+      ],
+      [
+        "cp_proj_rd_lift1",
+        "cp_proj_rd_205"
+      ],
+      [
+        "cp_proj_rd_205",
+        "cp_j_bot_left"
+      ],
+      [
+        "cp_j_bot_left",
+        "cp_left_bot"
+      ],
+      [
+        "cp_j_top_left",
+        "cp_j_top_mid"
+      ],
+      [
+        "cp_j_top_mid",
+        "cp_proj_rd_215"
+      ],
+      [
+        "cp_proj_rd_215",
+        "cp_proj_rd_216"
+      ],
+      [
+        "cp_proj_rd_216",
+        "cp_proj_rd_217"
+      ],
+      [
+        "cp_proj_rd_217",
+        "cp_proj_rd_218"
+      ],
+      [
+        "cp_proj_rd_218",
+        "cp_j_top_east"
+      ],
+      [
+        "cp_mid_top",
+        "cp_proj_rd_214"
+      ],
+      [
+        "cp_proj_rd_214",
+        "cp_proj_rd_212"
+      ],
+      [
+        "cp_proj_rd_212",
+        "cp_proj_rd_211"
+      ],
+      [
+        "cp_proj_rd_211",
+        "cp_j_top_mid"
+      ],
+      [
+        "cp_j_top_mid",
+        "cp_j_bot_mid"
+      ],
+      [
+        "cp_j_bot_left",
+        "cp_proj_rd_203"
+      ],
+      [
+        "cp_proj_rd_203",
+        "cp_proj_rd_202"
+      ],
+      [
+        "cp_proj_rd_202",
+        "cp_j_south_stairs"
+      ],
+      [
+        "cp_j_south_stairs",
+        "cp_j_bot_mid"
+      ],
+      [
+        "cp_j_bot_mid",
+        "cp_j_bot_east"
+      ],
+      [
+        "cp_j_south_stairs",
+        "cp_south_stub_bot"
+      ],
+      [
+        "cp_j_top_east",
+        "cp_j_bridge_east"
+      ],
+      [
+        "cp_j_bridge_east",
+        "cp_j_bot_east"
+      ],
+      [
+        "cp_j_bridge_east",
+        "cp_j_bridge_rw"
+      ],
+      [
+        "cp_rw_top",
+        "cp_proj_rd_221"
+      ],
+      [
+        "cp_proj_rd_221",
+        "cp_proj_rd_220"
+      ],
+      [
+        "cp_proj_rd_220",
+        "cp_proj_rd_219"
+      ],
+      [
+        "cp_proj_rd_219",
+        "cp_proj_rd_222"
+      ],
+      [
+        "cp_proj_rd_222",
+        "cp_j_bridge_rw"
+      ],
+      [
+        "cp_j_bridge_rw",
+        "cp_proj_rd_223"
+      ],
+      [
+        "cp_proj_rd_223",
+        "cp_proj_rd_224"
+      ],
+      [
+        "cp_proj_rd_224",
+        "cp_rw_bot"
+      ],
+      [
+        "rd_208",
+        "cp_proj_rd_208"
+      ],
+      [
+        "rd_209",
+        "cp_proj_rd_208"
+      ],
+      [
+        "rd_207",
+        "cp_proj_rd_207"
+      ],
+      [
+        "rd_210",
+        "cp_proj_rd_207"
+      ],
+      [
+        "rd_206",
+        "cp_proj_rd_206"
+      ],
+      [
+        "rd_lift1",
+        "cp_proj_rd_lift1"
+      ],
+      [
+        "rd_205",
+        "cp_proj_rd_205"
+      ],
+      [
+        "rd_204",
+        "cp_left_bot"
+      ],
+      [
+        "rd_203",
+        "cp_proj_rd_203"
+      ],
+      [
+        "rd_202",
+        "cp_proj_rd_202"
+      ],
+      [
+        "rd_201",
+        "cp_south_stub_bot"
+      ],
+      [
+        "rd_212",
+        "cp_proj_rd_212"
+      ],
+      [
+        "rd_211",
+        "cp_proj_rd_211"
+      ],
+      [
+        "rd_213",
+        "cp_mid_top"
+      ],
+      [
+        "rd_214",
+        "cp_proj_rd_214"
+      ],
+      [
+        "rd_215",
+        "cp_proj_rd_215"
+      ],
+      [
+        "rd_216",
+        "cp_proj_rd_216"
+      ],
+      [
+        "rd_217",
+        "cp_proj_rd_217"
+      ],
+      [
+        "rd_218",
+        "cp_proj_rd_218"
+      ],
+      [
+        "rd_lift2",
+        "cp_j_bridge_east"
+      ],
+      [
+        "rd_220",
+        "cp_proj_rd_220"
+      ],
+      [
+        "rd_219",
+        "cp_proj_rd_219"
+      ],
+      [
+        "rd_221",
+        "cp_proj_rd_221"
+      ],
+      [
+        "rd_222",
+        "cp_proj_rd_222"
+      ],
+      [
+        "rd_223",
+        "cp_proj_rd_223"
+      ],
+      [
+        "rd_224",
+        "cp_proj_rd_224"
+      ]
+    ],
+    "roomToNode": {
+      "201": "rd_201",
+      "202": "rd_202",
+      "203": "rd_203",
+      "204": "rd_204",
+      "205": "rd_205",
+      "206": "rd_206",
+      "207": "rd_207",
+      "208": "rd_208",
+      "209": "rd_209",
+      "210": "rd_210",
+      "211": "rd_211",
+      "212": "rd_212",
+      "213": "rd_213",
+      "214": "rd_214",
+      "215": "rd_215",
+      "216": "rd_216",
+      "217": "rd_217",
+      "218": "rd_218",
+      "219": "rd_219",
+      "220": "rd_220",
+      "221": "rd_221",
+      "222": "rd_222",
+      "223": "rd_223",
+      "224": "rd_224",
+      "lift1": "rd_lift1",
+      "lift2": "rd_lift2"
+    }
+  },
+  "3": {
+    "name": "3rd Floor",
+    "shortName": "3F",
+    "folder": "./3th floor/",
+    "mtlFile": "3rd_floor.mtl",
+    "objFile": "3rd floor.obj",
+    "planImage": "./3rd floor.jpg",
+    "planSize": {
+      "width": 3307.9,
+      "depth": 1644.9
+    },
+    "rooms": [
+      {
+        "id": "304",
+        "name": "Class Room",
+        "category": "class",
+        "labelGroup": "label_182_774"
+      },
+      {
+        "id": "304B",
+        "name": "Smart Room",
+        "category": "class",
+        "labelGroup": "label_181_773"
+      },
+      {
+        "id": "309",
+        "name": "Class Room",
+        "category": "class",
+        "labelGroup": "label_187_779"
+      },
+      {
+        "id": "310",
+        "name": "Class Room",
+        "category": "class",
+        "labelGroup": "label_188_780"
+      },
+      {
+        "id": "317C",
+        "name": "Music Room",
+        "category": "class",
+        "labelGroup": "label_171_763"
+      },
+      {
+        "id": "325",
+        "name": "Class Room",
+        "category": "class",
+        "labelGroup": "label_175_767"
+      },
+      {
+        "id": "326",
+        "name": "Class Room",
+        "category": "class",
+        "labelGroup": "label_176_768"
+      },
+      {
+        "id": "327",
+        "name": "Class Room",
+        "category": "class",
+        "labelGroup": "label_179_771"
+      },
+      {
+        "id": "328",
+        "name": "Class Room",
+        "category": "class",
+        "labelGroup": "label_178_770"
+      },
+      {
+        "id": "302",
+        "name": "Embedded System Lab",
+        "category": "lab",
+        "labelGroup": "label_180_772"
+      },
+      {
+        "id": "305",
+        "name": "Drone Lab & Robotic Lab",
+        "category": "lab",
+        "labelGroup": "label_183_775"
+      },
+      {
+        "id": "306",
+        "name": "Analog Electronic Lab",
+        "category": "lab",
+        "labelGroup": "label_184_776"
+      },
+      {
+        "id": "308",
+        "name": "Communication & Biomedical Lab",
+        "category": "lab",
+        "labelGroup": "label_186_778"
+      },
+      {
+        "id": "311",
+        "name": "Digital Comm. Lab & VLSI Lab",
+        "category": "lab",
+        "labelGroup": "label_189_781"
+      },
+      {
+        "id": "312",
+        "name": "IOT Lab",
+        "category": "lab",
+        "labelGroup": "label_190_782"
+      },
+      {
+        "id": "313",
+        "name": "Project Lab",
+        "category": "lab",
+        "labelGroup": "label_191_783"
+      },
+      {
+        "id": "319",
+        "name": "Incubation Centre & Project Lab",
+        "category": "lab",
+        "labelGroup": "label_164_756"
+      },
+      {
+        "id": "320",
+        "name": "Computer Aided Design Lab",
+        "category": "lab",
+        "labelGroup": "label_172_764"
+      },
+      {
+        "id": "321",
+        "name": "Heat Transfer Lab",
+        "category": "lab",
+        "labelGroup": "label_177_769"
+      },
+      {
+        "id": "322",
+        "name": "Solar Lab",
+        "category": "lab",
+        "labelGroup": "label_174_766"
+      },
+      {
+        "id": "323",
+        "name": "Mechanical Measurement & Metrology Lab",
+        "category": "lab",
+        "labelGroup": "label_173_765"
+      },
+      {
+        "id": "407",
+        "name": "Department of ETC",
+        "category": "dept",
+        "labelGroup": "label_185_777"
+      },
+      {
+        "id": "317",
+        "name": "Department of Civil & ETC Diploma",
+        "category": "dept",
+        "labelGroup": "label_170_762"
+      },
+      {
+        "id": "324",
+        "name": "Department of Mechanical",
+        "category": "dept",
+        "labelGroup": "label_168_760"
+      },
+      {
+        "id": "301",
+        "name": "Dr. CV Raman Seminar Hall",
+        "category": "seminar",
+        "labelGroup": "label_165_757"
+      },
+      {
+        "id": "314",
+        "name": "Girls Washroom",
+        "category": "utility",
+        "labelGroup": "label_162_754"
+      },
+      {
+        "id": "315_316",
+        "name": "315 Washroom & 316 Staff Washroom",
+        "category": "utility",
+        "labelGroup": "label_169_761"
+      },
+      {
+        "id": "318",
+        "name": "Girls Common Room",
+        "category": "utility",
+        "labelGroup": "label_163_755"
+      },
+      {
+        "id": "329",
+        "name": "Central Library",
+        "category": "utility",
+        "labelGroup": "room_155_746"
+      },
+      {
+        "id": "lift1",
+        "name": "LIFT (West)",
+        "category": "utility",
+        "labelGroup": "label_166_758"
+      },
+      {
+        "id": "lift2",
+        "name": "LIFT (East)",
+        "category": "utility",
+        "labelGroup": "label_167_759"
+      }
+    ],
+    "roomCoords": {
+      "301": {
+        "x": 854,
+        "y": 2,
+        "z": 1091
+      },
+      "302": {
+        "x": 684,
+        "y": 2,
+        "z": 1091
+      },
+      "304": {
+        "x": 243,
+        "y": 2,
+        "z": 1368
+      },
+      "305": {
+        "x": 245,
+        "y": 2,
+        "z": 1234
+      },
+      "306": {
+        "x": 247,
+        "y": 2,
+        "z": 878
+      },
+      "308": {
+        "x": 238,
+        "y": 2,
+        "z": 492
+      },
+      "309": {
+        "x": 222,
+        "y": 2,
+        "z": 268
+      },
+      "310": {
+        "x": 490,
+        "y": 2,
+        "z": 254
+      },
+      "311": {
+        "x": 540,
+        "y": 2,
+        "z": 527
+      },
+      "312": {
+        "x": 923,
+        "y": 2,
+        "z": 478
+      },
+      "313": {
+        "x": 904,
+        "y": 2,
+        "z": 256
+      },
+      "314": {
+        "x": 1016,
+        "y": 2,
+        "z": 121
+      },
+      "317": {
+        "x": 1317,
+        "y": 2,
+        "z": 515
+      },
+      "318": {
+        "x": 1978,
+        "y": 2,
+        "z": 519
+      },
+      "319": {
+        "x": 2237,
+        "y": 2,
+        "z": 515
+      },
+      "320": {
+        "x": 2738,
+        "y": 2,
+        "z": 597
+      },
+      "321": {
+        "x": 2765,
+        "y": 2,
+        "z": 273
+      },
+      "322": {
+        "x": 3047,
+        "y": 2,
+        "z": 293
+      },
+      "323": {
+        "x": 3054,
+        "y": 2,
+        "z": 595
+      },
+      "324": {
+        "x": 3031,
+        "y": 2,
+        "z": 756
+      },
+      "325": {
+        "x": 3045,
+        "y": 2,
+        "z": 1012
+      },
+      "326": {
+        "x": 3047,
+        "y": 2,
+        "z": 1329
+      },
+      "327": {
+        "x": 2762,
+        "y": 2,
+        "z": 1308
+      },
+      "328": {
+        "x": 2763,
+        "y": 2,
+        "z": 1022
+      },
+      "329": {
+        "x": 1647.4,
+        "y": 2,
+        "z": 1334.1
+      },
+      "407": {
+        "x": 245,
+        "y": 2,
+        "z": 643
+      },
+      "304B": {
+        "x": 564,
+        "y": 2,
+        "z": 1387
+      },
+      "315_316": {
+        "x": 1278,
+        "y": 2,
+        "z": 186
+      },
+      "317C": {
+        "x": 1737,
+        "y": 2,
+        "z": 508
+      },
+      "lift1": {
+        "x": 536,
+        "y": 2,
+        "z": 844
+      },
+      "lift2": {
+        "x": 2092,
+        "y": 2,
+        "z": 823
+      }
+    },
+    "dynamicLabels": [
+      {
+        "textLines": [
+          "329",
+          "Library"
+        ],
+        "width": 380,
+        "height": 190,
+        "position": {
+          "x": 1647.4,
+          "y": 1.8,
+          "z": 1334.1
+        },
+        "roomId": "329",
+        "category": "utility"
+      }
+    ],
+    "graphNodes": {
+      "rd_301": {
+        "x": 854,
+        "z": 1091,
+        "px": 770,
+        "py": 1028,
+        "type": "door",
+        "landmark": "Room 301 Dr. CV Raman Seminar Hall door"
+      },
+      "rd_302": {
+        "x": 684,
+        "z": 1091,
+        "px": 617,
+        "py": 1028,
+        "type": "door",
+        "landmark": "Room 302 Embedded System Lab door"
+      },
+      "rd_304B": {
+        "x": 564,
+        "z": 1387,
+        "px": 508,
+        "py": 1307,
+        "type": "door",
+        "landmark": "Room 304 Smart Room door"
+      },
+      "rd_304": {
+        "x": 243,
+        "z": 1368,
+        "px": 219,
+        "py": 1289,
+        "type": "door",
+        "landmark": "Room 304 Class Room door"
+      },
+      "rd_305": {
+        "x": 245,
+        "z": 1234,
+        "px": 221,
+        "py": 1163,
+        "type": "door",
+        "landmark": "Room 305 Drone Lab & Robotic Lab door"
+      },
+      "rd_306": {
+        "x": 247,
+        "z": 878,
+        "px": 223,
+        "py": 827,
+        "type": "door",
+        "landmark": "Room 306 Analog Electronic Lab door"
+      },
+      "rd_407": {
+        "x": 245,
+        "z": 643,
+        "px": 221,
+        "py": 606,
+        "type": "door",
+        "landmark": "Room 407 Department of ETC door"
+      },
+      "rd_308": {
+        "x": 238,
+        "z": 492,
+        "px": 215,
+        "py": 464,
+        "type": "door",
+        "landmark": "Room 308 Communication & Biomedical Lab door"
+      },
+      "rd_309": {
+        "x": 222,
+        "z": 268,
+        "px": 200,
+        "py": 253,
+        "type": "door",
+        "landmark": "Room 309 Class Room door"
+      },
+      "rd_310": {
+        "x": 490,
+        "z": 254,
+        "px": 442,
+        "py": 239,
+        "type": "door",
+        "landmark": "Room 310 Class Room door"
+      },
+      "rd_311": {
+        "x": 540,
+        "z": 527,
+        "px": 487,
+        "py": 497,
+        "type": "door",
+        "landmark": "Room 311 Digital Comm Lab door"
+      },
+      "rd_312": {
+        "x": 923,
+        "z": 478,
+        "px": 832,
+        "py": 450,
+        "type": "door",
+        "landmark": "Room 312 IOT Lab door"
+      },
+      "rd_313": {
+        "x": 904,
+        "z": 256,
+        "px": 815,
+        "py": 241,
+        "type": "door",
+        "landmark": "Room 313 Project Lab door"
+      },
+      "rd_314": {
+        "x": 1016,
+        "z": 121,
+        "px": 916,
+        "py": 114,
+        "type": "door",
+        "landmark": "Room 314 Girls Washroom door"
+      },
+      "rd_315_316": {
+        "x": 1278,
+        "z": 186,
+        "px": 1152,
+        "py": 175,
+        "type": "door",
+        "landmark": "Room 315 & 316 Washrooms door"
+      },
+      "rd_317": {
+        "x": 1317,
+        "z": 515,
+        "px": 1187,
+        "py": 485,
+        "type": "door",
+        "landmark": "Room 317 Department of Civil & ETC door"
+      },
+      "rd_317C": {
+        "x": 1737,
+        "z": 508,
+        "px": 1566,
+        "py": 479,
+        "type": "door",
+        "landmark": "Room 317 C Music Room door"
+      },
+      "rd_318": {
+        "x": 1978,
+        "z": 519,
+        "px": 1783,
+        "py": 489,
+        "type": "door",
+        "landmark": "Room 318 Girls Common Room door"
+      },
+      "rd_319": {
+        "x": 2237,
+        "z": 515,
+        "px": 2017,
+        "py": 485,
+        "type": "door",
+        "landmark": "Room 319 Incubation Centre door"
+      },
+      "rd_320": {
+        "x": 2738,
+        "z": 597,
+        "px": 2468,
+        "py": 563,
+        "type": "door",
+        "landmark": "Room 320 CAD Lab door"
+      },
+      "rd_321": {
+        "x": 2765,
+        "z": 273,
+        "px": 2493,
+        "py": 257,
+        "type": "door",
+        "landmark": "Room 321 Heat Transfer Lab door"
+      },
+      "rd_322": {
+        "x": 3047,
+        "z": 293,
+        "px": 2747,
+        "py": 276,
+        "type": "door",
+        "landmark": "Room 322 Solar Lab door"
+      },
+      "rd_323": {
+        "x": 3054,
+        "z": 595,
+        "px": 2753,
+        "py": 561,
+        "type": "door",
+        "landmark": "Room 323 Measurement & Metrology Lab door"
+      },
+      "rd_324": {
+        "x": 3031,
+        "z": 756,
+        "px": 2732,
+        "py": 712,
+        "type": "door",
+        "landmark": "Room 324 Department of Mechanical door"
+      },
+      "rd_325": {
+        "x": 3045,
+        "z": 1012,
+        "px": 2745,
+        "py": 954,
+        "type": "door",
+        "landmark": "Room 325 Class Room door"
+      },
+      "rd_326": {
+        "x": 3047,
+        "z": 1329,
+        "px": 2747,
+        "py": 1252,
+        "type": "door",
+        "landmark": "Room 326 Class Room door"
+      },
+      "rd_327": {
+        "x": 2762,
+        "z": 1308,
+        "px": 2490,
+        "py": 1233,
+        "type": "door",
+        "landmark": "Room 327 Class Room door"
+      },
+      "rd_328": {
+        "x": 2763,
+        "z": 1022,
+        "px": 2491,
+        "py": 963,
+        "type": "door",
+        "landmark": "Room 328 Class Room door"
+      },
+      "rd_329": {
+        "x": 1400,
+        "z": 1091,
+        "px": 1262,
+        "py": 1028,
+        "type": "door",
+        "landmark": "Library entrance door"
+      },
+      "rd_lift1": {
+        "x": 536,
+        "z": 844,
+        "px": 483,
+        "py": 795,
+        "type": "door",
+        "landmark": "Lift 1 door"
+      },
+      "rd_lift2": {
+        "x": 2092,
+        "z": 823,
+        "px": 1886,
+        "py": 775,
+        "type": "door",
+        "landmark": "Lift 2 door"
+      },
+      "cp_left_top": {
+        "x": 377,
+        "z": 156,
+        "px": 340,
+        "py": 147,
+        "type": "corridor",
+        "landmark": "West corridor north end"
+      },
+      "cp_j_top_left": {
+        "x": 377,
+        "z": 649,
+        "px": 340,
+        "py": 612,
+        "type": "corridor",
+        "landmark": "Top-Left corridor junction"
+      },
+      "cp_j_bot_left": {
+        "x": 377,
+        "z": 1004,
+        "px": 340,
+        "py": 946,
+        "type": "corridor",
+        "landmark": "Bottom-Left corridor junction"
+      },
+      "cp_left_bot": {
+        "x": 377,
+        "z": 1454,
+        "px": 340,
+        "py": 1370,
+        "type": "corridor",
+        "landmark": "West corridor south end"
+      },
+      "cp_midlab_left": {
+        "x": 377,
+        "z": 393,
+        "px": 340,
+        "py": 370,
+        "type": "corridor",
+        "landmark": "Labs west hallway junction"
+      },
+      "cp_midlab_right": {
+        "x": 1056,
+        "z": 393,
+        "px": 952,
+        "py": 370,
+        "type": "corridor",
+        "landmark": "Labs east hallway junction"
+      },
+      "cp_j_top_wash": {
+        "x": 1056,
+        "z": 649,
+        "px": 952,
+        "py": 612,
+        "type": "corridor",
+        "landmark": "Top-Washroom corridor junction"
+      },
+      "cp_j_top_east": {
+        "x": 2224,
+        "z": 649,
+        "px": 2005,
+        "py": 612,
+        "type": "corridor",
+        "landmark": "Top-East corridor junction"
+      },
+      "cp_wash_top": {
+        "x": 1056,
+        "z": 121,
+        "px": 952,
+        "py": 114,
+        "type": "corridor",
+        "landmark": "Girls Washroom corridor entrance"
+      },
+      "cp_j_bot_wash": {
+        "x": 1056,
+        "z": 1004,
+        "px": 952,
+        "py": 946,
+        "type": "corridor",
+        "landmark": "Bottom-Washroom corridor junction"
+      },
+      "cp_j_bot_east": {
+        "x": 2224,
+        "z": 1004,
+        "px": 2005,
+        "py": 946,
+        "type": "corridor",
+        "landmark": "Bottom-East courtyard junction"
+      },
+      "cp_j_bridge_east": {
+        "x": 2224,
+        "z": 809,
+        "px": 2005,
+        "py": 762,
+        "type": "corridor",
+        "landmark": "East courtyard & bridge junction"
+      },
+      "cp_j_bridge_rw": {
+        "x": 2913,
+        "z": 809,
+        "px": 2626,
+        "py": 762,
+        "type": "corridor",
+        "landmark": "Right Wing & bridge junction"
+      },
+      "cp_rw_top": {
+        "x": 2913,
+        "z": 273,
+        "px": 2626,
+        "py": 257,
+        "type": "corridor",
+        "landmark": "Right wing north end"
+      },
+      "cp_rw_bot": {
+        "x": 2913,
+        "z": 1410,
+        "px": 2626,
+        "py": 1329,
+        "type": "corridor",
+        "landmark": "Right wing south end"
+      },
+      "cp_proj_rd_301": {
+        "x": 854,
+        "z": 1004,
+        "px": 770,
+        "py": 946,
+        "type": "corridor",
+        "landmark": "Corridor outside Seminar Hall"
+      },
+      "cp_proj_rd_302": {
+        "x": 684,
+        "z": 1004,
+        "px": 617,
+        "py": 946,
+        "type": "corridor",
+        "landmark": "Corridor outside Embedded Lab"
+      },
+      "cp_proj_rd_304B": {
+        "x": 377,
+        "z": 1387,
+        "px": 340,
+        "py": 1307,
+        "type": "corridor",
+        "landmark": "Corridor outside Smart Room"
+      },
+      "cp_proj_rd_304": {
+        "x": 377,
+        "z": 1368,
+        "px": 340,
+        "py": 1289,
+        "type": "corridor",
+        "landmark": "Corridor outside Class Room 304"
+      },
+      "cp_proj_rd_305": {
+        "x": 377,
+        "z": 1234,
+        "px": 340,
+        "py": 1163,
+        "type": "corridor",
+        "landmark": "Corridor outside Drone Lab"
+      },
+      "cp_proj_rd_306": {
+        "x": 377,
+        "z": 878,
+        "px": 340,
+        "py": 827,
+        "type": "corridor",
+        "landmark": "Corridor outside Analog Lab"
+      },
+      "cp_proj_rd_407": {
+        "x": 377,
+        "z": 643,
+        "px": 340,
+        "py": 606,
+        "type": "corridor",
+        "landmark": "Corridor outside ETC Dept"
+      },
+      "cp_proj_rd_308": {
+        "x": 377,
+        "z": 492,
+        "px": 340,
+        "py": 464,
+        "type": "corridor",
+        "landmark": "Corridor outside Communication Lab"
+      },
+      "cp_proj_rd_309": {
+        "x": 377,
+        "z": 268,
+        "px": 340,
+        "py": 253,
+        "type": "corridor",
+        "landmark": "Corridor outside Class Room 309"
+      },
+      "cp_proj_rd_310": {
+        "x": 490,
+        "z": 393,
+        "px": 442,
+        "py": 370,
+        "type": "corridor",
+        "landmark": "Corridor outside Class Room 310"
+      },
+      "cp_proj_rd_311": {
+        "x": 540,
+        "z": 649,
+        "px": 487,
+        "py": 612,
+        "type": "corridor",
+        "landmark": "Corridor outside VLSI Lab"
+      },
+      "cp_proj_rd_312": {
+        "x": 923,
+        "z": 649,
+        "px": 832,
+        "py": 612,
+        "type": "corridor",
+        "landmark": "Corridor outside IOT Lab"
+      },
+      "cp_proj_rd_313": {
+        "x": 904,
+        "z": 393,
+        "px": 815,
+        "py": 370,
+        "type": "corridor",
+        "landmark": "Corridor outside Project Lab"
+      },
+      "cp_proj_rd_314": {
+        "x": 1056,
+        "z": 121,
+        "px": 952,
+        "py": 114,
+        "type": "corridor",
+        "landmark": "Corridor outside Girls Washroom"
+      },
+      "cp_proj_rd_315_316": {
+        "x": 1056,
+        "z": 186,
+        "px": 952,
+        "py": 175,
+        "type": "corridor",
+        "landmark": "Corridor outside Washrooms"
+      },
+      "cp_proj_rd_317": {
+        "x": 1317,
+        "z": 649,
+        "px": 1187,
+        "py": 612,
+        "type": "corridor",
+        "landmark": "Corridor outside Civil & ETC"
+      },
+      "cp_proj_rd_317C": {
+        "x": 1737,
+        "z": 649,
+        "px": 1566,
+        "py": 612,
+        "type": "corridor",
+        "landmark": "Corridor outside Music Room"
+      },
+      "cp_proj_rd_318": {
+        "x": 1978,
+        "z": 649,
+        "px": 1783,
+        "py": 612,
+        "type": "corridor",
+        "landmark": "Corridor outside Girls Common Room"
+      },
+      "cp_proj_rd_319": {
+        "x": 2237,
+        "z": 649,
+        "px": 2017,
+        "py": 612,
+        "type": "corridor",
+        "landmark": "Corridor outside Incubation Centre"
+      },
+      "cp_proj_rd_320": {
+        "x": 2913,
+        "z": 597,
+        "px": 2626,
+        "py": 563,
+        "type": "corridor",
+        "landmark": "Corridor outside CAD Lab"
+      },
+      "cp_proj_rd_321": {
+        "x": 2913,
+        "z": 273,
+        "px": 2626,
+        "py": 257,
+        "type": "corridor",
+        "landmark": "Corridor outside Heat Transfer Lab"
+      },
+      "cp_proj_rd_322": {
+        "x": 2913,
+        "z": 293,
+        "px": 2626,
+        "py": 276,
+        "type": "corridor",
+        "landmark": "Corridor outside Solar Lab"
+      },
+      "cp_proj_rd_323": {
+        "x": 2913,
+        "z": 595,
+        "px": 2626,
+        "py": 561,
+        "type": "corridor",
+        "landmark": "Corridor outside Measurement Lab"
+      },
+      "cp_proj_rd_324": {
+        "x": 2913,
+        "z": 756,
+        "px": 2626,
+        "py": 712,
+        "type": "corridor",
+        "landmark": "Corridor outside Mechanical Dept"
+      },
+      "cp_proj_rd_325": {
+        "x": 2913,
+        "z": 1012,
+        "px": 2626,
+        "py": 954,
+        "type": "corridor",
+        "landmark": "Corridor outside Class Room 325"
+      },
+      "cp_proj_rd_326": {
+        "x": 2913,
+        "z": 1329,
+        "px": 2626,
+        "py": 1252,
+        "type": "corridor",
+        "landmark": "Corridor outside Class Room 326"
+      },
+      "cp_proj_rd_327": {
+        "x": 2913,
+        "z": 1308,
+        "px": 2626,
+        "py": 1233,
+        "type": "corridor",
+        "landmark": "Corridor outside Class Room 327"
+      },
+      "cp_proj_rd_328": {
+        "x": 2913,
+        "z": 1022,
+        "px": 2626,
+        "py": 963,
+        "type": "corridor",
+        "landmark": "Corridor outside Class Room 328"
+      },
+      "cp_proj_rd_329": {
+        "x": 1400,
+        "z": 1004,
+        "px": 1262,
+        "py": 946,
+        "type": "corridor",
+        "landmark": "Corridor outside Library"
+      }
+    },
+    "graphEdges": [
+      [
+        "cp_left_top",
+        "cp_proj_rd_309"
+      ],
+      [
+        "cp_proj_rd_309",
+        "cp_midlab_left"
+      ],
+      [
+        "cp_midlab_left",
+        "cp_proj_rd_308"
+      ],
+      [
+        "cp_proj_rd_308",
+        "cp_proj_rd_407"
+      ],
+      [
+        "cp_proj_rd_407",
+        "cp_j_top_left"
+      ],
+      [
+        "cp_j_top_left",
+        "cp_proj_rd_306"
+      ],
+      [
+        "cp_proj_rd_306",
+        "cp_j_bot_left"
+      ],
+      [
+        "cp_j_bot_left",
+        "cp_proj_rd_305"
+      ],
+      [
+        "cp_proj_rd_305",
+        "cp_proj_rd_304"
+      ],
+      [
+        "cp_proj_rd_304",
+        "cp_proj_rd_304B"
+      ],
+      [
+        "cp_proj_rd_304B",
+        "cp_left_bot"
+      ],
+      [
+        "cp_midlab_left",
+        "cp_proj_rd_310"
+      ],
+      [
+        "cp_proj_rd_310",
+        "cp_proj_rd_313"
+      ],
+      [
+        "cp_proj_rd_313",
+        "cp_midlab_right"
+      ],
+      [
+        "cp_j_top_left",
+        "cp_proj_rd_311"
+      ],
+      [
+        "cp_proj_rd_311",
+        "cp_proj_rd_312"
+      ],
+      [
+        "cp_proj_rd_312",
+        "cp_j_top_wash"
+      ],
+      [
+        "cp_j_top_wash",
+        "cp_proj_rd_317"
+      ],
+      [
+        "cp_proj_rd_317",
+        "cp_proj_rd_317C"
+      ],
+      [
+        "cp_proj_rd_317C",
+        "cp_proj_rd_318"
+      ],
+      [
+        "cp_proj_rd_318",
+        "cp_j_top_east"
+      ],
+      [
+        "cp_j_top_east",
+        "cp_proj_rd_319"
+      ],
+      [
+        "cp_wash_top",
+        "cp_proj_rd_314"
+      ],
+      [
+        "cp_proj_rd_314",
+        "cp_proj_rd_315_316"
+      ],
+      [
+        "cp_proj_rd_315_316",
+        "cp_midlab_right"
+      ],
+      [
+        "cp_midlab_right",
+        "cp_j_top_wash"
+      ],
+      [
+        "cp_j_top_wash",
+        "cp_j_bot_wash"
+      ],
+      [
+        "cp_j_top_east",
+        "cp_j_bridge_east"
+      ],
+      [
+        "cp_j_bridge_east",
+        "cp_j_bot_east"
+      ],
+      [
+        "cp_j_bridge_east",
+        "cp_j_bridge_rw"
+      ],
+      [
+        "cp_rw_top",
+        "cp_proj_rd_321"
+      ],
+      [
+        "cp_proj_rd_321",
+        "cp_proj_rd_322"
+      ],
+      [
+        "cp_proj_rd_322",
+        "cp_proj_rd_323"
+      ],
+      [
+        "cp_proj_rd_323",
+        "cp_proj_rd_320"
+      ],
+      [
+        "cp_proj_rd_320",
+        "cp_proj_rd_324"
+      ],
+      [
+        "cp_proj_rd_324",
+        "cp_j_bridge_rw"
+      ],
+      [
+        "cp_j_bridge_rw",
+        "cp_proj_rd_325"
+      ],
+      [
+        "cp_proj_rd_325",
+        "cp_proj_rd_328"
+      ],
+      [
+        "cp_proj_rd_328",
+        "cp_proj_rd_327"
+      ],
+      [
+        "cp_proj_rd_327",
+        "cp_proj_rd_326"
+      ],
+      [
+        "cp_proj_rd_326",
+        "cp_rw_bot"
+      ],
+      [
+        "cp_j_bot_left",
+        "cp_proj_rd_302"
+      ],
+      [
+        "cp_proj_rd_302",
+        "cp_proj_rd_301"
+      ],
+      [
+        "cp_proj_rd_301",
+        "cp_j_bot_wash"
+      ],
+      [
+        "cp_j_bot_wash",
+        "cp_proj_rd_329"
+      ],
+      [
+        "cp_proj_rd_329",
+        "cp_j_bot_east"
+      ],
+      [
+        "rd_301",
+        "cp_proj_rd_301"
+      ],
+      [
+        "rd_302",
+        "cp_proj_rd_302"
+      ],
+      [
+        "rd_304B",
+        "cp_proj_rd_304B"
+      ],
+      [
+        "rd_304",
+        "cp_proj_rd_304"
+      ],
+      [
+        "rd_305",
+        "cp_proj_rd_305"
+      ],
+      [
+        "rd_306",
+        "cp_proj_rd_306"
+      ],
+      [
+        "rd_407",
+        "cp_proj_rd_407"
+      ],
+      [
+        "rd_308",
+        "cp_proj_rd_308"
+      ],
+      [
+        "rd_309",
+        "cp_proj_rd_309"
+      ],
+      [
+        "rd_310",
+        "cp_proj_rd_310"
+      ],
+      [
+        "rd_311",
+        "cp_proj_rd_311"
+      ],
+      [
+        "rd_312",
+        "cp_proj_rd_312"
+      ],
+      [
+        "rd_313",
+        "cp_proj_rd_313"
+      ],
+      [
+        "rd_314",
+        "cp_proj_rd_314"
+      ],
+      [
+        "rd_315_316",
+        "cp_proj_rd_315_316"
+      ],
+      [
+        "rd_317",
+        "cp_proj_rd_317"
+      ],
+      [
+        "rd_317C",
+        "cp_proj_rd_317C"
+      ],
+      [
+        "rd_318",
+        "cp_proj_rd_318"
+      ],
+      [
+        "rd_319",
+        "cp_proj_rd_319"
+      ],
+      [
+        "rd_320",
+        "cp_proj_rd_320"
+      ],
+      [
+        "rd_321",
+        "cp_proj_rd_321"
+      ],
+      [
+        "rd_322",
+        "cp_proj_rd_322"
+      ],
+      [
+        "rd_323",
+        "cp_proj_rd_323"
+      ],
+      [
+        "rd_324",
+        "cp_proj_rd_324"
+      ],
+      [
+        "rd_325",
+        "cp_proj_rd_325"
+      ],
+      [
+        "rd_326",
+        "cp_proj_rd_326"
+      ],
+      [
+        "rd_327",
+        "cp_proj_rd_327"
+      ],
+      [
+        "rd_328",
+        "cp_proj_rd_328"
+      ],
+      [
+        "rd_329",
+        "cp_proj_rd_329"
+      ],
+      [
+        "rd_lift1",
+        "cp_j_bot_left"
+      ],
+      [
+        "rd_lift2",
+        "cp_j_bridge_east"
+      ]
+    ],
+    "roomToNode": {
+      "301": "rd_301",
+      "302": "rd_302",
+      "304": "rd_304",
+      "305": "rd_305",
+      "306": "rd_306",
+      "307": "rd_407",
+      "308": "rd_308",
+      "309": "rd_309",
+      "310": "rd_310",
+      "311": "rd_311",
+      "312": "rd_312",
+      "313": "rd_313",
+      "314": "rd_314",
+      "317": "rd_317",
+      "318": "rd_318",
+      "319": "rd_319",
+      "320": "rd_320",
+      "321": "rd_321",
+      "322": "rd_322",
+      "323": "rd_323",
+      "324": "rd_324",
+      "325": "rd_325",
+      "326": "rd_326",
+      "327": "rd_327",
+      "328": "rd_328",
+      "329": "rd_329",
+      "407": "rd_407",
+      "304B": "rd_304B",
+      "315_316": "rd_315_316",
+      "317C": "rd_317C",
+      "lift1": "rd_lift1",
+      "lift2": "rd_lift2"
+    }
+  },
+  "4": {
+    "name": "4th Floor",
+    "shortName": "4F",
+    "folder": "./4th floor/",
+    "mtlFile": "4th_floor.mtl",
+    "objFile": "4th floor.obj",
+    "planImage": "./4th floor.jpg",
+    "planSize": {
+      "width": 3307.9,
+      "depth": 1644.9
+    },
+    "rooms": [
+      {
+        "id": "403",
+        "name": "Smart Room",
+        "category": "class",
+        "labelGroup": "label_186_799"
+      },
+      {
+        "id": "404",
+        "name": "Class Room",
+        "category": "class",
+        "labelGroup": "label_187_800"
+      },
+      {
+        "id": "409A",
+        "name": "409(A) Class Room",
+        "category": "class",
+        "labelGroup": "label_192_805"
+      },
+      {
+        "id": "410",
+        "name": "Class Room",
+        "category": "class",
+        "labelGroup": "label_193_806"
+      },
+      {
+        "id": "418",
+        "name": "Music Room",
+        "category": "class",
+        "labelGroup": "label_176_789"
+      },
+      {
+        "id": "421",
+        "name": "Class Room",
+        "category": "class",
+        "labelGroup": "label_177_790"
+      },
+      {
+        "id": "422",
+        "name": "Class Room",
+        "category": "class",
+        "labelGroup": "label_182_795"
+      },
+      {
+        "id": "429",
+        "name": "Class Room",
+        "category": "class",
+        "labelGroup": "label_183_796"
+      },
+      {
+        "id": "402",
+        "name": "Wireless Communication & Computing Lab",
+        "category": "lab",
+        "labelGroup": "label_185_798"
+      },
+      {
+        "id": "405",
+        "name": "Operating System Lab",
+        "category": "lab",
+        "labelGroup": "label_188_801"
+      },
+      {
+        "id": "406",
+        "name": "Digital & Microcontroller Lab",
+        "category": "lab",
+        "labelGroup": "label_189_802"
+      },
+      {
+        "id": "408",
+        "name": "DMS Lab",
+        "category": "lab",
+        "labelGroup": "label_191_804"
+      },
+      {
+        "id": "411",
+        "name": "Project Lab",
+        "category": "lab",
+        "labelGroup": "label_194_807"
+      },
+      {
+        "id": "412",
+        "name": "Web Technology & DSA Lab",
+        "category": "lab",
+        "labelGroup": "label_195_808"
+      },
+      {
+        "id": "413",
+        "name": "Computer Network Lab",
+        "category": "lab",
+        "labelGroup": "label_196_809"
+      },
+      {
+        "id": "423",
+        "name": "Switchgear & Protection Lab",
+        "category": "lab",
+        "labelGroup": "label_179_792"
+      },
+      {
+        "id": "424",
+        "name": "Electrical Workshop & Hardware Lab",
+        "category": "lab",
+        "labelGroup": "label_178_791"
+      },
+      {
+        "id": "426",
+        "name": "BEE Lab",
+        "category": "lab",
+        "labelGroup": "label_180_793"
+      },
+      {
+        "id": "427",
+        "name": "Power Electronic & Network Theory Lab",
+        "category": "lab",
+        "labelGroup": "label_181_794"
+      },
+      {
+        "id": "428",
+        "name": "Control System & Sensor Transducer Lab",
+        "category": "lab",
+        "labelGroup": "label_184_797"
+      },
+      {
+        "id": "407",
+        "name": "Department of CSE & IT",
+        "category": "dept",
+        "labelGroup": "label_190_803"
+      },
+      {
+        "id": "417",
+        "name": "Department of CSE & Electrical Diploma",
+        "category": "dept",
+        "labelGroup": "label_175_788"
+      },
+      {
+        "id": "425",
+        "name": "Department of Electrical",
+        "category": "dept",
+        "labelGroup": "label_173_786"
+      },
+      {
+        "id": "409B",
+        "name": "409(B) Staff Room",
+        "category": "staff",
+        "labelGroup": "label_192_805"
+      },
+      {
+        "id": "420",
+        "name": "Teacher Staff Room",
+        "category": "staff",
+        "labelGroup": "label_169_782"
+      },
+      {
+        "id": "401",
+        "name": "Dr. Vijay Bhatkar Seminar Hall",
+        "category": "seminar",
+        "labelGroup": "label_170_783"
+      },
+      {
+        "id": "414",
+        "name": "Girls Washroom",
+        "category": "utility",
+        "labelGroup": "label_167_780"
+      },
+      {
+        "id": "415_416",
+        "name": "415 Washroom & 416 Staff Washroom",
+        "category": "utility",
+        "labelGroup": "label_174_787"
+      },
+      {
+        "id": "419",
+        "name": "Girls Common Room",
+        "category": "utility",
+        "labelGroup": "label_168_781"
+      }
+    ],
+    "roomCoords": {
+      "401": {
+        "x": 854,
+        "y": 2,
+        "z": 1091
+      },
+      "402": {
+        "x": 684,
+        "y": 2,
+        "z": 1091
+      },
+      "403": {
+        "x": 564,
+        "y": 2,
+        "z": 1387
+      },
+      "404": {
+        "x": 243,
+        "y": 2,
+        "z": 1368
+      },
+      "405": {
+        "x": 245,
+        "y": 2,
+        "z": 1234
+      },
+      "406": {
+        "x": 247,
+        "y": 2,
+        "z": 878
+      },
+      "407": {
+        "x": 245,
+        "y": 2,
+        "z": 643
+      },
+      "408": {
+        "x": 238,
+        "y": 2,
+        "z": 492
+      },
+      "410": {
+        "x": 490,
+        "y": 2,
+        "z": 254
+      },
+      "411": {
+        "x": 540,
+        "y": 2,
+        "z": 527
+      },
+      "412": {
+        "x": 923,
+        "y": 2,
+        "z": 478
+      },
+      "413": {
+        "x": 904,
+        "y": 2,
+        "z": 256
+      },
+      "414": {
+        "x": 1016,
+        "y": 2,
+        "z": 121
+      },
+      "417": {
+        "x": 1317,
+        "y": 2,
+        "z": 515
+      },
+      "418": {
+        "x": 1737,
+        "y": 2,
+        "z": 508
+      },
+      "419": {
+        "x": 1978,
+        "y": 2,
+        "z": 519
+      },
+      "420": {
+        "x": 2237,
+        "y": 2,
+        "z": 515
+      },
+      "421": {
+        "x": 2738,
+        "y": 2,
+        "z": 597
+      },
+      "422": {
+        "x": 2765,
+        "y": 2,
+        "z": 273
+      },
+      "423": {
+        "x": 3047,
+        "y": 2,
+        "z": 293
+      },
+      "424": {
+        "x": 3054,
+        "y": 2,
+        "z": 595
+      },
+      "425": {
+        "x": 3031,
+        "y": 2,
+        "z": 756
+      },
+      "426": {
+        "x": 3045,
+        "y": 2,
+        "z": 1012
+      },
+      "427": {
+        "x": 3047,
+        "y": 2,
+        "z": 1329
+      },
+      "428": {
+        "x": 2762,
+        "y": 2,
+        "z": 1308
+      },
+      "429": {
+        "x": 2763,
+        "y": 2,
+        "z": 1022
+      },
+      "409A": {
+        "x": 222,
+        "y": 2,
+        "z": 268
+      },
+      "409B": {
+        "x": 371,
+        "y": 2,
+        "z": 156
+      },
+      "415_416": {
+        "x": 1278,
+        "y": 2,
+        "z": 186
+      }
+    },
+    "graphNodes": {
+      "rd_401": {
+        "x": 854,
+        "z": 1091,
+        "px": 770,
+        "py": 1028,
+        "type": "door",
+        "landmark": "Room 401 Dr. Vijay Bhatkar Seminar Hall door"
+      },
+      "rd_402": {
+        "x": 684,
+        "z": 1091,
+        "px": 617,
+        "py": 1028,
+        "type": "door",
+        "landmark": "Room 402 Wireless Communication & Computing Lab door"
+      },
+      "rd_403": {
+        "x": 564,
+        "z": 1387,
+        "px": 508,
+        "py": 1307,
+        "type": "door",
+        "landmark": "Room 403 Smart Room door"
+      },
+      "rd_404": {
+        "x": 243,
+        "z": 1368,
+        "px": 219,
+        "py": 1289,
+        "type": "door",
+        "landmark": "Room 404 Class Room door"
+      },
+      "rd_405": {
+        "x": 245,
+        "z": 1234,
+        "px": 221,
+        "py": 1163,
+        "type": "door",
+        "landmark": "Room 405 Operating System Lab door"
+      },
+      "rd_406": {
+        "x": 247,
+        "z": 878,
+        "px": 223,
+        "py": 827,
+        "type": "door",
+        "landmark": "Room 406 Digital & Microcontroller Lab door"
+      },
+      "rd_407": {
+        "x": 245,
+        "z": 643,
+        "px": 221,
+        "py": 606,
+        "type": "door",
+        "landmark": "Room 407 Department of CSE & IT door"
+      },
+      "rd_408": {
+        "x": 238,
+        "z": 492,
+        "px": 215,
+        "py": 464,
+        "type": "door",
+        "landmark": "Room 408 DMS Lab door"
+      },
+      "rd_410": {
+        "x": 490,
+        "z": 254,
+        "px": 442,
+        "py": 239,
+        "type": "door",
+        "landmark": "Room 410 Class Room door"
+      },
+      "rd_411": {
+        "x": 540,
+        "z": 527,
+        "px": 487,
+        "py": 497,
+        "type": "door",
+        "landmark": "Room 411 Project Lab door"
+      },
+      "rd_412": {
+        "x": 923,
+        "z": 478,
+        "px": 832,
+        "py": 450,
+        "type": "door",
+        "landmark": "Room 412 Web Technology & DSA Lab door"
+      },
+      "rd_413": {
+        "x": 904,
+        "z": 256,
+        "px": 815,
+        "py": 241,
+        "type": "door",
+        "landmark": "Room 413 Computer Network Lab door"
+      },
+      "rd_414": {
+        "x": 1016,
+        "z": 121,
+        "px": 916,
+        "py": 114,
+        "type": "door",
+        "landmark": "Room 414 Girls Washroom door"
+      },
+      "rd_417": {
+        "x": 1317,
+        "z": 515,
+        "px": 1187,
+        "py": 485,
+        "type": "door",
+        "landmark": "Room 417 Department of CSE & Electrical Diploma door"
+      },
+      "rd_418": {
+        "x": 1737,
+        "z": 508,
+        "px": 1566,
+        "py": 479,
+        "type": "door",
+        "landmark": "Room 418 Music Room door"
+      },
+      "rd_419": {
+        "x": 1978,
+        "z": 519,
+        "px": 1783,
+        "py": 489,
+        "type": "door",
+        "landmark": "Room 419 Girls Common Room door"
+      },
+      "rd_420": {
+        "x": 2237,
+        "z": 515,
+        "px": 2017,
+        "py": 485,
+        "type": "door",
+        "landmark": "Room 420 Teacher Staff Room door"
+      },
+      "rd_421": {
+        "x": 2738,
+        "z": 597,
+        "px": 2468,
+        "py": 563,
+        "type": "door",
+        "landmark": "Room 421 Class Room door"
+      },
+      "rd_422": {
+        "x": 2765,
+        "z": 273,
+        "px": 2493,
+        "py": 257,
+        "type": "door",
+        "landmark": "Room 422 Class Room door"
+      },
+      "rd_423": {
+        "x": 3047,
+        "z": 293,
+        "px": 2747,
+        "py": 276,
+        "type": "door",
+        "landmark": "Room 423 Switchgear & Protection Lab door"
+      },
+      "rd_424": {
+        "x": 3054,
+        "z": 595,
+        "px": 2753,
+        "py": 561,
+        "type": "door",
+        "landmark": "Room 424 Electrical Workshop & Hardware Lab door"
+      },
+      "rd_425": {
+        "x": 3031,
+        "z": 756,
+        "px": 2732,
+        "py": 712,
+        "type": "door",
+        "landmark": "Room 425 Electrical Department door"
+      },
+      "rd_426": {
+        "x": 3045,
+        "z": 1012,
+        "px": 2745,
+        "py": 954,
+        "type": "door",
+        "landmark": "Room 426 BEE Lab door"
+      },
+      "rd_427": {
+        "x": 3047,
+        "z": 1329,
+        "px": 2747,
+        "py": 1252,
+        "type": "door",
+        "landmark": "Room 427 Power Electronic & Network Theory Lab door"
+      },
+      "rd_428": {
+        "x": 2762,
+        "z": 1308,
+        "px": 2490,
+        "py": 1233,
+        "type": "door",
+        "landmark": "Room 428 Control System & Sensor Transducer Lab door"
+      },
+      "rd_429": {
+        "x": 2763,
+        "z": 1022,
+        "px": 2491,
+        "py": 963,
+        "type": "door",
+        "landmark": "Room 429 Class Room door"
+      },
+      "rd_409A": {
+        "x": 222,
+        "z": 268,
+        "px": 200,
+        "py": 253,
+        "type": "door",
+        "landmark": "Room 409(A) Class Room door"
+      },
+      "rd_409B": {
+        "x": 371,
+        "z": 156,
+        "px": 334,
+        "py": 147,
+        "type": "door",
+        "landmark": "Room 409(B) Staff Room door"
+      },
+      "rd_415_416": {
+        "x": 1278,
+        "z": 186,
+        "px": 1152,
+        "py": 175,
+        "type": "door",
+        "landmark": "Room 415 & 416 Washrooms door"
+      },
+      "cp_left_top": {
+        "x": 377,
+        "z": 156,
+        "px": 340,
+        "py": 147,
+        "type": "corridor",
+        "landmark": "Left corridor north end (409B)"
+      },
+      "cp_j_top_left": {
+        "x": 377,
+        "z": 649,
+        "px": 340,
+        "py": 612,
+        "type": "corridor",
+        "landmark": "Top-Left corridor junction"
+      },
+      "cp_j_bot_left": {
+        "x": 377,
+        "z": 1004,
+        "px": 340,
+        "py": 946,
+        "type": "corridor",
+        "landmark": "Bottom-Left corridor junction"
+      },
+      "cp_left_bot": {
+        "x": 377,
+        "z": 1454,
+        "px": 340,
+        "py": 1370,
+        "type": "corridor",
+        "landmark": "Left corridor south end (404)"
+      },
+      "cp_midlab_left": {
+        "x": 377,
+        "z": 393,
+        "px": 340,
+        "py": 370,
+        "type": "corridor",
+        "landmark": "Labs 410-413 west hallway junction"
+      },
+      "cp_midlab_right": {
+        "x": 1056,
+        "z": 393,
+        "px": 952,
+        "py": 370,
+        "type": "corridor",
+        "landmark": "Labs 410-413 east hallway junction"
+      },
+      "cp_j_top_wash": {
+        "x": 1056,
+        "z": 649,
+        "px": 952,
+        "py": 612,
+        "type": "corridor",
+        "landmark": "Top-Washroom corridor junction"
+      },
+      "cp_j_top_east": {
+        "x": 2224,
+        "z": 649,
+        "px": 2005,
+        "py": 612,
+        "type": "corridor",
+        "landmark": "Top-East corridor junction (420)"
+      },
+      "cp_wash_top": {
+        "x": 1056,
+        "z": 121,
+        "px": 952,
+        "py": 114,
+        "type": "corridor",
+        "landmark": "Girls Washroom corridor entrance (414)"
+      },
+      "cp_j_bot_wash": {
+        "x": 1056,
+        "z": 1004,
+        "px": 952,
+        "py": 946,
+        "type": "corridor",
+        "landmark": "Bottom-Washroom corridor junction"
+      },
+      "cp_j_bridge_east": {
+        "x": 2224,
+        "z": 809,
+        "px": 2005,
+        "py": 762,
+        "type": "corridor",
+        "landmark": "East courtyard & bridge junction"
+      },
+      "cp_j_bot_east": {
+        "x": 2224,
+        "z": 1004,
+        "px": 2005,
+        "py": 946,
+        "type": "corridor",
+        "landmark": "Bottom-East courtyard junction"
+      },
+      "cp_j_bridge_rw": {
+        "x": 2913,
+        "z": 809,
+        "px": 2626,
+        "py": 762,
+        "type": "corridor",
+        "landmark": "Right Wing & bridge junction"
+      },
+      "cp_rw_top": {
+        "x": 2913,
+        "z": 273,
+        "px": 2626,
+        "py": 257,
+        "type": "corridor",
+        "landmark": "Right wing north end (422/423)"
+      },
+      "cp_rw_bot": {
+        "x": 2913,
+        "z": 1410,
+        "px": 2626,
+        "py": 1329,
+        "type": "corridor",
+        "landmark": "Right wing south end (427/428)"
+      },
+      "cp_proj_rd_401": {
+        "x": 854,
+        "z": 1004,
+        "px": 770,
+        "py": 946,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 401 Dr. Vijay Bhatkar Seminar Hall door"
+      },
+      "cp_proj_rd_402": {
+        "x": 684,
+        "z": 1004,
+        "px": 617,
+        "py": 946,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 402 Wireless Communication & Computing Lab door"
+      },
+      "cp_proj_rd_403": {
+        "x": 377,
+        "z": 1387,
+        "px": 340,
+        "py": 1307,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 403 Smart Room door"
+      },
+      "cp_proj_rd_404": {
+        "x": 377,
+        "z": 1368,
+        "px": 340,
+        "py": 1289,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 404 Class Room door"
+      },
+      "cp_proj_rd_405": {
+        "x": 377,
+        "z": 1234,
+        "px": 340,
+        "py": 1163,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 405 Operating System Lab door"
+      },
+      "cp_proj_rd_406": {
+        "x": 377,
+        "z": 878,
+        "px": 340,
+        "py": 827,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 406 Digital & Microcontroller Lab door"
+      },
+      "cp_proj_rd_407": {
+        "x": 377,
+        "z": 643,
+        "px": 340,
+        "py": 606,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 407 Department of CSE & IT door"
+      },
+      "cp_proj_rd_408": {
+        "x": 377,
+        "z": 492,
+        "px": 340,
+        "py": 464,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 408 DMS Lab door"
+      },
+      "cp_proj_rd_410": {
+        "x": 490,
+        "z": 393,
+        "px": 442,
+        "py": 370,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 410 Class Room door"
+      },
+      "cp_proj_rd_411": {
+        "x": 540,
+        "z": 649,
+        "px": 487,
+        "py": 612,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 411 Project Lab door"
+      },
+      "cp_proj_rd_412": {
+        "x": 923,
+        "z": 649,
+        "px": 832,
+        "py": 612,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 412 Web Technology & DSA Lab door"
+      },
+      "cp_proj_rd_413": {
+        "x": 904,
+        "z": 393,
+        "px": 815,
+        "py": 370,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 413 Computer Network Lab door"
+      },
+      "cp_proj_rd_414": {
+        "x": 1056,
+        "z": 121,
+        "px": 952,
+        "py": 114,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 414 Girls Washroom door"
+      },
+      "cp_proj_rd_417": {
+        "x": 1317,
+        "z": 649,
+        "px": 1187,
+        "py": 612,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 417 Department of CSE & Electrical Diploma door"
+      },
+      "cp_proj_rd_418": {
+        "x": 1737,
+        "z": 649,
+        "px": 1566,
+        "py": 612,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 418 Music Room door"
+      },
+      "cp_proj_rd_419": {
+        "x": 1978,
+        "z": 649,
+        "px": 1783,
+        "py": 612,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 419 Girls Common Room door"
+      },
+      "cp_proj_rd_420": {
+        "x": 2237,
+        "z": 649,
+        "px": 2017,
+        "py": 612,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 420 Teacher Staff Room door"
+      },
+      "cp_proj_rd_421": {
+        "x": 2913,
+        "z": 597,
+        "px": 2626,
+        "py": 563,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 421 Class Room door"
+      },
+      "cp_proj_rd_422": {
+        "x": 2913,
+        "z": 273,
+        "px": 2626,
+        "py": 257,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 422 Class Room door"
+      },
+      "cp_proj_rd_423": {
+        "x": 2913,
+        "z": 293,
+        "px": 2626,
+        "py": 276,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 423 Switchgear & Protection Lab door"
+      },
+      "cp_proj_rd_424": {
+        "x": 2913,
+        "z": 595,
+        "px": 2626,
+        "py": 561,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 424 Electrical Workshop & Hardware Lab door"
+      },
+      "cp_proj_rd_425": {
+        "x": 2913,
+        "z": 756,
+        "px": 2626,
+        "py": 712,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 425 Electrical Department door"
+      },
+      "cp_proj_rd_426": {
+        "x": 2913,
+        "z": 1012,
+        "px": 2626,
+        "py": 954,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 426 BEE Lab door"
+      },
+      "cp_proj_rd_427": {
+        "x": 2913,
+        "z": 1329,
+        "px": 2626,
+        "py": 1252,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 427 Power Electronic & Network Theory Lab door"
+      },
+      "cp_proj_rd_428": {
+        "x": 2913,
+        "z": 1308,
+        "px": 2626,
+        "py": 1233,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 428 Control System & Sensor Transducer Lab door"
+      },
+      "cp_proj_rd_429": {
+        "x": 2913,
+        "z": 1022,
+        "px": 2626,
+        "py": 963,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 429 Class Room door"
+      },
+      "cp_proj_rd_409A": {
+        "x": 377,
+        "z": 268,
+        "px": 340,
+        "py": 253,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 409(A) Class Room door"
+      },
+      "cp_proj_rd_409B": {
+        "x": 371,
+        "z": 649,
+        "px": 334,
+        "py": 612,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 409(B) Staff Room door"
+      },
+      "cp_proj_rd_415_416": {
+        "x": 1056,
+        "z": 186,
+        "px": 952,
+        "py": 175,
+        "type": "corridor",
+        "landmark": "Corridor outside Room 415 & 416 Washrooms door"
+      }
+    },
+    "graphEdges": [
+      [
+        "cp_left_top",
+        "cp_proj_rd_409A"
+      ],
+      [
+        "cp_proj_rd_409A",
+        "cp_midlab_left"
+      ],
+      [
+        "cp_midlab_left",
+        "cp_proj_rd_408"
+      ],
+      [
+        "cp_proj_rd_408",
+        "cp_proj_rd_407"
+      ],
+      [
+        "cp_proj_rd_407",
+        "cp_j_top_left"
+      ],
+      [
+        "cp_j_top_left",
+        "cp_proj_rd_406"
+      ],
+      [
+        "cp_proj_rd_406",
+        "cp_j_bot_left"
+      ],
+      [
+        "cp_j_bot_left",
+        "cp_proj_rd_405"
+      ],
+      [
+        "cp_proj_rd_405",
+        "cp_proj_rd_404"
+      ],
+      [
+        "cp_proj_rd_404",
+        "cp_proj_rd_403"
+      ],
+      [
+        "cp_proj_rd_403",
+        "cp_left_bot"
+      ],
+      [
+        "cp_midlab_left",
+        "cp_proj_rd_410"
+      ],
+      [
+        "cp_proj_rd_410",
+        "cp_proj_rd_413"
+      ],
+      [
+        "cp_proj_rd_413",
+        "cp_midlab_right"
+      ],
+      [
+        "cp_proj_rd_409B",
+        "cp_j_top_left"
+      ],
+      [
+        "cp_j_top_left",
+        "cp_proj_rd_411"
+      ],
+      [
+        "cp_proj_rd_411",
+        "cp_proj_rd_412"
+      ],
+      [
+        "cp_proj_rd_412",
+        "cp_j_top_wash"
+      ],
+      [
+        "cp_j_top_wash",
+        "cp_proj_rd_417"
+      ],
+      [
+        "cp_proj_rd_417",
+        "cp_proj_rd_418"
+      ],
+      [
+        "cp_proj_rd_418",
+        "cp_proj_rd_419"
+      ],
+      [
+        "cp_proj_rd_419",
+        "cp_j_top_east"
+      ],
+      [
+        "cp_j_top_east",
+        "cp_proj_rd_420"
+      ],
+      [
+        "cp_wash_top",
+        "cp_proj_rd_414"
+      ],
+      [
+        "cp_proj_rd_414",
+        "cp_proj_rd_415_416"
+      ],
+      [
+        "cp_proj_rd_415_416",
+        "cp_midlab_right"
+      ],
+      [
+        "cp_midlab_right",
+        "cp_j_top_wash"
+      ],
+      [
+        "cp_j_top_wash",
+        "cp_j_bot_wash"
+      ],
+      [
+        "cp_j_top_east",
+        "cp_j_bridge_east"
+      ],
+      [
+        "cp_j_bridge_east",
+        "cp_j_bot_east"
+      ],
+      [
+        "cp_j_bridge_east",
+        "cp_j_bridge_rw"
+      ],
+      [
+        "cp_rw_top",
+        "cp_proj_rd_422"
+      ],
+      [
+        "cp_proj_rd_422",
+        "cp_proj_rd_423"
+      ],
+      [
+        "cp_proj_rd_423",
+        "cp_proj_rd_424"
+      ],
+      [
+        "cp_proj_rd_424",
+        "cp_proj_rd_421"
+      ],
+      [
+        "cp_proj_rd_421",
+        "cp_proj_rd_425"
+      ],
+      [
+        "cp_proj_rd_425",
+        "cp_j_bridge_rw"
+      ],
+      [
+        "cp_j_bridge_rw",
+        "cp_proj_rd_426"
+      ],
+      [
+        "cp_proj_rd_426",
+        "cp_proj_rd_429"
+      ],
+      [
+        "cp_proj_rd_429",
+        "cp_proj_rd_428"
+      ],
+      [
+        "cp_proj_rd_428",
+        "cp_proj_rd_427"
+      ],
+      [
+        "cp_proj_rd_427",
+        "cp_rw_bot"
+      ],
+      [
+        "cp_j_bot_left",
+        "cp_proj_rd_402"
+      ],
+      [
+        "cp_proj_rd_402",
+        "cp_proj_rd_401"
+      ],
+      [
+        "cp_proj_rd_401",
+        "cp_j_bot_wash"
+      ],
+      [
+        "cp_j_bot_wash",
+        "cp_j_bot_east"
+      ],
+      [
+        "rd_401",
+        "cp_proj_rd_401"
+      ],
+      [
+        "rd_402",
+        "cp_proj_rd_402"
+      ],
+      [
+        "rd_403",
+        "cp_proj_rd_403"
+      ],
+      [
+        "rd_404",
+        "cp_proj_rd_404"
+      ],
+      [
+        "rd_405",
+        "cp_proj_rd_405"
+      ],
+      [
+        "rd_406",
+        "cp_proj_rd_406"
+      ],
+      [
+        "rd_407",
+        "cp_proj_rd_407"
+      ],
+      [
+        "rd_408",
+        "cp_proj_rd_408"
+      ],
+      [
+        "rd_410",
+        "cp_proj_rd_410"
+      ],
+      [
+        "rd_411",
+        "cp_proj_rd_411"
+      ],
+      [
+        "rd_412",
+        "cp_proj_rd_412"
+      ],
+      [
+        "rd_413",
+        "cp_proj_rd_413"
+      ],
+      [
+        "rd_414",
+        "cp_proj_rd_414"
+      ],
+      [
+        "rd_417",
+        "cp_proj_rd_417"
+      ],
+      [
+        "rd_418",
+        "cp_proj_rd_418"
+      ],
+      [
+        "rd_419",
+        "cp_proj_rd_419"
+      ],
+      [
+        "rd_420",
+        "cp_proj_rd_420"
+      ],
+      [
+        "rd_421",
+        "cp_proj_rd_421"
+      ],
+      [
+        "rd_422",
+        "cp_proj_rd_422"
+      ],
+      [
+        "rd_423",
+        "cp_proj_rd_423"
+      ],
+      [
+        "rd_424",
+        "cp_proj_rd_424"
+      ],
+      [
+        "rd_425",
+        "cp_proj_rd_425"
+      ],
+      [
+        "rd_426",
+        "cp_proj_rd_426"
+      ],
+      [
+        "rd_427",
+        "cp_proj_rd_427"
+      ],
+      [
+        "rd_428",
+        "cp_proj_rd_428"
+      ],
+      [
+        "rd_429",
+        "cp_proj_rd_429"
+      ],
+      [
+        "rd_409A",
+        "cp_proj_rd_409A"
+      ],
+      [
+        "rd_409B",
+        "cp_proj_rd_409B"
+      ],
+      [
+        "rd_415_416",
+        "cp_proj_rd_415_416"
+      ]
+    ],
+    "roomToNode": {
+      "401": "rd_401",
+      "402": "rd_402",
+      "403": "rd_403",
+      "404": "rd_404",
+      "405": "rd_405",
+      "406": "rd_406",
+      "407": "rd_407",
+      "408": "rd_408",
+      "410": "rd_410",
+      "411": "rd_411",
+      "412": "rd_412",
+      "413": "rd_413",
+      "414": "rd_414",
+      "417": "rd_417",
+      "418": "rd_418",
+      "419": "rd_419",
+      "420": "rd_420",
+      "421": "rd_421",
+      "422": "rd_422",
+      "423": "rd_423",
+      "424": "rd_424",
+      "425": "rd_425",
+      "426": "rd_426",
+      "427": "rd_427",
+      "428": "rd_428",
+      "429": "rd_429",
+      "409A": "rd_409A",
+      "409B": "rd_409B",
+      "415_416": "rd_415_416"
+    }
+  }
+}

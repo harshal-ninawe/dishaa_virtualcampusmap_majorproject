@@ -386,7 +386,12 @@ export default function CampusMap({ isChatCollapsed, directions, pickingFor, onS
           ].map((f) => (
             <button
               key={f.id}
-              onClick={() => setSelectedFilter(f.id)}
+              onClick={() => {
+                setSelectedFilter(f.id);
+                if (isDirectionsActive && onDirectionsChange && directions) {
+                  onDirectionsChange({ ...directions, isActive: false });
+                }
+              }}
               className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors whitespace-nowrap cursor-pointer ${
                 selectedFilter === f.id
                   ? 'bg-blue-600 text-white shadow-xs'
@@ -445,17 +450,67 @@ export default function CampusMap({ isChatCollapsed, directions, pickingFor, onS
             <MapRecenter center={selectedCenter} />
             <MapResizer isCollapsed={isChatCollapsed} directionsActive={isDirectionsActive} heightPercent={mapHeightPercent} />
 
-            {/* Render Route Polylines */}
-            {isDirectionsActive && directions?.routePath && directions.routePath.length > 0 && (
+            {/* Render Direction Route Polylines (Supports up to 3 candidate routes) */}
+            {isDirectionsActive && (
               <>
-                <Polyline
-                  positions={directions.routePath}
-                  pathOptions={{ color: '#0284c7', weight: 8, opacity: 0.6 }}
-                />
-                <Polyline
-                  positions={directions.routePath}
-                  pathOptions={{ color: '#38bdf8', weight: 4, opacity: 0.95, dashArray: '8, 12' }}
-                />
+                {/* 1. Render Inactive Candidate Routes First (underneath active route) */}
+                {directions?.routes && directions.routes.length > 1 &&
+                  directions.routes.map((rt, idx) => {
+                    const isActive = (directions.activeRouteIndex || 0) === idx;
+                    if (isActive) return null;
+
+                    const strokeColor = rt.color || (idx === 1 ? '#7c3aed' : '#059669');
+                    return (
+                      <Polyline
+                        key={`alt-route-polyline-${idx}`}
+                        positions={rt.path}
+                        pathOptions={{
+                          color: strokeColor,
+                          weight: 6,
+                          opacity: 0.65,
+                          dashArray: '6, 8',
+                        }}
+                        eventHandlers={{
+                          click: () => {
+                            if (onDirectionsChange && directions) {
+                              onDirectionsChange({
+                                ...directions,
+                                activeRouteIndex: idx,
+                                routePath: rt.path,
+                                steps: rt.steps,
+                                milestones: rt.milestones,
+                                totalDistance: rt.distance,
+                                currentStepIndex: 0,
+                              });
+                            }
+                          },
+                        }}
+                      />
+                    );
+                  })}
+
+                {/* 2. Render Active Shortest / Chosen Route on Top (Vibrant Royal Blue with Cyan Glow) */}
+                {directions?.routePath && directions.routePath.length > 0 && (
+                  <Polyline
+                    key="active-route-outer-halo"
+                    positions={directions.routePath}
+                    pathOptions={{ color: '#0284c7', weight: 12, opacity: 0.45 }}
+                  />
+                )}
+                {directions?.routePath && directions.routePath.length > 0 && (
+                  <Polyline
+                    key="active-route-solid-core"
+                    positions={directions.routePath}
+                    pathOptions={{ color: '#2563eb', weight: 6, opacity: 0.95 }}
+                  />
+                )}
+                {directions?.routePath && directions.routePath.length > 0 && (
+                  <Polyline
+                    key="active-route-dashed-accent"
+                    positions={directions.routePath}
+                    pathOptions={{ color: '#60a5fa', weight: 2.5, opacity: 0.9, dashArray: '6, 8' }}
+                  />
+                )}
               </>
             )}
 

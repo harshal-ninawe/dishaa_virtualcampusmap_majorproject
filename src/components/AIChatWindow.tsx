@@ -6,14 +6,16 @@ import {
   Navigation2, MapPin, X, CheckCircle2, ArrowRight,
   Building, Coffee, Trophy, Crosshair,
 } from 'lucide-react';
-import { campusLocations, DirectionsState, CampusLocation, StepMilestone } from '@/lib/campusData';
-import { findRoute, generateStepsFromRoute, generateMilestonesFromRoute } from '@/lib/pathfinding';
+import { campusLocations, DirectionsState, CampusLocation, StepMilestone, RouteOption } from '@/lib/campusData';
+import { findRoute, findMultipleRoutes, generateStepsFromRoute, generateMilestonesFromRoute } from '@/lib/pathfinding';
+import { ChatAction } from '@/lib/campusKnowledge';
 
 interface ChatMessage {
   id: string;
   sender: 'ai' | 'user';
   text: string;
   timestamp: string;
+  actions?: ChatAction[];
 }
 
 interface AIChatWindowProps {
@@ -22,6 +24,9 @@ interface AIChatWindowProps {
   onPickOnMap?: (picking: 'from' | 'to' | null) => void;
   mapPickedLocation?: CampusLocation | null;
   directionsState?: DirectionsState;
+  onSwitchTab?: (tab: string) => void;
+  onOpenIndoorViewer?: (block?: string, floor?: number) => void;
+  onOpenBroadcasts?: () => void;
 }
 
 // ── Location autocomplete hook ─────────────────────────────────────────────
@@ -127,6 +132,9 @@ export default function AIChatWindow({
   onPickOnMap,
   mapPickedLocation,
   directionsState,
+  onSwitchTab,
+  onOpenIndoorViewer,
+  onOpenBroadcasts,
 }: AIChatWindowProps) {
   // Chat state
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -152,6 +160,61 @@ export default function AIChatWindow({
   const [pickingFor, setPickingFor] = useState<'from' | 'to' | null>(null);
   const stepsRef = useRef<HTMLDivElement>(null);
 
+  // Vertical Resizer for Steps Panel
+  const [stepsHeight, setStepsHeight] = useState(300);
+  const isDraggingVRef = useRef(false);
+  const startYRef = useRef(0);
+  const startHeightRef = useRef(300);
+
+  const handleVMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    isDraggingVRef.current = true;
+    startYRef.current = e.clientY;
+    startHeightRef.current = stepsHeight;
+    document.body.style.cursor = 'row-resize';
+    document.body.style.userSelect = 'none';
+    document.addEventListener('mousemove', handleVMouseMove);
+    document.addEventListener('mouseup', handleVMouseUp);
+  };
+
+  const handleVMouseMove = (e: MouseEvent) => {
+    if (!isDraggingVRef.current) return;
+    const deltaY = startYRef.current - e.clientY;
+    const newHeight = Math.max(120, Math.min(650, startHeightRef.current + deltaY));
+    setStepsHeight(newHeight);
+  };
+
+  const handleVMouseUp = () => {
+    isDraggingVRef.current = false;
+    document.body.style.cursor = '';
+    document.body.style.userSelect = '';
+    document.removeEventListener('mousemove', handleVMouseMove);
+    document.removeEventListener('mouseup', handleVMouseUp);
+  };
+
+  const handleVTouchStart = (e: React.TouchEvent) => {
+    if (e.touches[0]) {
+      isDraggingVRef.current = true;
+      startYRef.current = e.touches[0].clientY;
+      startHeightRef.current = stepsHeight;
+      document.addEventListener('touchmove', handleVTouchMove, { passive: false });
+      document.addEventListener('touchend', handleVTouchEnd);
+    }
+  };
+
+  const handleVTouchMove = (e: TouchEvent) => {
+    if (!isDraggingVRef.current || !e.touches[0]) return;
+    const deltaY = startYRef.current - e.touches[0].clientY;
+    const newHeight = Math.max(120, Math.min(650, startHeightRef.current + deltaY));
+    setStepsHeight(newHeight);
+  };
+
+  const handleVTouchEnd = () => {
+    isDraggingVRef.current = false;
+    document.removeEventListener('touchmove', handleVTouchMove);
+    document.removeEventListener('touchend', handleVTouchEnd);
+  };
+
   // Handle map-picked location from parent
   useEffect(() => {
     if (mapPickedLocation && pickingFor) {
@@ -170,7 +233,62 @@ export default function AIChatWindow({
   const scrollToBottom = () => chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   useEffect(() => { scrollToBottom(); }, [messages, isTyping]);
 
-  const handleSendMessage = (textToSend?: string) => {
+  const handleExecuteAction = (action: ChatAction) => {
+    if (action.type === 'set_route') {
+      const from = action.payload.fromLoc || campusLocations.find(l => l.id === 'blk-b') || campusLocations[0];
+      const to = action.payload.toLoc || campusLocations.find(l => l.id === 'boys-hostel') || campusLocations[1];
+      setFromLoc(from);
+      setFromQuery(from.name);
+      setToLoc(to);
+      setToQuery(to.name);
+      setDirectionsOpen(true);
+
+      const routes = findMultipleRoutes(from, to);
+      if (routes.length > 0) {
+        const activeRoute = routes[0];
+        setSteps(activeRoute.steps);
+        setRouteActive(true);
+
+        onDirectionsChange?.({
+          isActive: true,
+          from,
+          to,
+          routes,
+          activeRouteIndex: 0,
+          steps: activeRoute.steps,
+          routePath: activeRoute.path,
+          totalDistance: activeRoute.distance,
+          currentStepIndex: 0,
+          milestones: activeRoute.milestones,
+        });
+      }
+    } else if (action.type === 'open_block') {
+      if (onDirectionsChange && directionsState?.isActive) {
+        onDirectionsChange({ ...directionsState, isActive: false });
+      }
+      onSwitchTab?.('inside-block');
+      onOpenIndoorViewer?.(action.payload.block, action.payload.floor);
+    } else if (action.type === 'search_faculty') {
+      if (onDirectionsChange && directionsState?.isActive) {
+        onDirectionsChange({ ...directionsState, isActive: false });
+      }
+      onSwitchTab?.('faculty');
+    } else if (action.type === 'open_broadcasts') {
+      if (onDirectionsChange && directionsState?.isActive) {
+        onDirectionsChange({ ...directionsState, isActive: false });
+      }
+      onOpenBroadcasts?.();
+    } else if (action.type === 'switch_tab') {
+      if (onDirectionsChange && directionsState?.isActive) {
+        onDirectionsChange({ ...directionsState, isActive: false });
+      }
+      if (action.payload.tab) {
+        onSwitchTab?.(action.payload.tab);
+      }
+    }
+  };
+
+  const handleSendMessage = async (textToSend?: string) => {
     const text = textToSend || inputValue;
     if (!text.trim()) return;
 
@@ -184,48 +302,65 @@ export default function AIChatWindow({
     if (!textToSend) setInputValue('');
     setIsTyping(true);
 
-    setTimeout(() => {
-      let replyText = "I can guide you! Block A is near the main entrance, Block C has the Computer Science & AI departments.";
-      const lower = text.toLowerCase();
-      if (lower.includes('canteen') || lower.includes('food') || lower.includes('coffee'))
-        replyText = "📍 Canteen 1 is inside Block B. Nescafé Outlet and Siddhi Café are near Block C!";
-      else if (lower.includes('block c') || lower.includes('ai') || lower.includes('cs'))
-        replyText = "🏢 Block C contains Computer Engineering, AI, and Data Science departments. Located near the sports ground.";
-      else if (lower.includes('faculty') || lower.includes('prof'))
-        replyText = "👨‍🏫 Faculty cabins are on the 2nd & 3rd floors of Block A and Block C. Use the Faculty Directory for specific professors!";
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text }),
+      });
+      const data = await res.json();
+
+      const replyText = data.reply || "I am DISHAA AI Assistant. Ask me how to navigate between campus locations, view indoor floor maps, or check faculty sitting info!";
+      const actions = data.actions || [];
 
       const aiMsg: ChatMessage = {
         id: (Date.now() + 1).toString(),
         sender: 'ai',
         text: replyText,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        actions: actions,
       };
       setMessages((prev) => [...prev, aiMsg]);
+    } catch (err) {
+      console.error('Error sending message to DISHAA AI API:', err);
+      const aiMsg: ChatMessage = {
+        id: (Date.now() + 1).toString(),
+        sender: 'ai',
+        text: "I am DISHAA AI Assistant. Ask me how to navigate between campus locations, view 3D floor maps, or check faculty sitting info!",
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      };
+      setMessages((prev) => [...prev, aiMsg]);
+    } finally {
       setIsTyping(false);
-    }, 1000);
+    }
   };
 
   const handleGetDirections = () => {
     if (!fromLoc || !toLoc) return;
 
-    // Run A* pathfinding on real road network
-    const result = findRoute(fromLoc.coords, toLoc.coords);
+    // Run A* pathfinding to generate up to 3 candidate routes
+    const routes = findMultipleRoutes(fromLoc, toLoc);
 
-    let routePath: [number, number][] = [];
-    let totalDistance = 0;
-    let generatedSteps: string[] = [];
-    let milestones: StepMilestone[] = [];
+    if (routes.length > 0) {
+      const activeRoute = routes[0]; // Shortest route active by default
+      setSteps(activeRoute.steps);
+      setRouteActive(true);
 
-    if (result) {
-      routePath = result.path;
-      totalDistance = result.distance;
-      const res = generateMilestonesFromRoute(result.path, fromLoc, toLoc, result.distance);
-      generatedSteps = res.steps;
-      milestones = res.milestones;
+      onDirectionsChange?.({
+        isActive: true,
+        from: fromLoc,
+        to: toLoc,
+        routes,
+        activeRouteIndex: 0,
+        steps: activeRoute.steps,
+        routePath: activeRoute.path,
+        totalDistance: activeRoute.distance,
+        currentStepIndex: 0,
+        milestones: activeRoute.milestones,
+      });
     } else {
-      routePath = [fromLoc.coords, toLoc.coords];
-      totalDistance = 0;
-      milestones = [
+      const fallbackPath: [number, number][] = [fromLoc.coords, toLoc.coords];
+      const milestones: StepMilestone[] = [
         {
           stepNumber: 1,
           title: `Step 1: Start at ${fromLoc.name}`,
@@ -241,22 +376,21 @@ export default function AIChatWindow({
           image: toLoc.image || '/college-front.jpg',
         },
       ];
-      generatedSteps = milestones.map((m) => `📍 ${m.title}: ${m.instruction}`);
+      const generatedSteps = milestones.map((m) => `📍 ${m.title}: ${m.instruction}`);
+      setSteps(generatedSteps);
+      setRouteActive(true);
+
+      onDirectionsChange?.({
+        isActive: true,
+        from: fromLoc,
+        to: toLoc,
+        steps: generatedSteps,
+        routePath: fallbackPath,
+        totalDistance: 0,
+        currentStepIndex: 0,
+        milestones,
+      });
     }
-
-    setSteps(generatedSteps);
-    setRouteActive(true);
-
-    onDirectionsChange?.({
-      isActive: true,
-      from: fromLoc,
-      to: toLoc,
-      steps: generatedSteps,
-      routePath,
-      totalDistance,
-      currentStepIndex: 0,
-      milestones,
-    });
 
     setTimeout(() => stepsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
   };
@@ -330,10 +464,10 @@ export default function AIChatWindow({
 
       {/* ── DIRECTIONS MODE (replaces chat) ────────────────────── */}
       {directionsOpen ? (
-        <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
+        <div className="flex-1 flex flex-col min-h-0 overflow-y-auto">
 
-          {/* Upper 40% — From / To inputs */}
-          <div className="h-[40%] shrink-0 overflow-y-auto px-4 py-3 bg-slate-50/50 dark:bg-zinc-900/50 border-b border-slate-200 dark:border-zinc-800 space-y-3">
+          {/* Upper Section — From / To inputs */}
+          <div className="shrink-0 px-4 py-3 bg-slate-50/50 dark:bg-zinc-900/50 space-y-3">
             <p className="text-[10px] font-mono text-slate-500 uppercase tracking-wider font-semibold">
               📍 Route Planner — Campus Navigation
             </p>
@@ -453,17 +587,83 @@ export default function AIChatWindow({
             )}
           </div>
 
-          {/* Lower 60% — Step-by-step instructions */}
-          <div ref={stepsRef} className="flex-1 overflow-y-auto px-4 py-3 space-y-3 min-h-0">
-            {!routeActive || !directionsState?.milestones || directionsState.milestones.length === 0 ? (
-              <div className="h-full flex flex-col items-center justify-center text-center space-y-2 opacity-60">
-                <MapPin className="w-7 h-7 text-slate-400" />
-                <p className="text-xs text-slate-500 font-medium">
-                  Select start & destination,<br />then tap Calculate Route.
-                </p>
+          {/* Vertically Adjustable Step-by-Step Directions Container (Visible ONLY when route is active) */}
+          {routeActive && directionsState?.milestones && directionsState.milestones.length > 0 && (
+            <div className="flex flex-col shrink-0 border-t-2 border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 shadow-md">
+              {/* Draggable Vertical Handle Bar */}
+              <div
+                onMouseDown={handleVMouseDown}
+                onTouchStart={handleVTouchStart}
+                className="w-full py-2 bg-slate-100 dark:bg-zinc-800 hover:bg-blue-500/20 dark:hover:bg-blue-600/30 cursor-row-resize flex items-center justify-center transition-colors shrink-0 group select-none border-b border-slate-200 dark:border-zinc-700/80"
+                title="Drag up or down to vertically resize Route Steps height"
+              >
+                <div className="w-12 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 group-hover:bg-blue-600 transition-colors" />
               </div>
-            ) : (
-              <>
+
+              {/* Steps Scroll Area with Dynamic Adjustable Height */}
+              <div
+                ref={stepsRef}
+                style={{ height: `${stepsHeight}px` }}
+                className="overflow-y-auto px-4 py-3 space-y-3 shrink-0 touch-pan-y"
+              >
+                {/* Multi-Route Options Selector (Up to 3 routes: Shortest vs Alternative) */}
+                {directionsState?.routes && directionsState.routes.length > 1 && (
+                  <div className="p-2.5 rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-800/40 space-y-1.5">
+                    <div className="flex items-center justify-between text-[11px] font-semibold text-slate-700 dark:text-zinc-300">
+                      <span>Multiple Routes Found ({directionsState.routes.length})</span>
+                      <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-mono">
+                        Shortest active
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-3 gap-1.5">
+                      {directionsState.routes.map((rt, idx) => {
+                        const isActive = (directionsState.activeRouteIndex || 0) === idx;
+                        return (
+                          <button
+                            key={rt.id || idx}
+                            onClick={() => {
+                              if (onDirectionsChange && directionsState) {
+                                onDirectionsChange({
+                                  ...directionsState,
+                                  activeRouteIndex: idx,
+                                  routePath: rt.path,
+                                  steps: rt.steps,
+                                  milestones: rt.milestones,
+                                  totalDistance: rt.distance,
+                                  currentStepIndex: 0,
+                                });
+                              }
+                            }}
+                            className={`p-2 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
+                              isActive
+                                ? 'bg-white dark:bg-zinc-800 border-blue-600 dark:border-blue-500 shadow-xs ring-1 ring-blue-500'
+                                : 'bg-white/60 dark:bg-zinc-900/60 border-slate-200 dark:border-zinc-800 opacity-70 hover:opacity-100'
+                            }`}
+                          >
+                            <div className="flex items-center justify-between">
+                              <span
+                                className="w-2.5 h-2.5 rounded-full shrink-0"
+                                style={{ backgroundColor: rt.color || '#2563eb' }}
+                              />
+                              {rt.isShortest && (
+                                <span className="text-[8px] font-extrabold text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-950 px-1 py-0.5 rounded uppercase">
+                                  FASTEST
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-xs font-bold text-slate-900 dark:text-zinc-100 mt-1 truncate">
+                              {rt.distance} meters
+                            </p>
+                            <p className="text-[9px] text-slate-500 dark:text-zinc-400 truncate">
+                              Route {idx + 1}
+                            </p>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
                 {/* Route summary header with Follow Next Step Controls */}
                 <div className="p-3 rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-800/50 space-y-2.5">
                   <div className="flex items-center justify-between">
@@ -551,9 +751,9 @@ export default function AIChatWindow({
                     );
                   })}
                 </div>
-              </>
-            )}
-          </div>
+              </div>
+            </div>
+          )}
         </div>
       ) : (
         /* ── CHAT MODE ─────────────────────────────────────────── */
@@ -575,14 +775,46 @@ export default function AIChatWindow({
                   {msg.sender === 'user' ? <User className="w-3.5 h-3.5" /> : <Bot className="w-3.5 h-3.5" />}
                 </div>
                 <div
-                  className={`max-w-[82%] p-3 rounded-2xl text-xs leading-relaxed ${
+                  className={`max-w-[85%] p-3 rounded-2xl text-xs leading-relaxed ${
                     msg.sender === 'user'
                       ? 'bg-blue-600 text-white rounded-tr-none'
                       : 'bg-white dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 text-slate-800 dark:text-zinc-100 rounded-tl-none shadow-2xs'
                   }`}
                 >
-                  <p>{msg.text}</p>
-                  <span className="block text-[9px] opacity-70 mt-1 text-right font-mono">
+                  <div className="space-y-0.5 font-sans">
+                    {msg.text.split('\n').map((line, lineIdx) => {
+                      const parts = line.split(/(\*\*.*?\*\*)/g);
+                      const content = parts.map((part, pIdx) => {
+                        if (part.startsWith('**') && part.endsWith('**')) {
+                          return <strong key={pIdx} className={msg.sender === 'user' ? 'font-bold text-white' : 'font-semibold text-blue-600 dark:text-blue-400'}>{part.slice(2, -2)}</strong>;
+                        }
+                        return part;
+                      });
+                      return (
+                        <span key={lineIdx} className="block min-h-[1.2em]">
+                          {content}
+                        </span>
+                      );
+                    })}
+                  </div>
+
+                  {/* Interactive Action Buttons */}
+                  {msg.actions && msg.actions.length > 0 && (
+                    <div className="mt-2.5 pt-2 border-t border-slate-100 dark:border-zinc-700/60 flex flex-col gap-1.5">
+                      {msg.actions.map((act, actIdx) => (
+                        <button
+                          key={actIdx}
+                          onClick={() => handleExecuteAction(act)}
+                          className="py-1.5 px-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-semibold flex items-center justify-between transition-colors shadow-xs cursor-pointer"
+                        >
+                          <span>{act.label}</span>
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+                  <span className="block text-[9px] opacity-70 mt-1.5 text-right font-mono">
                     {msg.timestamp}
                   </span>
                 </div>
@@ -595,9 +827,9 @@ export default function AIChatWindow({
                   <Bot className="w-3.5 h-3.5" />
                 </div>
                 <div className="bg-white dark:bg-zinc-800 px-3.5 py-2 rounded-2xl rounded-tl-none border border-slate-200 dark:border-zinc-700 flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" />
-                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: '0.2s' }} />
-                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: '0.4s' }} />
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-bounce" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-bounce" style={{ animationDelay: '0.2s' }} />
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-bounce" style={{ animationDelay: '0.4s' }} />
                 </div>
               </div>
             )}
@@ -606,7 +838,12 @@ export default function AIChatWindow({
 
           {/* Quick Chips */}
           <div className="px-3 py-2 flex items-center gap-1.5 overflow-x-auto border-t border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shrink-0">
-            {['Where is Block C?', 'Find Canteen 1', 'Faculty Cabins', 'Sports Ground'].map((chip, idx) => (
+            {[
+              "I am at Block B, how to go to Boys Hostel?",
+              "How to check faculty in Room 408?",
+              "How to open 3D floor map for Block B?",
+              "How to view broadcast alerts?"
+            ].map((chip, idx) => (
               <button
                 key={idx}
                 onClick={() => handleSendMessage(chip)}

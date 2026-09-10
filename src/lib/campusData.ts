@@ -62,13 +62,17 @@ export const buildingEntryPoints: Record<string, [number, number][]> = {
 };
 
 // Helper function to find the nearest building entry point for a given target building & reference location
-export function getNearestBuildingEntryPoint(buildingName: string, refCoord: [number, number]): [number, number] {
+export function getNearestBuildingEntryPoint(
+  buildingName: string, 
+  refCoord: [number, number],
+  fallbackCoord?: [number, number]
+): [number, number] {
   const normalizedKey = Object.keys(buildingEntryPoints).find(
     (k) => k.toLowerCase() === buildingName.toLowerCase()
   );
 
   if (!normalizedKey || !buildingEntryPoints[normalizedKey]) {
-    return refCoord;
+    return fallbackCoord || refCoord;
   }
 
   const entries = buildingEntryPoints[normalizedKey];
@@ -147,10 +151,24 @@ export const campusLocations: CampusLocation[] = [
   { id: 'volleyball', coords: [21.123225, 79.002599], name: 'Volleyball', type: 'sports', categoryLabel: 'Sports Court', description: 'Volleyball court near sports complex.', image: '/college-bg.jpg' },
 ];
 
+export interface RouteOption {
+  id: string;
+  name: string;
+  path: [number, number][];
+  distance: number;
+  steps: string[];
+  milestones: StepMilestone[];
+  isShortest: boolean;
+  color: string;
+  nodePath?: number[];
+}
+
 export interface DirectionsState {
   isActive: boolean;
   from: CampusLocation | null;
   to: CampusLocation | null;
+  routes?: RouteOption[];
+  activeRouteIndex?: number;
   steps: string[];
   routePath: [number, number][];
   totalDistance: number;

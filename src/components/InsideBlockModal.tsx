@@ -8,36 +8,68 @@ interface InsideBlockModalProps {
   isOpen: boolean;
   onClose: () => void;
   isInline?: boolean;
+  initialBlock?: 'BLOCK A' | 'BLOCK B' | 'BLOCK C';
+  initialFloor?: number;
 }
 
-export default function InsideBlockModal({ isOpen, onClose, isInline = false }: InsideBlockModalProps) {
-  const [selectedBlock, setSelectedBlock] = useState<'BLOCK A' | 'BLOCK B' | 'BLOCK C'>('BLOCK B');
-  const [selectedFloor, setSelectedFloor] = useState<number>(1);
+export default function InsideBlockModal({
+  isOpen,
+  onClose,
+  isInline = false,
+  initialBlock,
+  initialFloor,
+}: InsideBlockModalProps) {
+  const [selectedBlock, setSelectedBlock] = useState<'BLOCK A' | 'BLOCK B' | 'BLOCK C'>('BLOCK A');
+  const [selectedFloor, setSelectedFloor] = useState<number>(0);
   const [showFullscreenViewer, setShowFullscreenViewer] = useState<boolean>(false);
 
-  const blocks = ['BLOCK A', 'BLOCK B', 'BLOCK C'] as const;
-  const floors = [
-    { value: 0, label: '0 (Ground)' },
-    { value: 1, label: '1 (1st Floor)' },
-    { value: 2, label: '2 (2nd Floor)' },
-    { value: 3, label: '3 (3rd Floor)' },
-    { value: 4, label: '4 (4th Floor)' },
-  ];
+  React.useEffect(() => {
+    if (initialBlock) {
+      setSelectedBlock(initialBlock);
+    }
+    if (initialFloor !== undefined) {
+      setSelectedFloor(initialFloor);
+    }
+  }, [initialBlock, initialFloor]);
 
-  // Only Block B - Floor 1 and Floor 4 are ready
-  const isFloorReady = selectedBlock === 'BLOCK B' && (selectedFloor === 1 || selectedFloor === 4);
-  const indoorViewerUrl = `/indoor-viewer/index.html?floor=${selectedFloor}`;
+  const blocks = ['BLOCK A', 'BLOCK B', 'BLOCK C'] as const;
+
+  // Available floors per block configuration
+  const blockFloorsConfig: Record<string, { value: number; label: string }[]> = {
+    'BLOCK A': [{ value: 0, label: '0 (Ground Floor)' }],
+    'BLOCK B': [
+      { value: 1, label: '1 (1st Floor)' },
+      { value: 2, label: '2 (2nd Floor)' },
+      { value: 3, label: '3 (3rd Floor)' },
+      { value: 4, label: '4 (4th Floor)' },
+    ],
+    'BLOCK C': [{ value: 0, label: '0 (Ground Floor)' }],
+  };
+
+  const availableFloors = blockFloorsConfig[selectedBlock] || [];
+
+  const checkIsFloorReady = (block: string, floorNum: number): boolean => {
+    if (block === 'BLOCK A') return floorNum === 0;
+    if (block === 'BLOCK B') return [1, 2, 3, 4].includes(floorNum);
+    if (block === 'BLOCK C') return floorNum === 0;
+    return false;
+  };
+
+  const isFloorReady = checkIsFloorReady(selectedBlock, selectedFloor);
+  const blockCode = selectedBlock.replace('BLOCK ', '');
+  const indoorViewerUrl = `/indoor-viewer/index.html?block=${blockCode}&floor=${selectedFloor}`;
 
   const handleSelectBlock = (block: 'BLOCK A' | 'BLOCK B' | 'BLOCK C') => {
     setSelectedBlock(block);
-    if (block === 'BLOCK B' && (selectedFloor === 1 || selectedFloor === 4)) {
-      setShowFullscreenViewer(true);
-    }
+    let defaultFloor = 0;
+    if (block === 'BLOCK B') defaultFloor = 1;
+    setSelectedFloor(defaultFloor);
+    setShowFullscreenViewer(true);
   };
 
   const handleSelectFloor = (floorNum: number) => {
     setSelectedFloor(floorNum);
-    if (selectedBlock === 'BLOCK B' && (floorNum === 1 || floorNum === 4)) {
+    if (checkIsFloorReady(selectedBlock, floorNum)) {
       setShowFullscreenViewer(true);
     }
   };
@@ -48,7 +80,7 @@ export default function InsideBlockModal({ isOpen, onClose, isInline = false }: 
     <>
       {/* ── 1. SELECTOR PANEL (Inside Block feature panel) ─────────────────────────── */}
       <div className="w-full h-full flex flex-col bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl overflow-hidden shadow-xs">
-        {/* Header Bar (No manual fullscreen button) */}
+        {/* Header Bar */}
         <div className="p-3.5 px-4 border-b border-slate-200 dark:border-zinc-800 flex items-center justify-between bg-white dark:bg-zinc-900 shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-xs">
@@ -59,7 +91,7 @@ export default function InsideBlockModal({ isOpen, onClose, isInline = false }: 
                 Inside Block Navigation
               </h3>
               <p className="text-xs text-slate-500 dark:text-zinc-400 font-normal">
-                Choose building block and floor
+                Unified 3D & 2D spatial maps for Block A, B, and C
               </p>
             </div>
           </div>
@@ -73,7 +105,7 @@ export default function InsideBlockModal({ isOpen, onClose, isInline = false }: 
           </button>
         </div>
 
-        {/* Content Area - ONLY 2 Options/Tabs */}
+        {/* Content Area */}
         <div className="p-4 space-y-4 overflow-y-auto min-h-0 flex-1 bg-slate-50/50 dark:bg-zinc-950/40">
           
           {/* OPTION 1: Select Building Block */}
@@ -83,18 +115,15 @@ export default function InsideBlockModal({ isOpen, onClose, isInline = false }: 
                 <Building className="w-3.5 h-3.5 text-blue-600" />
                 <span>1. Select Building Block</span>
               </span>
-              {selectedBlock === 'BLOCK B' && (
-                <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold lowercase flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                  3d spatial active
-                </span>
-              )}
+              <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold lowercase flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                all blocks active
+              </span>
             </label>
 
             <div className="grid grid-cols-3 gap-2">
               {blocks.map((block) => {
                 const isSelected = selectedBlock === block;
-                const isBlockB = block === 'BLOCK B';
                 return (
                   <button
                     key={block}
@@ -108,9 +137,7 @@ export default function InsideBlockModal({ isOpen, onClose, isInline = false }: 
                   >
                     <Building className="w-3.5 h-3.5" />
                     <span>{block}</span>
-                    {isBlockB && !isSelected && (
-                      <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-white dark:border-zinc-900" title="3D Navigation Available"></span>
-                    )}
+                    <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-white dark:border-zinc-900" title="3D Navigation Available"></span>
                   </button>
                 );
               })}
@@ -122,17 +149,17 @@ export default function InsideBlockModal({ isOpen, onClose, isInline = false }: 
             <label className="block text-[11px] font-mono font-bold uppercase tracking-wider text-slate-600 dark:text-zinc-400 flex items-center justify-between">
               <span className="flex items-center gap-1.5">
                 <Layers className="w-3.5 h-3.5 text-blue-600" />
-                <span>2. Select Floor</span>
+                <span>2. Select Floor for {selectedBlock}</span>
               </span>
               <span className="text-[10px] text-slate-400 font-normal">
-                Floors 1 & 4 available
+                {availableFloors.length} floor{availableFloors.length !== 1 ? 's' : ''} available
               </span>
             </label>
 
-            <div className="grid grid-cols-5 gap-1.5">
-              {floors.map((fl) => {
+            <div className="grid grid-cols-4 gap-1.5">
+              {availableFloors.map((fl) => {
                 const isSelected = selectedFloor === fl.value;
-                const is3D = selectedBlock === 'BLOCK B' && (fl.value === 1 || fl.value === 4);
+                const isReady = checkIsFloorReady(selectedBlock, fl.value);
                 return (
                   <button
                     key={fl.value}
@@ -145,13 +172,13 @@ export default function InsideBlockModal({ isOpen, onClose, isInline = false }: 
                     }`}
                   >
                     <span className="text-xs font-mono font-extrabold flex items-center gap-0.5">
-                      {fl.value}
-                      {is3D && !isSelected && (
+                      {fl.value === 0 ? '0F' : `${fl.value}F`}
+                      {isReady && !isSelected && (
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                       )}
                     </span>
                     <span className="text-[9px] opacity-90 truncate max-w-full">
-                      {fl.value === 0 ? 'Gnd' : `Fl ${fl.value}`}
+                      {fl.value === 0 ? 'Ground' : `Floor ${fl.value}`}
                     </span>
                   </button>
                 );
@@ -159,20 +186,20 @@ export default function InsideBlockModal({ isOpen, onClose, isInline = false }: 
             </div>
           </div>
 
-          {/* STATUS / ACTION AREA */}
+          {/* STATUS & ACTION AREA */}
           {isFloorReady ? (
             <div className="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60 space-y-2">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-emerald-900 dark:text-emerald-200 flex items-center gap-1.5">
                   <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>3D/2D Spatial Map is Ready</span>
+                  <span>3D/2D Spatial Map is Active</span>
                 </span>
                 <span className="text-[10px] text-emerald-700 dark:text-emerald-300 font-mono font-bold bg-emerald-100 dark:bg-emerald-900/60 px-2 py-0.5 rounded-full">
-                  Floor {selectedFloor}
+                  {selectedBlock} &bull; {selectedFloor === 0 ? 'Ground' : `Floor ${selectedFloor}`}
                 </span>
               </div>
               <p className="text-[11px] text-emerald-800 dark:text-emerald-300">
-                Turn-by-turn routing, room search, and airport path animation ready on Block B Floor {selectedFloor}.
+                Turn-by-turn indoor routing, classroom/lab search, and 3D architectural views ready for {selectedBlock}.
               </p>
               <button
                 type="button"
@@ -185,7 +212,6 @@ export default function InsideBlockModal({ isOpen, onClose, isInline = false }: 
               </button>
             </div>
           ) : (
-            /* UNDER CONSTRUCTION / DEVELOPMENT CARD */
             <div className="p-4 rounded-2xl bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 space-y-3">
               <div className="flex items-start gap-3">
                 <div className="w-9 h-9 rounded-xl bg-amber-100 dark:bg-amber-900/60 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0 shadow-xs">
@@ -197,7 +223,7 @@ export default function InsideBlockModal({ isOpen, onClose, isInline = false }: 
                       {selectedBlock} &bull; Floor {selectedFloor}
                     </h4>
                     <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-amber-200/80 dark:bg-amber-900 text-amber-800 dark:text-amber-300 uppercase">
-                      Under Development
+                      Under Construction
                     </span>
                   </div>
                   <p className="text-xs text-amber-800/90 dark:text-amber-300/80 mt-1 leading-relaxed">
@@ -205,47 +231,15 @@ export default function InsideBlockModal({ isOpen, onClose, isInline = false }: 
                   </p>
                 </div>
               </div>
-
-              {/* Quick Jump Buttons to Ready Floors */}
-              <div className="pt-2 border-t border-amber-200/60 dark:border-amber-900/40 space-y-1.5">
-                <span className="text-[10px] font-bold text-amber-900 dark:text-amber-200 uppercase tracking-wider block font-mono">
-                  Explore Ready 3D Floors:
-                </span>
-                <div className="grid grid-cols-2 gap-2">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setSelectedBlock('BLOCK B');
-                      setSelectedFloor(1);
-                      setShowFullscreenViewer(true);
-                    }}
-                    className="py-2 px-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all cursor-pointer"
-                  >
-                    <span>Block B &bull; 1F</span>
-                    <ChevronRight className="w-3.5 h-3.5" />
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setSelectedBlock('BLOCK B');
-                      setSelectedFloor(4);
-                      setShowFullscreenViewer(true);
-                    }}
-                    className="py-2 px-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all cursor-pointer"
-                  >
-                    <span>Block B &bull; 4F</span>
-                    <ChevronRight className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              </div>
             </div>
           )}
+
+
 
         </div>
       </div>
 
-      {/* ── 2. INSTANT FULLSCREEN 3D/2D INDOOR VIEWER (NO TRANSITION) ─────────────── */}
+      {/* ── 2. INSTANT FULLSCREEN 3D/2D INDOOR VIEWER ─────────────────────────────── */}
       {showFullscreenViewer && isFloorReady && (
         <div className="fixed inset-0 z-50 w-screen h-screen bg-slate-950 flex flex-col overflow-hidden">
           {/* Top Navigation Bar of Fullscreen View */}
@@ -264,7 +258,7 @@ export default function InsideBlockModal({ isOpen, onClose, isInline = false }: 
               <div className="h-4 w-px bg-slate-300 dark:bg-zinc-700"></div>
 
               <span className="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white">
-                Block B &bull; {selectedFloor === 1 ? '1st Floor' : '4th Floor'}
+                {selectedBlock} &bull; {selectedFloor === 0 ? 'Ground Floor (0F)' : `Floor ${selectedFloor} (${selectedFloor}F)`}
               </span>
             </div>
 

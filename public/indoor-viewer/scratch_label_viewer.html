@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body { font-family: sans-serif; background: #111; color: #fff; padding: 20px; }
+table { border-collapse: collapse; width: 100%; }
+th, td { border: 1px solid #444; padding: 8px; text-align: left; }
+img { background: #222; border: 1px solid #555; max-height: 50px; }
+</style>
+</head>
+<body>
+<h1>A-Block Label Texture Inspector</h1>
+<table id="table">
+<tr><th>#</th><th>Material / ID</th><th>X (OBJ)</th><th>Z (OBJ)</th><th>Image</th><th>Dimensions</th></tr>
+</table>
+<script>
+const labels = [
+  { id: "label_176_811", file: "a_block_label_176_811.png", x: 234.1, z: 261.6 },
+  { id: "label_175_810", file: "a_block_label_175_810.png", x: 241.1, z: 442.4 },
+  { id: "label_174_809", file: "a_block_label_174_809.png", x: 244.5, z: 626.2 },
+  { id: "label_173_808", file: "a_block_label_173_808.png", x: 255.0, z: 1142.1 },
+  { id: "label_172_807", file: "a_block_label_172_807.png", x: 255.0, z: 1394.6 },
+  { id: "label_177_812", file: "a_block_label_177_812.png", x: 713.9, z: 608.8 },
+  { id: "label_169_804", file: "a_block_label_169_804.png", x: 717.4, z: 1100.1 },
+  { id: "label_171_806", file: "a_block_label_171_806.png", x: 717.4, z: 1234.3 },
+  { id: "label_170_805", file: "a_block_label_170_805.png", x: 724.4, z: 1385.1 },
+  { id: "label_179_814", file: "a_block_label_179_814.png", x: 731.3, z: 481.7 },
+  { id: "label_178_813", file: "a_block_label_178_813.png", x: 731.3, z: 305.6 },
+  { id: "label_168_803", file: "a_block_label_168_803.png", x: 1091.6, z: 1265.5 },
+  { id: "label_182_817", file: "a_block_label_182_817.png", x: 1169.4, z: 570.7 },
+  { id: "label_167_802", file: "a_block_label_167_802.png", x: 1251.7, z: 1198.2 },
+  { id: "label_181_816", file: "a_block_label_181_816.png", x: 1475.4, z: 584.9 },
+  { id: "label_164_799", file: "a_block_label_164_799.png", x: 1475.5, z: 1414.4 },
+  { id: "label_165_800", file: "a_block_label_165_800.png", x: 1580.3, z: 1273.7 },
+  { id: "label_166_801", file: "a_block_label_166_801.png", x: 1591.7, z: 1102.7 },
+  { id: "label_180_815", file: "a_block_label_180_815.png", x: 1711.8, z: 316.7 },
+  { id: "label_208_843", file: "a_block_label_208_843.png", x: 1867.6, z: 1208.7 },
+  { id: "label_162_797", file: "a_block_label_162_797.png", x: 1883.8, z: 1077.4 },
+  { id: "label_163_798", file: "a_block_label_163_798.png", x: 1886.7, z: 1354.2 },
+  { id: "label_207_842", file: "a_block_label_207_842.png", x: 2285.6, z: 1082.3 },
+  { id: "label_206_841", file: "a_block_label_206_841.png", x: 2292.3, z: 1340.6 },
+  { id: "label_205_840", file: "a_block_label_205_840.png", x: 2422.9, z: 1388.7 },
+  { id: "label_200_835", file: "a_block_label_200_835.png", x: 2769.7, z: 1036.0 },
+  { id: "label_201_836", file: "a_block_label_201_836.png", x: 2770.1, z: 1105.2 },
+  { id: "label_204_839", file: "a_block_label_204_839.png", x: 2774.0, z: 1395.0 },
+  { id: "label_202_837", file: "a_block_label_202_837.png", x: 2775.5, z: 1221.5 },
+  { id: "label_203_838", file: "a_block_label_203_838.png", x: 2779.5, z: 1312.1 },
+  { id: "label_198_833", file: "a_block_label_198_833.png", x: 3022.6, z: 1103.4 },
+  { id: "label_199_834", file: "a_block_label_199_834.png", x: 3074.8, z: 1353.3 },
+  { id: "label_183_818", file: "a_block_label_183_818.png", x: 3161.7, z: 315.8 },
+  { id: "label_185_820", file: "a_block_label_185_820.png", x: 3193.0, z: 549.7 },
+  { id: "label_197_832", file: "a_block_label_197_832.png", x: 3343.1, z: 1220.5 },
+  { id: "label_184_819", file: "a_block_label_184_819.png", x: 3439.8, z: 573.9 },
+  { id: "label_196_831", file: "a_block_label_196_831.png", x: 3499.6, z: 1237.9 },
+  { id: "label_186_821", file: "a_block_label_186_821.png", x: 3850.1, z: 566.4 },
+  { id: "label_187_822", file: "a_block_label_187_822.png", x: 3850.1, z: 308.8 },
+  { id: "label_195_830", file: "a_block_label_195_830.png", x: 3864.0, z: 1091.0 },
+  { id: "label_194_829", file: "a_block_label_194_829.png", x: 3874.4, z: 1309.4 },
+  { id: "label_188_823", file: "a_block_label_188_823.png", x: 4097.0, z: 266.7 },
+  { id: "label_193_828", file: "a_block_label_193_828.png", x: 4107.4, z: 1380.7 },
+  { id: "label_190_825", file: "a_block_label_190_825.png", x: 4329.9, z: 566.4 },
+  { id: "label_192_827", file: "a_block_label_192_827.png", x: 4343.8, z: 1305.6 },
+  { id: "label_189_824", file: "a_block_label_189_824.png", x: 4347.3, z: 302.6 },
+  { id: "label_191_826", file: "a_block_label_191_826.png", x: 4361.2, z: 1098.4 }
+];
+
+const tbody = document.getElementById('table');
+labels.forEach((l, idx) => {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td>${idx+1}</td><td>${l.id}</td><td>${l.x.toFixed(1)}</td><td>${l.z.toFixed(1)}</td>
+    <td><img src="/A-Block/${l.file}" alt="${l.file}" /></td>
+    <td id="dim-${idx}">loading...</td>`;
+  tbody.appendChild(tr);
+  const img = new Image();
+  img.onload = () => {
+    document.getElementById(`dim-${idx}`).innerText = `${img.width}x${img.height}`;
+  };
+  img.src = `/A-Block/${l.file}`;
+});
+</script>
+</body>
+</html>
