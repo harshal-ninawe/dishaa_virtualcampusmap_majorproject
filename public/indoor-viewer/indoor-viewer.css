@@ -93,75 +93,74 @@ body {
 }
 
 .loader-logo-wrap {
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 110px;
-    height: 110px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-left: auto;
-    margin-right: auto;
-    background: #ffffff;
-    box-shadow: 0 4px 18px rgba(37,99,235,0.18), 0 1px 4px rgba(0,0,0,0.10);
+    width: auto;
+    height: auto;
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
 }
 
-.loader-logo {
-    height: 110px;
-    width: 110px;
-    object-fit: cover;
-    object-position: center;
+.loader-logo-clean {
+    height: 140px;
+    width: auto;
+    max-width: 200px;
+    object-fit: contain;
     display: block;
-    border-radius: 50%;
-    overflow: hidden;
+    filter: drop-shadow(0 12px 28px rgba(37, 99, 235, 0.25));
+    animation: logoFloat 3s ease-in-out infinite;
 }
 
-/* Zoom in to remove excess white border on DISHAA logo */
-.dishaa-logo-zoom {
-    transform: scale(1.55);
-    transform-origin: center center;
+@keyframes logoFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
 }
 
 .loader-brand {
-    font-size: 2rem;
+    font-size: 2.25rem;
     font-weight: 800;
     letter-spacing: -0.03em;
-    color: var(--text-primary);
+    color: var(--text-primary, #0f172a);
     line-height: 1.1;
 }
 
 .loader-subtitle {
-    font-size: 0.88rem;
+    font-size: 0.9rem;
     font-weight: 500;
-    color: var(--text-muted);
+    color: var(--text-muted, #64748b);
     margin-top: 6px;
     letter-spacing: -0.01em;
 }
 
 .progress-bar-container {
-    width: 220px;
-    height: 6px;
+    width: 240px;
+    height: 8px;
     background-color: #e2e8f0;
-    border-radius: var(--radius-full);
+    border-radius: 9999px;
     margin-top: 28px;
     overflow: hidden;
     position: relative;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06);
 }
 
 #progress-bar {
     height: 100%;
-    background-color: var(--accent-blue);
+    background: linear-gradient(90deg, #2563eb, #38bdf8);
     width: 0%;
-    border-radius: var(--radius-full);
+    border-radius: 9999px;
     transition: width 0.15s ease-out;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
 }
 
 .progress-label {
-    font-size: 0.78rem;
+    font-size: 0.8rem;
     font-family: monospace;
-    color: var(--text-light);
-    margin-top: 10px;
+    color: var(--text-muted, #64748b);
+    margin-top: 12px;
+    font-weight: 600;
 }
 
 /* ==========================================================
