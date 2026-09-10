@@ -17,6 +17,16 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "DISHAA - Virtual Campus Map & Spatial Navigation",
   description: "Next-Gen 2D/3D Interactive Campus Map, Indoor Floor Plans, Faculty Directory & Pathfinding",
+  icons: {
+    icon: [
+      { url: "/disha-logo.png", type: "image/png" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    shortcut: ["/disha-logo.png"],
+    apple: [
+      { url: "/disha-logo.png", type: "image/png" },
+    ],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
