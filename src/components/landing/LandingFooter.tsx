@@ -13,12 +13,8 @@ export function LandingFooter({ onNavigate, onLaunchMap, onAskAssistant, onFacul
       <div className="lp-container">
         <div className="lp-footer-top">
           <div className="lp-footer-brand">
-            <span className="lp-brand">
-              <span className="lp-brand-mark" aria-hidden="true">D</span>
-              <span className="lp-brand-text">
-                <span className="lp-brand-name">raisoni</span>
-                <span className="lp-brand-sub">Education</span>
-              </span>
+            <span className="lp-brand flex items-center">
+              <img src="/rgi-logo.png" alt="Raisoni Education Logo" className="h-10 w-auto object-contain shrink-0" />
             </span>
             <p className="lp-footer-tag">
               DISHAA is the smart virtual campus navigator for G H Raisoni College of Engineering

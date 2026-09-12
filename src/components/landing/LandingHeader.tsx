@@ -49,11 +49,8 @@ export function LandingHeader({ onLaunchMap, onNavigate, onFacultyPortal }: Land
   return (
     <header className={`lp-header ${isScrolled ? 'is-scrolled' : ''}`}>
       <div className="lp-container lp-header-inner">
-        <button type="button" className="lp-brand" onClick={() => go('top')} aria-label="Raisoni Education home">
-          <span className="lp-brand-text">
-            <span className="lp-brand-name">raisoni</span>
-            <span className="lp-brand-sub">Education</span>
-          </span>
+        <button type="button" className="lp-brand flex items-center" onClick={() => go('top')} aria-label="Raisoni Education home">
+          <img src="/rgi-logo.png" alt="Raisoni Education Logo" className="h-10 sm:h-11 w-auto object-contain shrink-0" />
         </button>
 
         <nav className="lp-nav" aria-label="Primary">
@@ -94,12 +91,8 @@ export function LandingHeader({ onLaunchMap, onNavigate, onFacultyPortal }: Land
         <div className="lp-mobile-menu" role="dialog" aria-modal="true" onClick={() => setIsMenuOpen(false)}>
           <div className="lp-mobile-panel" onClick={(event) => event.stopPropagation()}>
             <div className="lp-mobile-head">
-              <span className="lp-brand">
-                <span className="lp-brand-mark" aria-hidden="true">D</span>
-                <span className="lp-brand-text">
-                  <span className="lp-brand-name">raisoni</span>
-                  <span className="lp-brand-sub">Education</span>
-                </span>
+              <span className="lp-brand flex items-center">
+                <img src="/rgi-logo.png" alt="Raisoni Education Logo" className="h-9 w-auto object-contain shrink-0" />
               </span>
               <button type="button" className="lp-menu-btn" aria-label="Close menu" onClick={() => setIsMenuOpen(false)}>
                 <IconClose size={22} />

@@ -3,9 +3,13 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
-import { Search, Navigation, Building, Coffee, Trophy, X, Crosshair, ArrowRight } from 'lucide-react';
+import { Search, Navigation, Building, Coffee, Trophy, X, Crosshair, ArrowRight, Volume2, VolumeX, Locate } from 'lucide-react';
 import Image from 'next/image';
 import { campusLocations, DirectionsState, CampusLocation } from '@/lib/campusData';
+import { UserLocationLayer } from './UserLocationLayer';
+import { useVoiceNavigation } from '@/hooks/useVoiceNavigation';
+import { voiceNavigation } from '@/services/voiceNavigation';
+import { getLatestLocation } from '@/hooks/useGeolocation';
 
 // Custom SVG Markers for DISHAA Map
 const createCustomIcon = (color: string, label: string) => {
@@ -210,6 +214,9 @@ export default function CampusMap({ isChatCollapsed, directions, pickingFor, onS
   const [selectedFilter, setSelectedFilter] = useState<string>('block');
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [mapHeightPercent, setMapHeightPercent] = useState(50); // Default 50%
+  const [isFollowMode, setIsFollowMode] = useState<boolean>(false);
+  const { isEnabled: isVoiceEnabled, toggleVoice } = useVoiceNavigation();
+
   const isDraggingRef = useRef(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLDivElement>(null);
@@ -450,6 +457,14 @@ export default function CampusMap({ isChatCollapsed, directions, pickingFor, onS
             <MapRecenter center={selectedCenter} />
             <MapResizer isCollapsed={isChatCollapsed} directionsActive={isDirectionsActive} heightPercent={mapHeightPercent} />
 
+            {/* Live GPS User Location Layer */}
+            <UserLocationLayer
+              initialLocation={getLatestLocation()}
+              isFollowMode={isFollowMode}
+              onFollowModeChange={setIsFollowMode}
+              navigationActive={isDirectionsActive}
+            />
+
             {/* Render Direction Route Polylines (Supports up to 3 candidate routes) */}
             {isDirectionsActive && (
               <>
@@ -608,6 +623,41 @@ export default function CampusMap({ isChatCollapsed, directions, pickingFor, onS
               <span>Sports & Hostels</span>
             </div>
           </div>
+
+          {/* Map Floating Action Controls (Top Right) */}
+          <div className="absolute top-4 right-4 z-10 flex flex-col gap-2">
+            {/* Locate Me / Auto-Follow GPS Toggle */}
+            <button
+              onClick={() => {
+                const latest = getLatestLocation();
+                if (latest) {
+                  setSelectedCenter([latest.lat, latest.lng]);
+                }
+                setIsFollowMode((prev) => !prev);
+              }}
+              className={`p-2.5 rounded-xl shadow-lg border transition-all cursor-pointer flex items-center justify-center ${
+                isFollowMode
+                  ? 'bg-blue-600 border-blue-500 text-white ring-2 ring-blue-400/50 animate-pulse'
+                  : 'bg-white/95 dark:bg-zinc-900/95 border-slate-200 dark:border-zinc-800 text-slate-700 dark:text-zinc-200 hover:bg-slate-100 dark:hover:bg-zinc-800'
+              }`}
+              title={isFollowMode ? 'Auto-Following GPS Location (Active)' : 'Locate Me / Follow Live GPS'}
+            >
+              <Locate className="w-5 h-5" />
+            </button>
+
+            {/* Voice Navigation Toggle */}
+            <button
+              onClick={toggleVoice}
+              className={`p-2.5 rounded-xl shadow-lg border transition-all cursor-pointer flex items-center justify-center ${
+                isVoiceEnabled
+                  ? 'bg-emerald-600 border-emerald-500 text-white shadow-emerald-500/20'
+                  : 'bg-white/95 dark:bg-zinc-900/95 border-slate-200 dark:border-zinc-800 text-slate-400 hover:text-slate-700 dark:hover:text-zinc-200'
+              }`}
+              title={isVoiceEnabled ? 'Voice Guidance Active (Click to Mute)' : 'Voice Guidance Muted (Click to Unmute)'}
+            >
+              {isVoiceEnabled ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
 
         {/* Draggable Resizable Split Handle */}
@@ -665,6 +715,9 @@ export default function CampusMap({ isChatCollapsed, directions, pickingFor, onS
                     if (!directions?.milestones || directions.milestones.length === 0) return;
                     const nextIdx = ((directions.currentStepIndex || 0) + 1) % directions.milestones.length;
                     onDirectionsChange?.({ ...directions, currentStepIndex: nextIdx });
+                    if (directions.milestones[nextIdx]) {
+                      voiceNavigation.speak(directions.milestones[nextIdx].instruction, 'NAVIGATION', undefined, true);
+                    }
                   }}
                   className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs shadow-sm transition-colors flex items-center gap-1.5 border border-white/10 cursor-pointer"
                 >

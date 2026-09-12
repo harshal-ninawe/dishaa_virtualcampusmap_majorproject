@@ -471,12 +471,13 @@ export function generateMilestonesFromRoute(
 
   // Build 4 Milestones with coordinates SNAPPED STRICTLY TO THE BLUE ROUTE PATH LINE
   const walkTime = Math.max(1, Math.round(totalDistance / 80));
-  const rawList: { name: string; coords: [number, number]; info: string; image: string; pointId?: number }[] = [
+  const rawList: { name: string; coords: [number, number]; info: string; image: string; pointId?: number; pathIdx: number }[] = [
     {
       name: fromLoc.name,
       coords: path[0], // Snapped to Start of Blue Path
       info: fromLoc.description,
       image: fromLoc.image,
+      pathIdx: 0,
     },
     ...selectedIntermediates.map((item) => ({
       name: item.point.name,
@@ -484,28 +485,47 @@ export function generateMilestonesFromRoute(
       info: item.point.info,
       image: item.point.image,
       pointId: item.point.pointId,
+      pathIdx: item.pathIdx,
     })),
     {
       name: toLoc.name,
       coords: path[path.length - 1], // Snapped to Destination End of Blue Path
       info: toLoc.description,
       image: toLoc.image,
+      pathIdx: path.length - 1,
     },
   ];
 
-  // Limit to at most 4 steps
-  const milestones: StepMilestone[] = rawList.slice(0, 4).map((pt, idx) => {
+  // Limit to at most 4 steps with dynamic turn directions
+  const slicedList = rawList.slice(0, 4);
+  const milestones: StepMilestone[] = slicedList.map((pt, idx) => {
     let title = `Step ${idx + 1}: ${pt.name}`;
-    let instruction = `Pass by ${pt.info || pt.name}.`;
+    let instruction = '';
 
     if (idx === 0) {
       title = `Step 1: Start at ${pt.name}`;
-      instruction = `Begin your route from ${pt.name}.`;
-    } else if (idx === rawList.length - 1) {
+      const bearing = getBearing(path[0], path[Math.min(1, path.length - 1)]);
+      const nextPt = slicedList[1];
+      instruction = `Start from ${pt.name}. Head ${bearing} towards ${nextPt ? nextPt.name : toLoc.name}.`;
+    } else if (idx === slicedList.length - 1) {
       title = `Step ${idx + 1}: Arrived at ${pt.name}`;
-      instruction = `Reach your destination ${pt.name}! (Total: ~${Math.round(totalDistance)}m, ~${walkTime} min walk).`;
+      instruction = `You have reached your destination, ${pt.name}!`;
     } else {
-      instruction = `Follow the campus path past ${pt.name} (Route Point ${pt.pointId ? '#' + pt.pointId : ''}).`;
+      const pIdx = pt.pathIdx;
+      let turnAction = 'continue straight';
+
+      if (pIdx > 0 && pIdx < path.length - 1) {
+        const angle = angleBetween(path[pIdx - 1], path[pIdx], path[pIdx + 1]);
+        if (angle > 25) turnAction = 'turn right';
+        else if (angle < -25) turnAction = 'turn left';
+      }
+
+      const nextPt = slicedList[idx + 1];
+      if (turnAction !== 'continue straight') {
+        instruction = `At ${pt.name}, ${turnAction} towards ${nextPt ? nextPt.name : toLoc.name}.`;
+      } else {
+        instruction = `Continue straight past ${pt.name} towards ${nextPt ? nextPt.name : toLoc.name}.`;
+      }
     }
 
     return {

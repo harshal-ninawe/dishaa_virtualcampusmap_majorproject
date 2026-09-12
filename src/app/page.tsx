@@ -16,6 +16,10 @@ import FacultyFinderPanel from '@/components/FacultyFinderPanel';
 import { MapPin, Bot, Sun, Moon, Sparkles } from 'lucide-react';
 import { useTheme } from '@/context/ThemeContext';
 import { DirectionsState, CampusLocation, syncCloudinaryImages } from '@/lib/campusData';
+import { subscribeToLiveLocation, getLatestLocation } from '@/hooks/useGeolocation';
+import { useLiveGuidance } from '@/hooks/useLiveGuidance';
+import { encodePolyline } from '@/utils/polyline';
+import type { RouteResponse, Coordinates } from '@/types';
 
 // Dynamic import for Leaflet Campus Map (Client-side rendering only)
 const CampusMap = dynamic(() => import('@/components/CampusMap'), {
@@ -50,6 +54,60 @@ export default function AppHome() {
   const [directions, setDirections] = useState<DirectionsState>({ isActive: false } as DirectionsState);
   const [pickingFor, setPickingFor] = useState<'from' | 'to' | null>(null);
   const [mapPickedLocation, setMapPickedLocation] = useState<CampusLocation | null>(null);
+
+  // Live Location & Navigation Guidance
+  const [liveLocation, setLiveLocation] = useState<Coordinates | null>(getLatestLocation());
+
+  useEffect(() => {
+    return subscribeToLiveLocation((update) => {
+      setLiveLocation(update.coordinates);
+    });
+  }, []);
+
+  const activeRouteResponse: RouteResponse | null = React.useMemo(() => {
+    if (!directions?.isActive || !directions.from || !directions.to || !directions.routePath || directions.routePath.length === 0) {
+      return null;
+    }
+    const distMeters = directions.totalDistance || 100;
+    const distKm = distMeters / 1000;
+    return {
+      success: true,
+      from: { name: directions.from.name, lat: directions.from.coords[0], lng: directions.from.coords[1] },
+      to: { name: directions.to.name, lat: directions.to.coords[0], lng: directions.to.coords[1], id: directions.to.id },
+      route: {
+        distanceKm: distKm,
+        durationSec: Math.round((distKm / 5) * 3600),
+        durationMin: Math.max(1, Math.round(distKm / 0.08)),
+        encodedShape: encodePolyline(directions.routePath),
+        instructions: (directions.milestones || []).map((m) => ({
+          instruction: m.instruction,
+          street: 'Campus Path',
+          distanceKm: 0.05,
+          durationSec: 30,
+        })),
+      },
+    };
+  }, [
+    directions?.isActive,
+    directions?.from?.id,
+    directions?.from?.coords?.[0],
+    directions?.from?.coords?.[1],
+    directions?.to?.id,
+    directions?.to?.coords?.[0],
+    directions?.to?.coords?.[1],
+    directions?.activeRouteIndex,
+  ]);
+
+  useLiveGuidance({
+    route: activeRouteResponse,
+    currentLocation: liveLocation,
+    milestones: directions.milestones,
+    onStepIndexChange: (nextStepIdx) => {
+      if (directions.isActive && directions.currentStepIndex !== nextStepIdx) {
+        setDirections((prev) => ({ ...prev, currentStepIndex: nextStepIdx }));
+      }
+    },
+  });
 
   // Indoor Target Floor Map State (from AI Chat triggers)
   const [indoorTargetBlock, setIndoorTargetBlock] = useState<'BLOCK A' | 'BLOCK B' | 'BLOCK C'>('BLOCK B');
