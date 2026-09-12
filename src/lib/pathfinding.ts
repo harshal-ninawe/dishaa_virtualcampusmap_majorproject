@@ -399,7 +399,7 @@ export function generateStepsFromRoute(
   return steps;
 }
 
-// Generate max 4 gamified milestone steps strictly along the active route path
+// Generate dynamic turn-by-turn milestone steps strictly along the active route path
 // SNAPS ALL STEP MILESTONE MARKERS DIRECTLY ONTO THE BLUE ROUTE PATH LINE
 export function generateMilestonesFromRoute(
   path: [number, number][],
@@ -422,117 +422,161 @@ export function generateMilestonesFromRoute(
     };
   }
 
-  // Find candidate mandatory route points that lie strictly within 35m of nodes along the calculated path
-  const candidatePoints: { point: OfficialRoutePoint; pathIdx: number; distToPath: number }[] = [];
+  // 1. Identify all turns and official route points along path
+  interface PathPointCandidate {
+    pathIdx: number;
+    coords: [number, number];
+    angle: number;
+    landmark?: OfficialRoutePoint;
+    isTurn: boolean;
+    turnType?: 'left' | 'right' | 'slight-left' | 'slight-right' | 'sharp-left' | 'sharp-right';
+  }
 
-  for (const pt of officialRoutePoints) {
-    let bestIdx = -1;
-    let minDist = Infinity;
+  const candidates: PathPointCandidate[] = [];
+  let lastCoord = path[0];
 
-    for (let i = 0; i < path.length; i++) {
-      const d = haversine(pt.coords, path[i]);
-      if (d < minDist) {
-        minDist = d;
-        bestIdx = i;
+  for (let i = 1; i < path.length - 1; i++) {
+    const coords = path[i];
+    const distFromLast = haversine(lastCoord, coords);
+
+    // Calculate angle change between segment (i-1 -> i) and (i -> i+1)
+    const angle = angleBetween(path[i - 1], path[i], path[i + 1]);
+    const absAngle = Math.abs(angle);
+
+    // Find if an official landmark point is nearby (within 35m)
+    let nearbyLandmark: OfficialRoutePoint | undefined;
+    let minLandmarkDist = Infinity;
+    for (const pt of officialRoutePoints) {
+      const d = haversine(pt.coords, coords);
+      if (d < minLandmarkDist && d <= 35) {
+        minLandmarkDist = d;
+        nearbyLandmark = pt;
       }
     }
 
-    // Must be within 35 meters of the path AND not at extreme ends of path
-    if (minDist <= 35 && bestIdx > 0 && bestIdx < path.length - 1) {
-      candidatePoints.push({ point: pt, pathIdx: bestIdx, distToPath: minDist });
+    const isTurn = absAngle >= 20;
+
+    // Conditions to record an intermediate milestone candidate:
+    // - Significant turn (>= 20 degrees) and at least 15m away from last added milestone
+    // - OR passing a distinct landmark point and at least 25m away from last added milestone
+    // - OR straight segment extending > 55m without a milestone
+    if (
+      (isTurn && distFromLast >= 15) ||
+      (nearbyLandmark && distFromLast >= 25 &&
+       nearbyLandmark.name.toLowerCase() !== fromLoc.name.toLowerCase() &&
+       nearbyLandmark.name.toLowerCase() !== toLoc.name.toLowerCase()) ||
+      distFromLast >= 55
+    ) {
+      let turnType: PathPointCandidate['turnType'];
+      if (angle > 60) turnType = 'sharp-right';
+      else if (angle > 25) turnType = 'right';
+      else if (angle > 15) turnType = 'slight-right';
+      else if (angle < -60) turnType = 'sharp-left';
+      else if (angle < -25) turnType = 'left';
+      else if (angle < -15) turnType = 'slight-left';
+
+      candidates.push({
+        pathIdx: i,
+        coords,
+        angle,
+        landmark: nearbyLandmark,
+        isTurn: isTurn && turnType !== undefined,
+        turnType,
+      });
+
+      lastCoord = coords;
     }
   }
 
-  // Sort candidates strictly chronologically along the path
-  candidatePoints.sort((a, b) => a.pathIdx - b.pathIdx);
-
-  // Filter out duplicate or matching names
-  const intermediateCandidates = candidatePoints.filter(
-    (c) =>
-      c.point.name.toLowerCase() !== fromLoc.name.toLowerCase() &&
-      c.point.name.toLowerCase() !== toLoc.name.toLowerCase()
-  );
-
-  // Pick at most 2 intermediate mandatory route points strictly along the path
-  let selectedIntermediates: { point: OfficialRoutePoint; pathIdx: number }[] = [];
-  if (intermediateCandidates.length === 1) {
-    selectedIntermediates = [intermediateCandidates[0]];
-  } else if (intermediateCandidates.length >= 2) {
-    const idx1 = Math.floor((intermediateCandidates.length - 1) * 0.33);
-    const idx2 = Math.floor((intermediateCandidates.length - 1) * 0.66);
-    const c1 = intermediateCandidates[idx1];
-    const c2 = intermediateCandidates[idx2];
-    if (c1.point.pointId !== c2.point.pointId) {
-      selectedIntermediates = [c1, c2];
-    } else {
-      selectedIntermediates = [c1];
-    }
-  }
-
-  // Build 4 Milestones with coordinates SNAPPED STRICTLY TO THE BLUE ROUTE PATH LINE
-  const walkTime = Math.max(1, Math.round(totalDistance / 80));
-  const rawList: { name: string; coords: [number, number]; info: string; image: string; pointId?: number; pathIdx: number }[] = [
+  // 2. Build full raw milestone list: [Start, ...candidates, Destination]
+  const rawList: {
+    name: string;
+    coords: [number, number];
+    info: string;
+    image: string;
+    pointId?: number;
+    pathIdx: number;
+    turnType?: PathPointCandidate['turnType'];
+    isTurn?: boolean;
+  }[] = [
     {
       name: fromLoc.name,
-      coords: path[0], // Snapped to Start of Blue Path
+      coords: path[0],
       info: fromLoc.description,
-      image: fromLoc.image,
+      image: fromLoc.image || '/college-front.jpg',
       pathIdx: 0,
     },
-    ...selectedIntermediates.map((item) => ({
-      name: item.point.name,
-      coords: path[item.pathIdx], // Snapped to exact point on Blue Path line
-      info: item.point.info,
-      image: item.point.image,
-      pointId: item.point.pointId,
-      pathIdx: item.pathIdx,
+    ...candidates.map((c) => ({
+      name: c.landmark ? c.landmark.name : 'Campus Pathway',
+      coords: c.coords,
+      info: c.landmark ? c.landmark.info : 'Turn along campus road',
+      image: c.landmark ? c.landmark.image : (fromLoc.image || '/college-front.jpg'),
+      pointId: c.landmark ? c.landmark.pointId : undefined,
+      pathIdx: c.pathIdx,
+      turnType: c.turnType,
+      isTurn: c.isTurn,
     })),
     {
       name: toLoc.name,
-      coords: path[path.length - 1], // Snapped to Destination End of Blue Path
+      coords: path[path.length - 1],
       info: toLoc.description,
-      image: toLoc.image,
+      image: toLoc.image || '/college-front.jpg',
       pathIdx: path.length - 1,
     },
   ];
 
-  // Limit to at most 4 steps with dynamic turn directions
-  const slicedList = rawList.slice(0, 4);
-  const milestones: StepMilestone[] = slicedList.map((pt, idx) => {
-    let title = `Step ${idx + 1}: ${pt.name}`;
+  // 3. Generate dynamic instructions and titles for each milestone
+  const milestones: StepMilestone[] = rawList.map((pt, idx) => {
+    const stepNumber = idx + 1;
+    const nextPt = idx < rawList.length - 1 ? rawList[idx + 1] : null;
+
+    let title = `Step ${stepNumber}: ${pt.name}`;
     let instruction = '';
 
     if (idx === 0) {
       title = `Step 1: Start at ${pt.name}`;
       const bearing = getBearing(path[0], path[Math.min(1, path.length - 1)]);
-      const nextPt = slicedList[1];
-      instruction = `Start from ${pt.name}. Head ${bearing} towards ${nextPt ? nextPt.name : toLoc.name}.`;
-    } else if (idx === slicedList.length - 1) {
-      title = `Step ${idx + 1}: Arrived at ${pt.name}`;
-      instruction = `You have reached your destination, ${pt.name}!`;
+      const targetName = nextPt ? nextPt.name : toLoc.name;
+      instruction = `Start from ${pt.name}. Head ${bearing} towards ${targetName}.`;
+    } else if (idx === rawList.length - 1) {
+      title = `Step ${stepNumber}: Arrived at ${pt.name}`;
+      instruction = `You have arrived at your destination, ${pt.name}!`;
     } else {
-      const pIdx = pt.pathIdx;
-      let turnAction = 'continue straight';
+      const targetName = nextPt ? nextPt.name : toLoc.name;
 
-      if (pIdx > 0 && pIdx < path.length - 1) {
-        const angle = angleBetween(path[pIdx - 1], path[pIdx], path[pIdx + 1]);
-        if (angle > 25) turnAction = 'turn right';
-        else if (angle < -25) turnAction = 'turn left';
-      }
+      if (pt.isTurn && pt.turnType) {
+        let turnPhrase = 'turn right';
+        if (pt.turnType === 'left') turnPhrase = 'turn left';
+        else if (pt.turnType === 'sharp-right') turnPhrase = 'take a sharp right turn';
+        else if (pt.turnType === 'sharp-left') turnPhrase = 'take a sharp left turn';
+        else if (pt.turnType === 'slight-right') turnPhrase = 'turn slightly right';
+        else if (pt.turnType === 'slight-left') turnPhrase = 'turn slightly left';
 
-      const nextPt = slicedList[idx + 1];
-      if (turnAction !== 'continue straight') {
-        instruction = `At ${pt.name}, ${turnAction} towards ${nextPt ? nextPt.name : toLoc.name}.`;
+        const actionText = turnPhrase.charAt(0).toUpperCase() + turnPhrase.slice(1);
+
+        if (pt.name !== 'Campus Pathway') {
+          title = `Step ${stepNumber}: ${actionText} at ${pt.name}`;
+          instruction = `At ${pt.name}, ${turnPhrase} towards ${targetName}.`;
+        } else {
+          title = `Step ${stepNumber}: ${actionText}`;
+          instruction = `${actionText} at the pathway junction towards ${targetName}.`;
+        }
       } else {
-        instruction = `Continue straight past ${pt.name} towards ${nextPt ? nextPt.name : toLoc.name}.`;
+        if (pt.name !== 'Campus Pathway') {
+          title = `Step ${stepNumber}: Pass by ${pt.name}`;
+          instruction = `Continue straight past ${pt.name} towards ${targetName}.`;
+        } else {
+          title = `Step ${stepNumber}: Continue Straight`;
+          instruction = `Continue straight along the campus road towards ${targetName}.`;
+        }
       }
     }
 
     return {
-      stepNumber: idx + 1,
+      stepNumber,
       title,
       instruction,
-      coords: pt.coords, // 100% ON THE BLUE ROUTE PATH LINE
+      coords: pt.coords, // 100% SNAPPED ON BLUE ROUTE PATH LINE
       image: pt.image || '/college-front.jpg',
       pointId: pt.pointId,
     };
